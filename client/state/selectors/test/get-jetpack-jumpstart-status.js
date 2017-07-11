@@ -14,9 +14,9 @@ describe( 'getJetpackJumpstartStatus()', () => {
 		const stateIn = {
 				jetpack: {
 					jumpstart: {
-						items: ITEMS_FIXTURE
-					}
-				}
+						items: ITEMS_FIXTURE,
+					},
+				},
 			},
 			siteId = 12345678;
 		const output = getJetpackJumpstartStatus( stateIn, siteId );
@@ -27,9 +27,9 @@ describe( 'getJetpackJumpstartStatus()', () => {
 		const stateIn = {
 				jetpack: {
 					jumpstart: {
-						items: ITEMS_FIXTURE
-					}
-				}
+						items: ITEMS_FIXTURE,
+					},
+				},
 			},
 			siteId = 88888888;
 		const output = getJetpackJumpstartStatus( stateIn, siteId );

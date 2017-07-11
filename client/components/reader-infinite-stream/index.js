@@ -50,10 +50,12 @@ class ReaderInfiniteStream extends Component {
 		const railcar = get( this.props.items[ rowRendererProps.index ], 'railcar', undefined );
 		if ( railcar && ! this.recordedRender.has( rowRendererProps.index ) ) {
 			this.recordedRender.add( rowRendererProps.index );
-			this.recordTraintrackForRowRender( pickBy( {
-				index: rowRendererProps.index,
-				railcar,
-			} ) );
+			this.recordTraintrackForRowRender(
+				pickBy( {
+					index: rowRendererProps.index,
+					railcar,
+				} ),
+			);
 		}
 
 		return this.props.rowRenderer( {
@@ -64,7 +66,7 @@ class ReaderInfiniteStream extends Component {
 		} );
 	};
 
-	measuredRowRenderer = ( ComponentToMeasure, props, { key, index, style, parent } ) => (
+	measuredRowRenderer = ( ComponentToMeasure, props, { key, index, style, parent } ) =>
 		<CellMeasurer
 			cache={ this.heightCache }
 			columnIndex={ 0 }
@@ -72,13 +74,11 @@ class ReaderInfiniteStream extends Component {
 			rowIndex={ index }
 			parent={ parent }
 		>
-			{ ( { measure } ) => (
+			{ ( { measure } ) =>
 				<div key={ key } style={ style } className="reader-infinite-stream__row-wrapper">
 					<ComponentToMeasure { ...props } onShouldMeasure={ measure } />
-				</div>
-			) }
-		</CellMeasurer>
-	);
+				</div> }
+		</CellMeasurer>;
 
 	handleListMounted = registerChild => list => {
 		this.listRef = list;
@@ -125,9 +125,9 @@ class ReaderInfiniteStream extends Component {
 				loadMoreRows={ this.loadMoreRows }
 				rowCount={ rowCount }
 			>
-				{ ( { onRowsRendered, registerChild } ) => (
+				{ ( { onRowsRendered, registerChild } ) =>
 					<WindowScroller ref={ this.props.windowScrollerRef }>
-						{ ( { height, scrollTop } ) => (
+						{ ( { height, scrollTop } ) =>
 							<List
 								autoHeight
 								height={ height }
@@ -139,10 +139,8 @@ class ReaderInfiniteStream extends Component {
 								scrollTop={ scrollTop }
 								width={ width }
 								passthroughProp={ passthroughProp }
-							/>
-						) }
-					</WindowScroller>
-				) }
+							/> }
+					</WindowScroller> }
 			</InfiniteLoader>
 		);
 	}

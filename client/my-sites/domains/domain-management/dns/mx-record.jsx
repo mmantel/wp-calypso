@@ -12,22 +12,22 @@ import FormInputValidation from 'components/forms/form-input-validation';
 import FormLabel from 'components/forms/form-label';
 import FormTextInput from 'components/forms/form-text-input';
 import FormTextInputWithAffixes from 'components/forms/form-text-input-with-affixes';
-import FormSettingExplanation from 'components/forms/form-setting-explanation' ;
+import FormSettingExplanation from 'components/forms/form-setting-explanation';
 
 const MxRecord = React.createClass( {
 	statics: {
 		initialFields: {
 			name: '',
 			data: '',
-			aux: 10
-		}
+			aux: 10,
+		},
 	},
 
 	propTypes: {
 		fieldValues: React.PropTypes.object.isRequired,
 		onChange: React.PropTypes.func.isRequired,
 		selectedDomainName: React.PropTypes.string.isRequired,
-		show: React.PropTypes.bool.isRequired
+		show: React.PropTypes.bool.isRequired,
 	},
 
 	fieldNames: [ 'name', 'data', 'aux' ],
@@ -42,55 +42,79 @@ const MxRecord = React.createClass( {
 		return (
 			<div className={ classes }>
 				<FormFieldset>
-					<FormLabel>{ this.translate( 'Name', { context: 'Dns Record' } ) }</FormLabel>
+					<FormLabel>
+						{ this.translate( 'Name', { context: 'Dns Record' } ) }
+					</FormLabel>
 					<FormTextInputWithAffixes
 						name="name"
-						placeholder={ this.translate( 'Enter subdomain (optional)', { context: 'Placeholder shown when entering the optional subdomain part of a new DNS record' } ) }
+						placeholder={ this.translate( 'Enter subdomain (optional)', {
+							context:
+								'Placeholder shown when entering the optional subdomain part of a new DNS record',
+						} ) }
 						isError={ ! isNameValid }
 						onChange={ this.props.onChange }
 						value={ this.props.fieldValues.name }
-						suffix={ '.' + this.props.selectedDomainName } />
-					{ ! isNameValid ? <FormInputValidation text={ this.translate( 'Invalid Name' ) } isError={ true } /> : null }
+						suffix={ '.' + this.props.selectedDomainName }
+					/>
+					{ ! isNameValid
+						? <FormInputValidation text={ this.translate( 'Invalid Name' ) } isError={ true } />
+						: null }
 				</FormFieldset>
 
 				<FormFieldset>
-					<FormLabel>{ this.translate( 'Handled by', { context: 'MX Dns Record' } ) }</FormLabel>
+					<FormLabel>
+						{ this.translate( 'Handled by', { context: 'MX Dns Record' } ) }
+					</FormLabel>
 					<FormTextInput
 						name="data"
 						isError={ ! isDataValid }
 						onChange={ this.props.onChange }
 						value={ this.props.fieldValues.data }
-						placeholder={ this.translate( 'e.g. %(example)s', { args: { example: 'mail.your-provider.com' } } ) } />
-					{ ! isDataValid ? <FormInputValidation text={ this.translate( 'Invalid Mail Server' ) } isError={ true } /> : null }
+						placeholder={ this.translate( 'e.g. %(example)s', {
+							args: { example: 'mail.your-provider.com' },
+						} ) }
+					/>
+					{ ! isDataValid
+						? <FormInputValidation
+								text={ this.translate( 'Invalid Mail Server' ) }
+								isError={ true }
+							/>
+						: null }
 					<FormSettingExplanation>
 						{ this.translate(
-							'Please use a domain name here (e.g. %(domain)s) - an IP address (e.g. %(ipAddress)s) will {{strong}}not{{/strong}} work.', {
+							'Please use a domain name here (e.g. %(domain)s) - an IP address (e.g. %(ipAddress)s) will {{strong}}not{{/strong}} work.',
+							{
 								args: {
 									domain: 'mail.your-provider.com',
-									ipAddress: '123.45.78.9'
+									ipAddress: '123.45.78.9',
 								},
 								components: {
-									strong: <strong />
+									strong: <strong />,
 								},
-								context: 'Hint for the \'Handled by\' field of a MX record'
-							}
+								context: "Hint for the 'Handled by' field of a MX record",
+							},
 						) }
 					</FormSettingExplanation>
 				</FormFieldset>
 
 				<FormFieldset>
-					<FormLabel>{ this.translate( 'Priority', { context: 'MX Dns Record' } ) }</FormLabel>
+					<FormLabel>
+						{ this.translate( 'Priority', { context: 'MX Dns Record' } ) }
+					</FormLabel>
 					<FormTextInput
 						name="aux"
 						isError={ ! isAuxValid }
 						onChange={ this.props.onChange }
 						value={ this.props.fieldValues.aux }
-						defaultValue="10" />
-					{ ! isAuxValid ? <FormInputValidation text={ this.translate( 'Invalid Priority' ) } isError={ true } /> : null }
+						defaultValue="10"
+					/>
+					{ ! isAuxValid
+						? <FormInputValidation text={ this.translate( 'Invalid Priority' ) } isError={ true } />
+						: null }
 				</FormFieldset>
 			</div>
 		);
-	}
+	},
 } );
 
 export default MxRecord;

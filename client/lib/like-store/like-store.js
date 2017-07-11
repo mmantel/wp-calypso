@@ -16,12 +16,9 @@ var Dispatcher = require( 'dispatcher' ),
 	LikeActions = require( './actions' ),
 	key = require( './utils' ).key;
 
-
-
 var _likesForPost = {},
 	LikeStore,
 	receivedErrors = [];
-
 
 function getLikes( siteId, postId ) {
 	return _likesForPost[ key( siteId, postId ) ];
@@ -30,7 +27,6 @@ function getLikes( siteId, postId ) {
 function setLikes( siteId, postId, likes ) {
 	_likesForPost[ key( siteId, postId ) ] = likes;
 }
-
 
 LikeStore = {
 	/**
@@ -114,7 +110,7 @@ LikeStore = {
 		var receivedLike = {
 			count: action.data.found,
 			likes: action.data.likes,
-			i_like: action.data.i_like
+			i_like: action.data.i_like,
 		};
 
 		if ( ! isEqual( receivedLike, currentLike ) ) {
@@ -145,7 +141,7 @@ LikeStore = {
 			setLikes( siteId, postId, {
 				count: post.like_count,
 				likes: currentLike.likes,
-				i_like: !! post.i_like
+				i_like: !! post.i_like,
 			} );
 			LikeStore.emit( 'change' );
 		}
@@ -161,7 +157,6 @@ LikeStore = {
 		setLikes( action.siteId, action.postId, newLikes );
 
 		LikeStore.emit( 'change' );
-
 	},
 
 	receiveUnlike: function( action ) {
@@ -174,7 +169,7 @@ LikeStore = {
 		setLikes( action.siteId, action.postId, newLikes );
 
 		LikeStore.emit( 'change' );
-	}
+	},
 };
 
 if ( config( 'env' ) === 'development' ) {
@@ -186,7 +181,7 @@ if ( config( 'env' ) === 'development' ) {
 		},
 		_reset: function() {
 			_likesForPost = {};
-		}
+		},
 	} );
 }
 

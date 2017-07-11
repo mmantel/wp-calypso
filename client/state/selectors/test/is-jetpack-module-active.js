@@ -14,9 +14,9 @@ describe( 'isJetpackModuleActive()', () => {
 		const stateIn = {
 				jetpack: {
 					modules: {
-						items: MODULES_FIXTURE
-					}
-				}
+						items: MODULES_FIXTURE,
+					},
+				},
 			},
 			siteId = 123456;
 		const output = isJetpackModuleActive( stateIn, siteId, 'module-b' );
@@ -27,9 +27,9 @@ describe( 'isJetpackModuleActive()', () => {
 		const stateIn = {
 				jetpack: {
 					modules: {
-						items: MODULES_FIXTURE
-					}
-				}
+						items: MODULES_FIXTURE,
+					},
+				},
 			},
 			siteId = 123456;
 		const output = isJetpackModuleActive( stateIn, siteId, 'module-a' );
@@ -40,9 +40,9 @@ describe( 'isJetpackModuleActive()', () => {
 		const stateIn = {
 				jetpack: {
 					modules: {
-						items: MODULES_FIXTURE
-					}
-				}
+						items: MODULES_FIXTURE,
+					},
+				},
 			},
 			siteId = 123456;
 		const output = isJetpackModuleActive( stateIn, siteId, 'module-z' );

@@ -48,9 +48,11 @@ class PurchaseMeta extends Component {
 		purchaseId: React.PropTypes.oneOfType( [ React.PropTypes.number, React.PropTypes.bool ] )
 			.isRequired,
 		selectedPurchase: React.PropTypes.object,
-		selectedSite: React.PropTypes.oneOfType(
-			[ React.PropTypes.object, React.PropTypes.bool, React.PropTypes.undefined ]
-		),
+		selectedSite: React.PropTypes.oneOfType( [
+			React.PropTypes.object,
+			React.PropTypes.bool,
+			React.PropTypes.undefined,
+		] ),
 	};
 
 	static defaultProps = {
@@ -63,9 +65,8 @@ class PurchaseMeta extends Component {
 		const { translate } = this.props;
 		const purchase = getPurchase( this.props );
 		const { amount, currencyCode, currencySymbol, productSlug } = purchase;
-		const period = productSlug && isMonthly( productSlug )
-			? translate( 'month' )
-			: translate( 'year' );
+		const period =
+			productSlug && isMonthly( productSlug ) ? translate( 'month' ) : translate( 'year' );
 
 		if ( isOneTimePurchase( purchase ) ) {
 			return translate(
@@ -75,7 +76,7 @@ class PurchaseMeta extends Component {
 					components: {
 						period: <span className="manage-purchase__time-period" />,
 					},
-				}
+				},
 			);
 		}
 
@@ -95,7 +96,7 @@ class PurchaseMeta extends Component {
 				components: {
 					period: <span className="manage-purchase__time-period" />,
 				},
-			}
+			},
 		);
 	}
 
@@ -153,7 +154,7 @@ class PurchaseMeta extends Component {
 		if ( isIncludedWithPlan( purchase ) ) {
 			const attachedPlanUrl = paths.managePurchase(
 				this.props.selectedSite.slug,
-				purchase.attachedToPurchaseId
+				purchase.attachedToPurchaseId,
 			);
 
 			return (
@@ -232,7 +233,9 @@ class PurchaseMeta extends Component {
 
 		const paymentDetails = (
 			<span>
-				<em className="manage-purchase__detail-label">{ translate( 'Payment method' ) }</em>
+				<em className="manage-purchase__detail-label">
+					{ translate( 'Payment method' ) }
+				</em>
 				{ this.renderPaymentInfo() }
 			</span>
 		);
@@ -280,7 +283,7 @@ class PurchaseMeta extends Component {
 						components: {
 							contactSupportLink: <a href={ support.CALYPSO_CONTACT } />,
 						},
-					}
+					},
 				) }
 			</div>
 		);
@@ -294,7 +297,9 @@ class PurchaseMeta extends Component {
 
 		return (
 			<li>
-				<em className="manage-purchase__detail-label">{ translate( 'Owner' ) }</em>
+				<em className="manage-purchase__detail-label">
+					{ translate( 'Owner' ) }
+				</em>
 				<span className="manage-purchase__detail">
 					<UserItem user={ { ...owner, name: owner.display_name } } />
 				</span>
@@ -305,12 +310,12 @@ class PurchaseMeta extends Component {
 	renderPlaceholder() {
 		return (
 			<ul className="manage-purchase__meta">
-				{ times( 4, i => (
+				{ times( 4, i =>
 					<li key={ i }>
 						<em className="manage-purchase__detail-label" />
 						<span className="manage-purchase__detail" />
-					</li>
-				) ) }
+					</li>,
+				) }
 			</ul>
 		);
 	}
@@ -327,14 +332,20 @@ class PurchaseMeta extends Component {
 				<ul className="manage-purchase__meta">
 					{ this.renderOwner() }
 					<li>
-						<em className="manage-purchase__detail-label">{ translate( 'Price' ) }</em>
-						<span className="manage-purchase__detail">{ this.renderPrice() }</span>
+						<em className="manage-purchase__detail-label">
+							{ translate( 'Price' ) }
+						</em>
+						<span className="manage-purchase__detail">
+							{ this.renderPrice() }
+						</span>
 					</li>
 					<li>
 						<em className="manage-purchase__detail-label">
 							{ this.renderRenewsOrExpiresOnLabel() }
 						</em>
-						<span className="manage-purchase__detail">{ this.renderRenewsOrExpiresOn() }</span>
+						<span className="manage-purchase__detail">
+							{ this.renderRenewsOrExpiresOn() }
+						</span>
 					</li>
 					{ this.renderPaymentDetails() }
 				</ul>

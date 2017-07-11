@@ -31,7 +31,8 @@ function submitSurvey( surveyName, siteID, surveyData ) {
 	survey.addResponses( surveyData );
 
 	debug( 'Survey responses', survey );
-	survey.submit()
+	survey
+		.submit()
 		.then( res => {
 			debug( 'Survey submit response', res );
 			if ( ! res.success ) {
@@ -41,8 +42,4 @@ function submitSurvey( surveyName, siteID, surveyData ) {
 		.catch( err => debug( err ) ); // shouldn't get here
 }
 
-export {
-	cancelAndRefundPurchase,
-	cancelPurchase,
-	submitSurvey
-};
+export { cancelAndRefundPurchase, cancelPurchase, submitSurvey };

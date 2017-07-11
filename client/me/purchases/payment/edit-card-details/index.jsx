@@ -63,7 +63,9 @@ class EditCardDetails extends PurchaseCardDetails {
 
 		return (
 			<Main>
-				<HeaderCake onClick={ this.goToManagePurchase }>{ titles.editCardDetails }</HeaderCake>
+				<HeaderCake onClick={ this.goToManagePurchase }>
+					{ titles.editCardDetails }
+				</HeaderCake>
 
 				<CreditCardForm
 					apiParams={ this.getApiParams() }

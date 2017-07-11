@@ -10,4 +10,12 @@ import media from './media';
 import posts from './posts';
 import simplePayments from './simple-payments';
 
-export default mergeHandlers( activity, automatedTransfer, blogStickers, comments, media, posts, simplePayments );
+export default mergeHandlers(
+	activity,
+	automatedTransfer,
+	blogStickers,
+	comments,
+	media,
+	posts,
+	simplePayments,
+);

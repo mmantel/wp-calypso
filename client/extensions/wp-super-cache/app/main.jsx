@@ -54,13 +54,7 @@ class WPSuperCache extends Component {
 	}
 
 	render() {
-		const {
-			site,
-			siteId,
-			status: { cache_disabled: cacheDisabled },
-			tab,
-			translate,
-		} = this.props;
+		const { site, siteId, status: { cache_disabled: cacheDisabled }, tab, translate } = this.props;
 		const mainClassName = 'wp-super-cache__main';
 
 		return (
@@ -68,11 +62,11 @@ class WPSuperCache extends Component {
 				<QueryStatus siteId={ siteId } />
 
 				{ cacheDisabled &&
-				<Notice
-					showDismiss={ false }
-					status="is-error"
-					text={ translate( 'Read Only Mode. Configuration cannot be changed.' ) } />
-				}
+					<Notice
+						showDismiss={ false }
+						status="is-error"
+						text={ translate( 'Read Only Mode. Configuration cannot be changed.' ) }
+					/> }
 
 				<Navigation activeTab={ tab } site={ site } />
 				{ this.renderTab( !! cacheDisabled ) }
@@ -81,15 +75,13 @@ class WPSuperCache extends Component {
 	}
 }
 
-const connectComponent = connect(
-	( state ) => {
-		const siteId = getSelectedSiteId( state );
+const connectComponent = connect( state => {
+	const siteId = getSelectedSiteId( state );
 
-		return {
-			status: getStatus( state, siteId ),
-			siteId,
-		};
-	}
-);
+	return {
+		status: getStatus( state, siteId ),
+		siteId,
+	};
+} );
 
 export default connectComponent( localize( WPSuperCache ) );

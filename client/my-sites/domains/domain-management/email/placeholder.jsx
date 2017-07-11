@@ -12,14 +12,12 @@ import GoogleAppsUserItem from './google-apps-user-item';
 
 const Placeholder = () =>
 	<div className="google-apps-users-card is-placeholder">
-		<SectionHeader
-			label={ 'G Suite Users' } />
+		<SectionHeader label={ 'G Suite Users' } />
 		<CompactCard className="google-apps-users-card__user-list">
 			<ul className="google-apps-users-card__user-list-inner">
 				<GoogleAppsUserItem user={ { email: 'mail@example.com', domain: 'example.com' } } />
 			</ul>
 		</CompactCard>
-	</div>
-;
+	</div>;
 
 export default Placeholder;

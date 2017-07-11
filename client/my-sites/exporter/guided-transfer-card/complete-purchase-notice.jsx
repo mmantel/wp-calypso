@@ -27,8 +27,9 @@ const CompletePurchaseNotice = ( { translate, siteSlug } ) =>
 		showDismiss={ false }
 		text={ translate(
 			"It looks like you've started a Guided Transfer. " +
-			'We just need your payment to confirm the transfer and ' +
-			"then we'll get started!" ) }
+				'We just need your payment to confirm the transfer and ' +
+				"then we'll get started!",
+		) }
 	>
 		<NoticeAction onClick={ redirectToCart( siteSlug ) }>
 			{ translate( 'Continue' ) }

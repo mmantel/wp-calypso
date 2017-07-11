@@ -16,9 +16,7 @@ const simplePayments = editor => {
 	const store = editor.getParam( 'redux_store' );
 
 	editor.on( 'init', () => {
-		node = editor.getContainer().appendChild(
-			document.createElement( 'div' )
-		);
+		node = editor.getContainer().appendChild( document.createElement( 'div' ) );
 	} );
 
 	editor.on( 'remove', () => {
@@ -48,7 +46,7 @@ const simplePayments = editor => {
 					},
 				} ),
 				node,
-				store
+				store,
 			);
 		}
 

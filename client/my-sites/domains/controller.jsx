@@ -18,11 +18,7 @@ import { setDocumentHeadTitle as setTitle } from 'state/document-head/actions';
 import productsFactory from 'lib/products-list';
 import { renderWithReduxStore } from 'lib/react-helpers';
 import { canCurrentUser } from 'state/selectors';
-import {
-	getSelectedSiteId,
-	getSelectedSite,
-	getSelectedSiteSlug
-} from 'state/ui/selectors';
+import { getSelectedSiteId, getSelectedSite, getSelectedSiteSlug } from 'state/ui/selectors';
 import { getCurrentUser } from 'state/current-user/selectors';
 
 /**
@@ -31,7 +27,6 @@ import { getCurrentUser } from 'state/current-user/selectors';
 const productsList = productsFactory();
 
 module.exports = {
-
 	domainsAddHeader: function( context, next ) {
 		context.getSiteSelectionHeaderText = function() {
 			return i18n.translate( 'Select a site to add a domain' );
@@ -64,15 +59,11 @@ module.exports = {
 		}
 
 		renderWithReduxStore(
-			(
-				<CartData>
-					<DomainSearch
-						basePath={ basePath }
-						context={ context } />
-				</CartData>
-			),
+			<CartData>
+				<DomainSearch basePath={ basePath } context={ context } />
+			</CartData>,
 			document.getElementById( 'primary' ),
-			context.store
+			context.store,
 		);
 	},
 
@@ -87,13 +78,11 @@ module.exports = {
 		analytics.pageView.record( basePath, 'Domain Search > Site Redirect' );
 
 		renderWithReduxStore(
-			(
-				<CartData>
-					<SiteRedirect />
-				</CartData>
-			),
+			<CartData>
+				<SiteRedirect />
+			</CartData>,
 			document.getElementById( 'primary' ),
-			context.store
+			context.store,
 		);
 	},
 
@@ -107,16 +96,13 @@ module.exports = {
 
 		analytics.pageView.record( basePath, 'Domain Search > Domain Mapping' );
 		renderWithReduxStore(
-			(
-				<Main>
-					<CartData>
-						<MapDomain
-							initialQuery={ context.query.initialQuery } />
-					</CartData>
-				</Main>
-			),
+			<Main>
+				<CartData>
+					<MapDomain initialQuery={ context.query.initialQuery } />
+				</CartData>
+			</Main>,
 			document.getElementById( 'primary' ),
-			context.store
+			context.store,
 		);
 	},
 
@@ -125,11 +111,13 @@ module.exports = {
 			GoogleApps = require( 'components/upgrades/google-apps' );
 
 		// FIXME: Auto-converted from the Flux setTitle action. Please use <DocumentHead> instead.
-		context.store.dispatch( setTitle(
-			i18n.translate( 'Register %(domain)s', {
-				args: { domain: context.params.registerDomain }
-			} )
-		) );
+		context.store.dispatch(
+			setTitle(
+				i18n.translate( 'Register %(domain)s', {
+					args: { domain: context.params.registerDomain },
+				} ),
+			),
+		);
 
 		const state = context.store.getState();
 		const siteSlug = getSelectedSiteSlug( state ) || '';
@@ -147,23 +135,25 @@ module.exports = {
 			page( '/checkout/' + siteSlug );
 		};
 
-		analytics.pageView.record( '/domains/add/:site/google-apps', 'Domain Search > Domain Registration > Google Apps' );
+		analytics.pageView.record(
+			'/domains/add/:site/google-apps',
+			'Domain Search > Domain Registration > Google Apps',
+		);
 
 		renderWithReduxStore(
-			(
-				<Main>
-					<CartData>
-						<GoogleApps
-							productsList={ productsList }
-							domain={ context.params.registerDomain }
-							onGoBack={ handleGoBack }
-							onAddGoogleApps={ handleAddGoogleApps }
-							onClickSkip={ handleClickSkip } />
-					</CartData>
-				</Main>
-			),
+			<Main>
+				<CartData>
+					<GoogleApps
+						productsList={ productsList }
+						domain={ context.params.registerDomain }
+						onGoBack={ handleGoBack }
+						onAddGoogleApps={ handleAddGoogleApps }
+						onClickSkip={ handleClickSkip }
+					/>
+				</CartData>
+			</Main>,
 			document.getElementById( 'primary' ),
-			context.store
+			context.store,
 		);
 	},
 
@@ -196,5 +186,5 @@ module.exports = {
 
 			next();
 		};
-	}
+	},
 };

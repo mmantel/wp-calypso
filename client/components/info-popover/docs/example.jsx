@@ -23,7 +23,8 @@ var InfoPopoverExample = React.createClass( {
 	render: function() {
 		return (
 			<div>
-				<label>Position
+				<label>
+					Position
 					<select value={ this.state.popoverPosition } onChange={ this._changePopoverPosition }>
 						<option value="top">top</option>
 						<option value="top left">top left</option>
@@ -38,10 +39,7 @@ var InfoPopoverExample = React.createClass( {
 
 				<br />
 
-				<InfoPopover
-					id="popover__info-popover-example"
-					position={ this.state.popoverPosition }
-				>
+				<InfoPopover id="popover__info-popover-example" position={ this.state.popoverPosition }>
 					Some informational text.
 				</InfoPopover>
 			</div>
@@ -50,8 +48,7 @@ var InfoPopoverExample = React.createClass( {
 
 	_changePopoverPosition: function( event ) {
 		this.setState( { popoverPosition: event.target.value } );
-	}
-
+	},
 } );
 
 module.exports = InfoPopoverExample;

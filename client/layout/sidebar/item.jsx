@@ -23,7 +23,7 @@ export default React.createClass( {
 		selected: React.PropTypes.bool,
 		preloadSectionName: React.PropTypes.string,
 		testTarget: React.PropTypes.string,
-		tipTarget: React.PropTypes.string
+		tipTarget: React.PropTypes.string,
 	},
 
 	_preloaded: false,
@@ -53,11 +53,13 @@ export default React.createClass( {
 					onMouseEnter={ this.preload }
 				>
 					<Gridicon icon={ this.props.icon } size={ 24 } />
-					<span className="menu-link-text">{ this.props.label }</span>
+					<span className="menu-link-text">
+						{ this.props.label }
+					</span>
 					{ isExternalLink ? <Gridicon icon="external" size={ 24 } /> : null }
 				</a>
 				{ this.props.children }
 			</li>
 		);
-	}
+	},
 } );

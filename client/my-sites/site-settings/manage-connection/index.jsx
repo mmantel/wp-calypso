@@ -54,9 +54,7 @@ class ManageConnection extends Component {
 	}
 }
 
-export default connect(
-	( state ) => ( {
-		siteIsJetpack: isJetpackSite( state, getSelectedSiteId( state ) ),
-		siteSlug: getSelectedSiteSlug( state ),
-	} )
-)( localize( ManageConnection ) );
+export default connect( state => ( {
+	siteIsJetpack: isJetpackSite( state, getSelectedSiteId( state ) ),
+	siteSlug: getSelectedSiteSlug( state ),
+} ) )( localize( ManageConnection ) );

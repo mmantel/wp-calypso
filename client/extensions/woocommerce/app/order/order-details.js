@@ -23,7 +23,7 @@ class OrderDetails extends Component {
 			ID: PropTypes.number.isRequired,
 			slug: PropTypes.string.isRequired,
 		} ),
-	}
+	};
 
 	constructor( props ) {
 		super( props );
@@ -32,45 +32,55 @@ class OrderDetails extends Component {
 		};
 	}
 
-	updateStatus = ( event ) => {
+	updateStatus = event => {
 		this.setState( { status: event.target.value } );
 		// Send the order back to the parent component
 		this.props.onUpdate( { status: event.target.value } );
-	}
+	};
 
 	renderStatus = () => {
 		const { order, translate } = this.props;
 		const classes = `order__status is-${ order.status }`;
 		// TODO: create a helper function for status labels
-		const statuses = [ {
-			value: 'pending',
-			name: translate( 'Pending payment' ),
-		}, {
-			value: 'processing',
-			name: translate( 'Processing' ),
-		}, {
-			value: 'on-hold',
-			name: translate( 'On Hold' ),
-		}, {
-			value: 'completed',
-			name: translate( 'Completed' ),
-		}, {
-			value: 'cancelled',
-			name: translate( 'Cancelled' ),
-		}, {
-			value: 'refunded',
-			name: translate( 'Refunded' ),
-		}, {
-			value: 'failed',
-			name: translate( 'Payment Failed' ),
-		} ];
+		const statuses = [
+			{
+				value: 'pending',
+				name: translate( 'Pending payment' ),
+			},
+			{
+				value: 'processing',
+				name: translate( 'Processing' ),
+			},
+			{
+				value: 'on-hold',
+				name: translate( 'On Hold' ),
+			},
+			{
+				value: 'completed',
+				name: translate( 'Completed' ),
+			},
+			{
+				value: 'cancelled',
+				name: translate( 'Cancelled' ),
+			},
+			{
+				value: 'refunded',
+				name: translate( 'Refunded' ),
+			},
+			{
+				value: 'failed',
+				name: translate( 'Payment Failed' ),
+			},
+		];
 
 		if ( 'pending' === order.status || 'on-hold' === order.status ) {
 			return (
 				<FormSelect id="select" value={ this.state.status } onChange={ this.updateStatus }>
 					{ statuses.map( ( status, i ) => {
 						return (
-							<option key={ i } value={ status.value }>{ status.name }</option>
+							<option key={ i } value={ status.value }>
+								{ status.name }
+							</option>
 						);
 					} ) }
 				</FormSelect>
@@ -79,9 +89,11 @@ class OrderDetails extends Component {
 
 		const statusLabel = find( statuses, { value: order.status } );
 		return (
-			<span className={ classes }>{ statusLabel.name }</span>
+			<span className={ classes }>
+				{ statusLabel.name }
+			</span>
 		);
-	}
+	};
 
 	render() {
 		const { order, site, translate } = this.props;
@@ -92,7 +104,9 @@ class OrderDetails extends Component {
 		return (
 			<div className="order__details">
 				<SectionHeader label={ translate( 'Order Details' ) }>
-					<span>{ this.renderStatus() }</span>
+					<span>
+						{ this.renderStatus() }
+					</span>
 				</SectionHeader>
 				<Card className="order__details-card">
 					<OrderDetailsTable order={ order } site={ site } />

@@ -19,32 +19,19 @@ export class CommentsManagement extends Component {
 		basePath: PropTypes.string,
 		comments: PropTypes.array,
 		siteId: PropTypes.number,
-		siteFragment: PropTypes.oneOfType( [
-			PropTypes.string,
-			PropTypes.number,
-		] ),
+		siteFragment: PropTypes.oneOfType( [ PropTypes.string, PropTypes.number ] ),
 		status: PropTypes.string,
 		translate: PropTypes.func,
 	};
 
 	render() {
-		const {
-			basePath,
-			siteId,
-			siteFragment,
-			status,
-			translate,
-		} = this.props;
+		const { basePath, siteId, siteFragment, status, translate } = this.props;
 
 		return (
 			<Main className="comments" wideLayout>
 				<PageViewTracker path={ basePath } title="Manage Comments" />
 				<DocumentHead title={ translate( 'Manage Comments' ) } />
-				<CommentList
-					siteId={ siteId }
-					siteFragment={ siteFragment }
-					status={ status }
-				/>
+				<CommentList siteId={ siteId } siteFragment={ siteFragment } status={ status } />
 			</Main>
 		);
 	}

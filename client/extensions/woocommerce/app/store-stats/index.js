@@ -12,7 +12,7 @@ import { moment, translate } from 'i18n-calypso';
 import Main from 'components/main';
 import Navigation from './store-stats-navigation';
 import SidebarNavigation from 'my-sites/sidebar-navigation';
-import { getSelectedSiteId, getSelectedSiteSlug } from 'state/ui/selectors';
+import { getSelectedSiteId, getSelectedSiteSlug } from 'state/ui/selectors';
 import Chart from './store-stats-chart';
 import StatsPeriodNavigation from 'my-sites/stats/stats-period-navigation';
 import DatePicker from 'my-sites/stats/stats-date-picker';
@@ -26,10 +26,10 @@ import {
 	topProducts,
 	topCategories,
 	topCoupons,
-	UNITS
+	UNITS,
 } from 'woocommerce/app/store-stats/constants';
 import { getUnitPeriod, getEndPeriod } from './utils';
-import { isJetpackSite } from 'state/sites/selectors';
+import { isJetpackSite } from 'state/sites/selectors';
 import { isPluginActive } from 'state/selectors';
 
 class StoreStats extends Component {
@@ -44,7 +44,16 @@ class StoreStats extends Component {
 	};
 
 	render() {
-		const { isWooConnect, path, queryDate, selectedDate, siteId, slug, unit, querystring } = this.props;
+		const {
+			isWooConnect,
+			path,
+			queryDate,
+			selectedDate,
+			siteId,
+			slug,
+			unit,
+			querystring,
+		} = this.props;
 		// TODO: this is to handle users switching sites while on store stats
 		// unfortunately, we can't access the path when changing sites
 		if ( ! isWooConnect ) {
@@ -78,7 +87,7 @@ class StoreStats extends Component {
 					widgets={ sparkWidgetList1 }
 				/>
 			</div>
-			);
+		);
 		const widgetList2 = (
 			<div className="store-stats__widgets-column spark-widgets" key="sparkwidgets2">
 				<WidgetList
@@ -95,7 +104,9 @@ class StoreStats extends Component {
 
 		return (
 			<Main className="store-stats woocommerce" wideLayout={ true }>
-				<div className="store-stats__sidebar-nav"><SidebarNavigation /></div>
+				<div className="store-stats__sidebar-nav">
+					<SidebarNavigation />
+				</div>
 				<Navigation unit={ unit } type="orders" slug={ slug } />
 				<Chart
 					path={ path }
@@ -113,7 +124,7 @@ class StoreStats extends Component {
 						period={ unit }
 						// this is needed to counter the +1d adjustment made in DatePicker for weeks
 						date={
-							( unit === 'week' )
+							unit === 'week'
 								? moment( selectedDate, 'YYYY-MM-DD' ).subtract( 1, 'days' ).format( 'YYYY-MM-DD' )
 								: selectedDate
 						}
@@ -156,14 +167,12 @@ class StoreStats extends Component {
 	}
 }
 
-export default connect(
-	state => {
-		const siteId = getSelectedSiteId( state );
-		const isJetpack = isJetpackSite( state, siteId );
-		return {
-			isWooConnect: isJetpack && isPluginActive( state, siteId, 'woocommerce' ),
-			slug: getSelectedSiteSlug( state ),
-			siteId,
-		};
-	}
-)( StoreStats );
+export default connect( state => {
+	const siteId = getSelectedSiteId( state );
+	const isJetpack = isJetpackSite( state, siteId );
+	return {
+		isWooConnect: isJetpack && isPluginActive( state, siteId, 'woocommerce' ),
+		slug: getSelectedSiteSlug( state ),
+		siteId,
+	};
+} )( StoreStats );

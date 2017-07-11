@@ -21,8 +21,8 @@ const productSchema = {
 			description: { type: 'string' },
 			ID: { type: 'number' },
 		},
-		metadataSchema
-	)
+		metadataSchema,
+	),
 };
 
 const productListSchema = {

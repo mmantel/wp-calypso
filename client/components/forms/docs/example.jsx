@@ -44,7 +44,7 @@ var FormFields = React.createClass( {
 			checkedRadio: 'first',
 			toggled: false,
 			compactToggled: false,
-			phoneInput: { countryCode: 'US', value: '' }
+			phoneInput: { countryCode: 'US', value: '' },
 		};
 	},
 
@@ -72,12 +72,13 @@ var FormFields = React.createClass( {
 		return (
 			<div>
 				<p>
-					The form fields components act as wrapper components to aid in componentizing CSS.
-					Here is an example of all of the form fields components and their expected markup.
+					The form fields components act as wrapper components to aid in componentizing CSS. Here is
+					an example of all of the form fields components and their expected markup.
 				</p>
 
 				<p>
-					The following form fields components are wrapped in Card components to demonstrate the FormSectionHeading component.
+					The following form fields components are wrapped in Card components to demonstrate the
+					FormSectionHeading component.
 				</p>
 
 				<Card>
@@ -104,7 +105,9 @@ var FormFields = React.createClass( {
 					<FormFieldset>
 						<FormLabel htmlFor="username">Form Text Input</FormLabel>
 						<FormTextInput id="username" name="username" placeholder="Placeholder text..." />
-						<FormSettingExplanation>This is an explanation of FormTextInput.</FormSettingExplanation>
+						<FormSettingExplanation>
+							This is an explanation of FormTextInput.
+						</FormSettingExplanation>
 					</FormFieldset>
 
 					<FormFieldset>
@@ -141,8 +144,11 @@ var FormFields = React.createClass( {
 							placeholder="Enter a name for your site"
 							action="Continue"
 							onAction={ this.handleAction }
-							/>
-						<FormSettingExplanation>Action becomes avaliable when filled. Can be triggered by clicking button or pressing enter.</FormSettingExplanation>
+						/>
+						<FormSettingExplanation>
+							Action becomes avaliable when filled. Can be triggered by clicking button or pressing
+							enter.
+						</FormSettingExplanation>
 					</FormFieldset>
 
 					<FormFieldset>
@@ -152,7 +158,7 @@ var FormFields = React.createClass( {
 							placeholder="Placeholder text..."
 							prefix="Prefix"
 							suffix="Suffix"
-							/>
+						/>
 					</FormFieldset>
 
 					<FormFieldset>
@@ -173,37 +179,25 @@ var FormFields = React.createClass( {
 					</FormFieldset>
 
 					<FormFieldset>
-						<FormLabel htmlFor="password">{ this.translate( 'Form Password Input' ) }</FormLabel>
-						<FormPasswordInput
-							id="password"
-							name="password" />
+						<FormLabel htmlFor="password">
+							{ this.translate( 'Form Password Input' ) }
+						</FormLabel>
+						<FormPasswordInput id="password" name="password" />
 					</FormFieldset>
 
 					<FormLegend>Form Toggle</FormLegend>
-					<FormToggle
-						checked={ this.state.toggled }
-						onChange={ this.handleToggle }
-					/>
+					<FormToggle checked={ this.state.toggled } onChange={ this.handleToggle } />
 					<br />
-					<FormToggle
-						checked={ false }
-						disabled={ true }
-					/>
+					<FormToggle checked={ false } disabled={ true } />
 					<br />
-					<FormToggle
-						checked={ true }
-						disabled={ true }
-					/>
+					<FormToggle checked={ true } disabled={ true } />
 					<br />
 					<CompactFormToggle
 						checked={ this.state.compactToggled }
 						onChange={ this.handleCompactToggle }
 					/>
 					<br />
-					<CompactFormToggle
-						checked={ false }
-						disabled={ true }
-					/>
+					<CompactFormToggle checked={ false } disabled={ true } />
 
 					<FormButtonsBar>
 						<FormButton>Form Button</FormButton>
@@ -215,7 +209,11 @@ var FormFields = React.createClass( {
 
 					<FormFieldset>
 						<FormLabel htmlFor="country_code">Form Country Select</FormLabel>
-						<FormCountrySelect name="country_code" id="country_code" countriesList={ countriesList } />
+						<FormCountrySelect
+							name="country_code"
+							id="country_code"
+							countriesList={ countriesList }
+						/>
 					</FormFieldset>
 
 					<FormFieldset>
@@ -226,12 +224,20 @@ var FormFields = React.createClass( {
 					<FormFieldset>
 						<FormLegend>Form Radios</FormLegend>
 						<FormLabel>
-							<FormRadio value="first" checked={ 'first' === this.state.checkedRadio } onChange={ this.handleRadioChange } />
+							<FormRadio
+								value="first"
+								checked={ 'first' === this.state.checkedRadio }
+								onChange={ this.handleRadioChange }
+							/>
 							<span>First radio</span>
 						</FormLabel>
 
 						<FormLabel>
-							<FormRadio value="second" checked={ 'second' === this.state.checkedRadio } onChange={ this.handleRadioChange } />
+							<FormRadio
+								value="second"
+								checked={ 'second' === this.state.checkedRadio }
+								onChange={ this.handleRadioChange }
+							/>
 							<span>Second radio</span>
 						</FormLabel>
 					</FormFieldset>
@@ -247,12 +253,17 @@ var FormFields = React.createClass( {
 							initialCountryCode="US"
 							initialPhoneNumber="8772733049"
 							countriesList={ countriesList }
-							/>
+						/>
 					</FormFieldset>
 
 					<FormFieldset>
 						<FormLabel>Form Media Phone Input</FormLabel>
-						<PhoneInput countryCode={ this.state.phoneInput.countryCode } value={ this.state.phoneInput.value } countriesList={ countriesList } onChange={ this.handlePhoneInputChange } />
+						<PhoneInput
+							countryCode={ this.state.phoneInput.countryCode }
+							value={ this.state.phoneInput.value }
+							countriesList={ countriesList }
+							onChange={ this.handlePhoneInputChange }
+						/>
 					</FormFieldset>
 
 					<FormFieldset>
@@ -267,17 +278,19 @@ var FormFields = React.createClass( {
 
 					<FormFieldset>
 						<FormLabel htmlFor="textarea">Form Textarea</FormLabel>
-						<FormTextarea name="textarea" id="textarea" placeholder="Placeholder text..."></FormTextarea>
+						<FormTextarea name="textarea" id="textarea" placeholder="Placeholder text..." />
 					</FormFieldset>
 
 					<FormButtonsBar>
 						<FormButton>Form Button</FormButton>
-						<FormButton type="button" isPrimary={ false }>Secondary Form Button</FormButton>
+						<FormButton type="button" isPrimary={ false }>
+							Secondary Form Button
+						</FormButton>
 					</FormButtonsBar>
 				</Card>
 			</div>
 		);
-	}
+	},
 } );
 
 module.exports = FormFields;

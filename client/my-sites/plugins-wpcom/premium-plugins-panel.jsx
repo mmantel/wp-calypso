@@ -4,10 +4,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { localize } from 'i18n-calypso';
-import {
-	flowRight as compose,
-	identity,
-} from 'lodash';
+import { flowRight as compose, identity } from 'lodash';
 import classNames from 'classnames';
 
 /**
@@ -26,15 +23,17 @@ export const PremiumPluginsPanel = ( {
 	purchaseLink,
 	plugins = [],
 	translate = identity,
-} ) => (
+} ) =>
 	<div>
 		<SectionHeader label={ translate( 'Premium Plan Upgrades' ) }>
 			<PurchaseButton { ...{ isActive, href: purchaseLink } } />
 		</SectionHeader>
 
-		<Card className={ classNames( 'wpcom-plugins__premium-panel', {
-			'is-disabled': ! isActive,
-		} ) }>
+		<Card
+			className={ classNames( 'wpcom-plugins__premium-panel', {
+				'is-disabled': ! isActive,
+			} ) }
+		>
 			<div className="wpcom-plugins__list">
 				{ plugins.map( ( { name, descriptionLink, icon, category, description } ) =>
 					<Plugin
@@ -48,17 +47,16 @@ export const PremiumPluginsPanel = ( {
 							name,
 							onClick,
 						} }
-					/>
+					/>,
 				) }
 			</div>
 		</Card>
-	</div>
-);
+	</div>;
 
 PremiumPluginsPanel.propTypes = {
 	isActive: PropTypes.bool,
 	purchaseLink: PropTypes.string.isRequired,
-	plugins: PropTypes.array
+	plugins: PropTypes.array,
 };
 
 const trackClick = name =>

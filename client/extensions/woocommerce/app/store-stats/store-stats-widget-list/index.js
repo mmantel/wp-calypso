@@ -17,7 +17,7 @@ import { formatValue } from '../utils';
 import { getPeriodFormat } from 'state/stats/lists/utils';
 import {
 	isRequestingSiteStatsForQuery,
-	getSiteStatsNormalizedData
+	getSiteStatsNormalizedData,
 } from 'state/stats/lists/selectors';
 import QuerySiteStats from 'components/data/query-site-stats';
 import Sparkline from 'woocommerce/components/sparkline';
@@ -27,7 +27,6 @@ import TableItem from 'woocommerce/components/table/table-item';
 import TableRow from 'woocommerce/components/table/table-row';
 
 class StoreStatsWidgetList extends Component {
-
 	static propTypes = {
 		data: PropTypes.object.isRequired, // TODO refactor to array :(
 		emptyMessage: PropTypes.string,
@@ -39,7 +38,7 @@ class StoreStatsWidgetList extends Component {
 	};
 
 	state = {
-		loaded: false
+		loaded: false,
 	};
 
 	componentWillReceiveProps( nextProps ) {
@@ -51,25 +50,23 @@ class StoreStatsWidgetList extends Component {
 		}
 	}
 
-	getEndPeriod = ( date ) => {
+	getEndPeriod = date => {
 		const { unit } = this.props.query;
 		const periodFormat = getPeriodFormat( unit, date );
-		return ( unit === 'week' )
+		return unit === 'week'
 			? moment( date, periodFormat ).endOf( 'isoWeek' ).format( 'YYYY-MM-DD' )
 			: moment( date, periodFormat ).endOf( unit ).format( 'YYYY-MM-DD' );
 	};
 
 	getDeltasBySelectedPeriod = () => {
-		return find( this.props.data.deltas, ( item ) =>
-			item.period === this.props.selectedDate
-		);
+		return find( this.props.data.deltas, item => item.period === this.props.selectedDate );
 	};
 
-	getDeltaByStat = ( stat ) => {
+	getDeltaByStat = stat => {
 		return this.getDeltasBySelectedPeriod()[ stat ];
 	};
 
-	getSelectedIndex = ( data ) => {
+	getSelectedIndex = data => {
 		return findIndex( data, d => d.period === this.props.selectedDate );
 	};
 
@@ -85,26 +82,31 @@ class StoreStatsWidgetList extends Component {
 		let widgetList = null;
 
 		if ( ! isLoading && ! hasEmptyData ) {
-			const firstRealKey = Object.keys( data.deltas[ selectedIndex ] ).filter( key => key !== 'period' )[ 0 ];
+			const firstRealKey = Object.keys( data.deltas[ selectedIndex ] ).filter(
+				key => key !== 'period',
+			)[ 0 ];
 			const sincePeriod = this.getDeltaByStat( firstRealKey );
 			const periodFormat = getPeriodFormat( query.unit, sincePeriod.reference_period );
 			values = [
 				{
 					key: 'title',
-					label: translate( 'Stat' )
+					label: translate( 'Stat' ),
 				},
 				{
 					key: 'value',
-					label: translate( 'Value' )
+					label: translate( 'Value' ),
 				},
 				{
 					key: 'sparkline',
-					label: translate( 'Trend' )
+					label: translate( 'Trend' ),
 				},
 				{
 					key: 'delta',
-					label: `${ translate( 'Since' ) } ${ moment( sincePeriod.reference_period, periodFormat ).format( 'MMM D' ) }`
-				}
+					label: `${ translate( 'Since' ) } ${ moment(
+						sincePeriod.reference_period,
+						periodFormat,
+					).format( 'MMM D' ) }`,
+				},
 			];
 
 			titles = (
@@ -127,59 +129,71 @@ class StoreStatsWidgetList extends Component {
 			widgetData = widgets.map( widget => {
 				const timeSeries = data.data.map( row => +row[ widget.key ] );
 				const delta = this.getDeltaByStat( widget.key );
-				const deltaValue = ( delta.direction === 'is-undefined-increase' )
-					? '-'
-					: Math.abs( Math.round( delta.percentage_change * 100 ) );
+				const deltaValue =
+					delta.direction === 'is-undefined-increase'
+						? '-'
+						: Math.abs( Math.round( delta.percentage_change * 100 ) );
 				return {
 					title: widget.title,
 					value: formatValue( timeSeries[ selectedIndex ], widget.format, sincePeriod.currency ),
-					sparkline: <Sparkline
-						aspectRatio={ 3 }
-						data={ timeSeries }
-						highlightIndex={ selectedIndex }
-						maxHeight={ 50 }
-					/>,
-					delta: <Delta
-						value={ `${ deltaValue }%` }
-						className={ `${ delta.favorable } ${ delta.direction }` }
-					/>
+					sparkline: (
+						<Sparkline
+							aspectRatio={ 3 }
+							data={ timeSeries }
+							highlightIndex={ selectedIndex }
+							maxHeight={ 50 }
+						/>
+					),
+					delta: (
+						<Delta
+							value={ `${ deltaValue }%` }
+							className={ `${ delta.favorable } ${ delta.direction }` }
+						/>
+					),
 				};
 			} );
 			widgetList = (
 				<Table header={ titles }>
-					{ widgetData.map( ( row, i ) => (
+					{ widgetData.map( ( row, i ) =>
 						<TableRow className="store-stats-widget-list__table-row" key={ i }>
-							{ values.map( ( value, j ) => (
+							{ values.map( ( value, j ) =>
 								<TableItem
 									className={ classnames( 'store-stats-widget-list__table-item', value.key ) }
 									key={ value.key }
 									isTitle={ 0 === j }
 								>
 									{ row[ value.key ] }
-								</TableItem>
-							) ) }
-						</TableRow>
-					) ) }
+								</TableItem>,
+							) }
+						</TableRow>,
+					) }
 				</Table>
 			);
 		}
 
 		return (
 			<div>
-				{ siteId && statType && <QuerySiteStats statType={ statType } siteId={ siteId } query={ query } /> }
-				{ isLoading && <Card><StatsModulePlaceholder isLoading={ isLoading } /></Card> }
-				{ ! isLoading && hasEmptyData && <Card><ErrorPanel message={ emptyMessage } /></Card> }
+				{ siteId &&
+					statType &&
+					<QuerySiteStats statType={ statType } siteId={ siteId } query={ query } /> }
+				{ isLoading &&
+					<Card>
+						<StatsModulePlaceholder isLoading={ isLoading } />
+					</Card> }
+				{ ! isLoading &&
+					hasEmptyData &&
+					<Card>
+						<ErrorPanel message={ emptyMessage } />
+					</Card> }
 				{ ! isLoading && ! hasEmptyData && widgetList }
 			</div>
 		);
 	}
 }
 
-export default connect(
-	( state, { siteId, statType, query } ) => {
-		return {
-			data: getSiteStatsNormalizedData( state, siteId, statType, query ),
-			requesting: isRequestingSiteStatsForQuery( state, siteId, statType, query ),
-		};
-	}
-)( StoreStatsWidgetList );
+export default connect( ( state, { siteId, statType, query } ) => {
+	return {
+		data: getSiteStatsNormalizedData( state, siteId, statType, query ),
+		requesting: isRequestingSiteStatsForQuery( state, siteId, statType, query ),
+	};
+} )( StoreStatsWidgetList );

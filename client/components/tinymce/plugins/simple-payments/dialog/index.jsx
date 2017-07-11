@@ -23,11 +23,10 @@ import FormSettingExplanation from 'components/forms/form-setting-explanation';
 import FormCurrencyInput from 'components/forms/form-currency-input';
 import FormToggle from 'components/forms/form-toggle';
 
-const ProductImage = () => (
+const ProductImage = () =>
 	<div className="editor-simple-payments-modal__product-image">
 		<Gridicon icon="add-image" size={ 36 } />
-	</div>
-);
+	</div>;
 
 class SimplePaymentsDialog extends Component {
 	static propTypes = {
@@ -67,15 +66,21 @@ class SimplePaymentsDialog extends Component {
 				<ProductImage />
 				<div className="editor-simple-payments-modal__form-fields">
 					<FormFieldset>
-						<FormLabel htmlFor="productname">{ translate( 'What are you selling?' ) }</FormLabel>
+						<FormLabel htmlFor="productname">
+							{ translate( 'What are you selling?' ) }
+						</FormLabel>
 						<FormTextInput name="productname" id="productname" />
 					</FormFieldset>
 					<FormFieldset>
-						<FormLabel htmlFor="description">{ translate( 'Description' ) }</FormLabel>
+						<FormLabel htmlFor="description">
+							{ translate( 'Description' ) }
+						</FormLabel>
 						<FormTextarea name="description" id="description" />
 					</FormFieldset>
 					<FormFieldset>
-						<FormLabel htmlFor="price">{ translate( 'Price' ) }</FormLabel>
+						<FormLabel htmlFor="price">
+							{ translate( 'Price' ) }
+						</FormLabel>
 						<FormCurrencyInput
 							name="price"
 							id="price"
@@ -89,7 +94,9 @@ class SimplePaymentsDialog extends Component {
 						</FormToggle>
 					</FormFieldset>
 					<FormFieldset>
-						<FormLabel htmlFor="email">{ translate( 'Email' ) }</FormLabel>
+						<FormLabel htmlFor="email">
+							{ translate( 'Email' ) }
+						</FormLabel>
 						<FormTextInput name="email" id="email" />
 						<FormSettingExplanation>
 							{ translate(

@@ -84,9 +84,11 @@ class ManagePurchase extends Component {
 		hasLoadedSites: React.PropTypes.bool.isRequired,
 		hasLoadedUserPurchasesFromServer: React.PropTypes.bool.isRequired,
 		selectedPurchase: React.PropTypes.object,
-		selectedSite: React.PropTypes.oneOfType(
-			[ React.PropTypes.object, React.PropTypes.bool, React.PropTypes.undefined ]
-		),
+		selectedSite: React.PropTypes.oneOfType( [
+			React.PropTypes.object,
+			React.PropTypes.bool,
+			React.PropTypes.undefined,
+		] ),
 	};
 
 	componentWillMount() {
@@ -135,7 +137,7 @@ class ManagePurchase extends Component {
 				{
 					id: purchase.id,
 					domain: purchase.domain,
-				}
+				},
 			);
 
 			renewItems.push( privacyItem );
@@ -149,7 +151,7 @@ class ManagePurchase extends Component {
 				{
 					id: purchase.id,
 					domain: purchase.domain,
-				}
+				},
 			);
 
 			renewItems.push( redemptionItem );
@@ -208,21 +210,27 @@ class ManagePurchase extends Component {
 				? translate( 'Edit Payment Method' )
 				: translate( 'Add Credit Card' );
 
-			return <CompactCard href={ path }>{ text }</CompactCard>;
+			return (
+				<CompactCard href={ path }>
+					{ text }
+				</CompactCard>
+			);
 		}
 
 		return null;
 	}
 
 	renderCancelPurchaseNavItem() {
-		const purchase = getPurchase( this.props ), { id } = purchase;
+		const purchase = getPurchase( this.props ),
+			{ id } = purchase;
 		const { translate } = this.props;
 
 		if ( ! isCancelable( purchase ) || ! getSelectedSite( this.props ) ) {
 			return null;
 		}
 
-		let text, link = paths.cancelPurchase( this.props.selectedSite.slug, id );
+		let text,
+			link = paths.cancelPurchase( this.props.selectedSite.slug, id );
 
 		if ( isRefundable( purchase ) ) {
 			if ( isDomainRegistration( purchase ) ) {
@@ -259,7 +267,8 @@ class ManagePurchase extends Component {
 	}
 
 	renderCancelPrivacyProtection() {
-		const purchase = getPurchase( this.props ), { id } = purchase;
+		const purchase = getPurchase( this.props ),
+			{ id } = purchase;
 		const { translate } = this.props;
 
 		if (
@@ -323,7 +332,7 @@ class ManagePurchase extends Component {
 					args: {
 						domain: selectedSite.domain,
 					},
-				}
+				},
 			);
 		}
 
@@ -429,7 +438,9 @@ class ManagePurchase extends Component {
 
 		let editCardDetailsPath = false;
 		if (
-			! isDataLoading( this.props ) && selectedSite && canEditPaymentDetails( selectedPurchase )
+			! isDataLoading( this.props ) &&
+			selectedSite &&
+			canEditPaymentDetails( selectedPurchase )
 		) {
 			editCardDetailsPath = getEditCardDetailsPath( selectedSite, selectedPurchase );
 		}

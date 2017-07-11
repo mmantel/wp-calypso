@@ -36,8 +36,12 @@ const BillingReceipt = React.createClass( {
 
 		return (
 			<li>
-				<strong>{ translate( 'Transaction ID' ) }</strong>
-				<span>{ transaction.pay_ref }</span>
+				<strong>
+					{ translate( 'Transaction ID' ) }
+				</strong>
+				<span>
+					{ transaction.pay_ref }
+				</span>
 			</li>
 		);
 	},
@@ -56,8 +60,12 @@ const BillingReceipt = React.createClass( {
 
 		return (
 			<li>
-				<strong>{ translate( 'Payment Method' ) }</strong>
-				<span>{ text }</span>
+				<strong>
+					{ translate( 'Payment Method' ) }
+				</strong>
+				<span>
+					{ text }
+				</span>
 			</li>
 		);
 	},
@@ -96,26 +104,42 @@ const BillingReceipt = React.createClass( {
 
 		return (
 			<li className="billing-history__billing-details">
-				<strong>{ translate( 'Billing Details' ) }</strong>
-				<div contentEditable="true">{ transaction.cc_name }</div>
-				<div contentEditable="true">{ transaction.cc_email }</div>
+				<strong>
+					{ translate( 'Billing Details' ) }
+				</strong>
+				<div contentEditable="true">
+					{ transaction.cc_name }
+				</div>
+				<div contentEditable="true">
+					{ transaction.cc_email }
+				</div>
 			</li>
 		);
 	},
 
 	renderLineItems() {
 		const { transaction, translate } = this.props;
-		const items = transaction.items.map( ( item ) => {
+		const items = transaction.items.map( item => {
 			return (
 				<tr key={ item.id }>
 					<td className="billing-history__receipt-item-name">
-						<span>{ item.variation }</span>
-						<small>({ item.type })</small><br />
-						<em>{ item.domain }</em>
+						<span>
+							{ item.variation }
+						</span>
+						<small>
+							({ item.type })
+						</small>
+						<br />
+						<em>
+							{ item.domain }
+						</em>
 					</td>
 					<td className={ 'billing-history__receipt-amount ' + transaction.credit }>
 						{ item.amount }
-						{ transaction.credit && <span className="billing-history__credit-badge">{ translate( 'Refund' ) }</span> }
+						{ transaction.credit &&
+							<span className="billing-history__credit-badge">
+								{ translate( 'Refund' ) }
+							</span> }
 					</td>
 				</tr>
 			);
@@ -123,20 +147,33 @@ const BillingReceipt = React.createClass( {
 
 		return (
 			<div className="billing-history__receipt">
-				<h4>{ translate( 'Order Summary' ) }</h4>
+				<h4>
+					{ translate( 'Order Summary' ) }
+				</h4>
 				<table className="billing-history__receipt-line-items">
 					<thead>
 						<tr>
-							<th className="billing-history__receipt-desc">{ translate( 'Description' ) }</th>
-							<th className="billing-history__receipt-amount">{ translate( 'Amount' ) }</th>
+							<th className="billing-history__receipt-desc">
+								{ translate( 'Description' ) }
+							</th>
+							<th className="billing-history__receipt-amount">
+								{ translate( 'Amount' ) }
+							</th>
 						</tr>
 					</thead>
 					<tfoot>
 						<tr>
 							<td className="billing-history__receipt-desc">
-								<strong>{ translate( 'Total' ) }:</strong>
+								<strong>
+									{ translate( 'Total' ) }:
+								</strong>
 							</td>
-							<td className={ 'billing-history__receipt-amount billing-history__total-amount ' + transaction.credit }>
+							<td
+								className={
+									'billing-history__receipt-amount billing-history__total-amount ' +
+									transaction.credit
+								}
+							>
 								{ transaction.amount }
 							</td>
 						</tr>
@@ -159,29 +196,35 @@ const BillingReceipt = React.createClass( {
 				<Card compact className="billing-history__receipt-card">
 					<div className="billing-history__app-overview">
 						<img src={ transaction.icon } title={ transaction.service } />
-						<h2> {
-							translate( '{{link}}%(service)s{{/link}} {{small}}by %(organization)s{{/small}}',
-								{
-									components: {
-										link: serviceLink,
-										small: <small />
-									},
-									args: {
-										service: transaction.service,
-										organization: transaction.org,
-									},
-									comment: 'This string is "Service by Organization". ' +
-										'The {{link}} and {{small}} add html styling and attributes. ' +
-										'Screenshot: https://cloudup.com/isX-WEFYlOs'
-								} )
-							}
-							<div className="billing-history__transaction-date">{ tableRows.formatDate( transaction.date ) }</div>
+						<h2>
+							{' '}
+							{ translate( '{{link}}%(service)s{{/link}} {{small}}by %(organization)s{{/small}}', {
+								components: {
+									link: serviceLink,
+									small: <small />,
+								},
+								args: {
+									service: transaction.service,
+									organization: transaction.org,
+								},
+								comment:
+									'This string is "Service by Organization". ' +
+									'The {{link}} and {{small}} add html styling and attributes. ' +
+									'Screenshot: https://cloudup.com/isX-WEFYlOs',
+							} ) }
+							<div className="billing-history__transaction-date">
+								{ tableRows.formatDate( transaction.date ) }
+							</div>
 						</h2>
 					</div>
 					<ul className="billing-history__receipt-details group">
 						<li>
-							<strong>{ translate( 'Receipt ID' ) }</strong>
-							<span>{ transaction.id }</span>
+							<strong>
+								{ translate( 'Receipt ID' ) }
+							</strong>
+							<span>
+								{ transaction.id }
+							</span>
 						</li>
 						{ this.ref() }
 						{ this.paymentMethod() }
@@ -194,18 +237,23 @@ const BillingReceipt = React.createClass( {
 					<a
 						href={ transaction.support }
 						className="button is-primary"
-						onClick={ this.recordClickEvent( 'Contact {appName} Support in Billing History Receipt' ) }
+						onClick={ this.recordClickEvent(
+							'Contact {appName} Support in Billing History Receipt',
+						) }
 					>
 						{ translate( 'Contact %(transactionService)s Support', {
 							args: {
-								transactionService: transaction.service
+								transactionService: transaction.service,
 							},
-							context: 'transactionService is a website, such as WordPress.com.'
+							context: 'transactionService is a website, such as WordPress.com.',
 						} ) }
 					</a>
 					<a
 						href="#"
-						onClick={ this.recordClickEvent( 'Print Receipt Button in Billing History Receipt', this.printReceipt ) }
+						onClick={ this.recordClickEvent(
+							'Print Receipt Button in Billing History Receipt',
+							this.printReceipt,
+						) }
 						className="button is-secondary"
 					>
 						{ translate( 'Print Receipt' ) }
@@ -221,7 +269,10 @@ const BillingReceipt = React.createClass( {
 		return (
 			<Main>
 				<DocumentHead title={ translate( 'Billing History' ) } />
-				<PageViewTracker path="/me/purchases/billing/receipt" title="Me > Billing History > Receipt" />
+				<PageViewTracker
+					path="/me/purchases/billing/receipt"
+					title="Me > Billing History > Receipt"
+				/>
 				<QueryBillingTransactions />
 
 				{ this.renderTitle() }
@@ -232,8 +283,6 @@ const BillingReceipt = React.createClass( {
 	},
 } );
 
-export default connect(
-	( state, ownProps ) => ( {
-		transaction: getPastBillingTransaction( state, ownProps.transactionId )
-	} ),
-)( localize( BillingReceipt ) );
+export default connect( ( state, ownProps ) => ( {
+	transaction: getPastBillingTransaction( state, ownProps.transactionId ),
+} ) )( localize( BillingReceipt ) );

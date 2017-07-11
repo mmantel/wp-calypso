@@ -33,7 +33,8 @@ class SiteOrDomain extends Component {
 	getDomainName() {
 		const { queryObject, step } = this.props;
 
-		let domain, isValidDomain = false;
+		let domain,
+			isValidDomain = false;
 
 		if ( queryObject && queryObject.new ) {
 			domain = queryObject.new;
@@ -61,29 +62,29 @@ class SiteOrDomain extends Component {
 				type: 'page',
 				label: translate( 'New site' ),
 				image: <NewSiteImage />,
-				description: translate( 'Choose a theme, customize, and launch your site. Free domain included with all plans.' )
-			}
+				description: translate(
+					'Choose a theme, customize, and launch your site. Free domain included with all plans.',
+				),
+			},
 		];
 
 		if ( this.props.isLoggedIn ) {
-			choices.push(
-				{
-					type: 'existing-site',
-					label: translate( 'Existing WordPress.com site' ),
-					image: <ExistingSite />,
-					description: translate( 'Use with a site you already started. Free domain included with all plans.' )
-				}
-			);
+			choices.push( {
+				type: 'existing-site',
+				label: translate( 'Existing WordPress.com site' ),
+				image: <ExistingSite />,
+				description: translate(
+					'Use with a site you already started. Free domain included with all plans.',
+				),
+			} );
 		}
 
-		choices.push(
-			{
-				type: 'domain',
-				label: translate( 'Just buy a domain' ),
-				image: <DomainImage />,
-				description: translate( 'Show a "coming soon" notice on your domain. Add a site later.' )
-			}
-		);
+		choices.push( {
+			type: 'domain',
+			label: translate( 'Just buy a domain' ),
+			image: <DomainImage />,
+			description: translate( 'Show a "coming soon" notice on your domain. Add a site later.' ),
+		} );
 
 		return choices;
 	}
@@ -91,13 +92,13 @@ class SiteOrDomain extends Component {
 	renderChoices() {
 		return (
 			<div className="site-or-domain__choices">
-				{ this.getChoices().map( ( choice, index ) => (
+				{ this.getChoices().map( ( choice, index ) =>
 					<SiteOrDomainChoice
 						key={ `site-or-domain-choice-${ index }` }
 						choice={ choice }
 						handleClickChoice={ this.handleClickChoice }
-					/>
-				) ) }
+					/>,
+				) }
 			</div>
 		);
 	}
@@ -128,39 +129,38 @@ class SiteOrDomain extends Component {
 		);
 	}
 
-	handleClickChoice = ( designType ) => {
-		const {
-			stepName,
-			goToStep,
-			goToNextStep,
-		} = this.props;
+	handleClickChoice = designType => {
+		const { stepName, goToStep, goToNextStep } = this.props;
 
 		const domain = this.getDomainName();
 		const tld = domain.split( '.' ).slice( 1 ).join( '.' );
 		const domainItem = cartItems.domainRegistration( { productSlug: tlds[ tld ], domain } );
 		const siteUrl = domain;
 
-		SignupActions.submitSignupStep( {
-			stepName,
-			domainItem,
-			designType,
-			siteSlug: domain,
-			siteUrl,
-			isPurchasingItem: true,
-		}, [], { designType, domainItem, siteUrl } );
+		SignupActions.submitSignupStep(
+			{
+				stepName,
+				domainItem,
+				designType,
+				siteSlug: domain,
+				siteUrl,
+				isPurchasingItem: true,
+			},
+			[],
+			{ designType, domainItem, siteUrl },
+		);
 
 		if ( designType === 'domain' ) {
 			// we can skip the next two steps in the `domain-first` flow if the
 			// user is only purchasing a domain
 			SignupActions.submitSignupStep( { stepName: 'site-picker', wasSkipped: true }, [], {} );
 			SignupActions.submitSignupStep( { stepName: 'themes', wasSkipped: true }, [], {
-				themeSlugWithRepo: 'pub/twentysixteen'
+				themeSlugWithRepo: 'pub/twentysixteen',
 			} );
-			SignupActions.submitSignupStep(
-				{ stepName: 'plans-site-selected', wasSkipped: true },
-				[],
-				{ cartItem: null, privacyItem: null }
-			);
+			SignupActions.submitSignupStep( { stepName: 'plans-site-selected', wasSkipped: true }, [], {
+				cartItem: null,
+				privacyItem: null,
+			} );
 			goToStep( 'user' );
 		} else if ( designType === 'existing-site' ) {
 			goToNextStep();
@@ -181,15 +181,14 @@ class SiteOrDomain extends Component {
 				fallbackHeaderText={ this.props.headerText }
 				fallbackSubHeaderText={ this.props.subHeaderText }
 				signupProgress={ this.props.signupProgress }
-				stepContent={ this.renderScreen() } />
+				stepContent={ this.renderScreen() }
+			/>
 		);
 	}
 }
 
-export default connect(
-	( state ) => {
-		return {
-			isLoggedIn: !! getCurrentUserId( state )
-		};
-	}
-)( localize( SiteOrDomain ) );
+export default connect( state => {
+	return {
+		isLoggedIn: !! getCurrentUserId( state ),
+	};
+} )( localize( SiteOrDomain ) );

@@ -18,8 +18,12 @@ var FormToggle = require( 'components/forms/form-toggle' ),
  */
 var Wrapper = React.createClass( {
 	render: function() {
-		return <div>{ this.props.children }</div>;
-	}
+		return (
+			<div>
+				{ this.props.children }
+			</div>
+		);
+	},
 } );
 
 describe( 'index', function() {
@@ -60,11 +64,12 @@ describe( 'FormToggle', function() {
 			[ true, false ].forEach( function( bool ) {
 				var toggle = TestUtils.renderIntoDocument(
 						<FormToggle
-						checked={ bool }
-						onChange={ function() {
-							return;
-						}
-					}/> ),
+							checked={ bool }
+							onChange={ function() {
+								return;
+							} }
+						/>,
+					),
 					toggleInput = TestUtils.scryRenderedDOMComponentsWithClass( toggle, 'form-toggle' );
 
 				assert( 0 < toggleInput.length, 'a form toggle was rendered' );
@@ -73,7 +78,9 @@ describe( 'FormToggle', function() {
 		} );
 
 		it( 'should not be disabled when disabled is false', function() {
-			var toggle = TestUtils.renderIntoDocument( <FormToggle checked={ false } disabled={ false }/> ),
+			var toggle = TestUtils.renderIntoDocument(
+					<FormToggle checked={ false } disabled={ false } />,
+				),
 				toggleInput = TestUtils.scryRenderedDOMComponentsWithClass( toggle, 'form-toggle' );
 
 			assert( 0 < toggleInput.length, 'a form toggle was rendered' );
@@ -81,7 +88,9 @@ describe( 'FormToggle', function() {
 		} );
 
 		it( 'should be disabled when disabled is true', function() {
-			var toggle = TestUtils.renderIntoDocument( <FormToggle checked={ false } disabled={ true }/> ),
+			var toggle = TestUtils.renderIntoDocument(
+					<FormToggle checked={ false } disabled={ true } />,
+				),
 				toggleInput = TestUtils.scryRenderedDOMComponentsWithClass( toggle, 'form-toggle' );
 
 			assert( 0 < toggleInput.length, 'a form toggle was rendered' );
@@ -102,7 +111,7 @@ describe( 'FormToggle', function() {
 						<FormToggle checked={ false } />
 						<FormToggle checked={ false } />
 						<FormToggle checked={ false } />
-					</Wrapper>
+					</Wrapper>,
 				),
 				toggleInputs = TestUtils.scryRenderedDOMComponentsWithClass( toggles, 'form-toggle' ),
 				ids = toggleInputs.map( function( input ) {

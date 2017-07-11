@@ -11,7 +11,7 @@ import { SocialItem } from '../items';
 
 const announceIt = console.log.bind( console );
 
-export const VerticalMenuExample = () => (
+export const VerticalMenuExample = () =>
 	<div>
 		<h3>Social Items</h3>
 		<VerticalMenu onClick={ announceIt }>
@@ -21,8 +21,7 @@ export const VerticalMenuExample = () => (
 			<SocialItem service="linkedin" />
 			<SocialItem service="twitter" />
 		</VerticalMenu>
-	</div>
-);
+	</div>;
 
 VerticalMenuExample.displayName = 'VerticalMenu';
 

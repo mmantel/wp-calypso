@@ -27,7 +27,9 @@ const PostsPerPage = ( {
 
 	return (
 		<FormFieldset>
-			<FormLabel htmlFor="posts_per_page">{ translate( 'Posts Per Page' ) }</FormLabel>
+			<FormLabel htmlFor="posts_per_page">
+				{ translate( 'Posts Per Page' ) }
+			</FormLabel>
 			<FormInput
 				name="posts_per_page"
 				type="number"

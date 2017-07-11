@@ -39,7 +39,9 @@ const SpamFilteringSettings = ( {
 		( wordpress_api_key && isStoredKey ) ||
 		( wordpress_api_key && isDirty && isStoredKey && ! hasAkismetKeyError );
 	const isInvalidKey = isDirty && hasAkismetKeyError && ! isStoredKey;
-	let validationText, className, header = null;
+	let validationText,
+		className,
+		header = null;
 	if ( ! inTransition && isValidKey ) {
 		validationText = translate( 'Your Antispam key is valid.' );
 		className = 'is-valid';
@@ -78,7 +80,9 @@ const SpamFilteringSettings = ( {
 							</ExternalLink>
 						</InfoPopover>
 					</div>
-					<FormLabel htmlFor="wordpress_api_key">{ translate( 'Your API Key' ) }</FormLabel>
+					<FormLabel htmlFor="wordpress_api_key">
+						{ translate( 'Your API Key' ) }
+					</FormLabel>
 					<FormTextInput
 						name="wordpress_api_key"
 						className={ className }
@@ -101,7 +105,7 @@ const SpamFilteringSettings = ( {
 											<ExternalLink icon href="https://akismet.com/wordpress/" target="_blank" />
 										),
 									},
-								}
+								},
 							) }
 						</FormSettingExplanation> }
 				</div>

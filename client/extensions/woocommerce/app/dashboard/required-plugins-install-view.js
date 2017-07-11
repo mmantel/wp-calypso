@@ -58,28 +58,26 @@ class RequiredPluginsInstallView extends Component {
 		}
 
 		this.getWporgPluginData();
-	}
+	};
 
 	componentWillUnmount = () => {
 		this.cancelUpdateTimeout();
-	}
+	};
 
-	componentDidUpdate = ( prevProps ) => {
+	componentDidUpdate = prevProps => {
 		const { plugins, site } = this.props;
 		if ( ! plugins || ! site ) {
 			return;
 		}
-		const isReady = plugins.length && ! this.state.installingPlugin && ! this.state.activatingPlugin;
+		const isReady =
+			plugins.length && ! this.state.installingPlugin && ! this.state.activatingPlugin;
 		const isDoneInstalling = prevProps.plugins && plugins.length > prevProps.plugins.length;
 		const activatingPlugin = find( plugins, { slug: this.state.activatingPlugin } );
 		const isDoneActivating = activatingPlugin && activatingPlugin.active;
-		if (
-			isReady ||
-			( isDoneInstalling || isDoneActivating )
-		) {
+		if ( isReady || ( isDoneInstalling || isDoneActivating ) ) {
 			this.installPlugins( this.props.plugins );
 		}
-	}
+	};
 
 	getWporgPluginData() {
 		requiredPlugins.map( plugin => {
@@ -93,8 +91,8 @@ class RequiredPluginsInstallView extends Component {
 		} );
 	}
 
-	installApiDevPlugin = ( siteId ) => {
-		const progress = this.state.progress + ( 100 / requiredPlugins.length );
+	installApiDevPlugin = siteId => {
+		const progress = this.state.progress + 100 / requiredPlugins.length;
 		this.setState( () => ( {
 			installingPlugin: 'wc-api-dev',
 			progress,
@@ -105,12 +103,14 @@ class RequiredPluginsInstallView extends Component {
 			this.props.fetchPlugins( [ siteId ] );
 		};
 
-		wp.req.post( {
-			path: `/sites/${ siteId }/woocommerce/install-api-dev-plugin`
-		} ).then( afterApiPluginInstalled );
-	}
+		wp.req
+			.post( {
+				path: `/sites/${ siteId }/woocommerce/install-api-dev-plugin`,
+			} )
+			.then( afterApiPluginInstalled );
+	};
 
-	installPlugins = ( plugins ) => {
+	installPlugins = plugins => {
 		this.cancelUpdateTimeout();
 		const { site, wporg } = this.props;
 		for ( let i = 0; i < requiredPlugins.length; i++ ) {
@@ -131,7 +131,7 @@ class RequiredPluginsInstallView extends Component {
 				}
 
 				const wporgPlugin = getPlugin( wporg, slug );
-				const progress = this.state.progress + ( 100 / requiredPlugins.length );
+				const progress = this.state.progress + 100 / requiredPlugins.length;
 				this.setState( () => ( {
 					installingPlugin: slug,
 					progress,
@@ -148,23 +148,20 @@ class RequiredPluginsInstallView extends Component {
 				return;
 			}
 		}
-		this.props.setFinishedInstallOfRequiredPlugins(
-			site.ID,
-			true
-		);
-	}
+		this.props.setFinishedInstallOfRequiredPlugins( site.ID, true );
+	};
 
 	cancelUpdateTimeout = () => {
 		if ( this.updateTimeout ) {
 			window.clearTimeout( this.updateTimeout );
 		}
-	}
+	};
 
 	setUpdateTimeout = () => {
 		this.updateTimeout = window.setTimeout( () => {
 			this.installPlugins( this.props.plugins );
 		}, 5000 );
-	}
+	};
 
 	render = () => {
 		const { translate, site } = this.props;
@@ -175,13 +172,13 @@ class RequiredPluginsInstallView extends Component {
 					imageSource={ '/calypso/images/extensions/woocommerce/woocommerce-store-creation.svg' }
 					imageWidth={ 160 }
 					title={ translate( 'Setting up your store' ) }
-					subtitle={ translate( 'Give us a minute and we\'ll move right along.' ) }
+					subtitle={ translate( "Give us a minute and we'll move right along." ) }
 				>
 					<ProgressBar value={ this.state.progress } isPulsing />
 				</SetupHeader>
 			</div>
 		);
-	}
+	};
 }
 
 function mapStateToProps( state ) {
@@ -202,8 +199,10 @@ function mapDispatchToProps( dispatch ) {
 			installPlugin,
 			setFinishedInstallOfRequiredPlugins,
 		},
-		dispatch
+		dispatch,
 	);
 }
 
-export default connect( mapStateToProps, mapDispatchToProps )( localize( RequiredPluginsInstallView ) );
+export default connect( mapStateToProps, mapDispatchToProps )(
+	localize( RequiredPluginsInstallView ),
+);

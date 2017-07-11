@@ -18,7 +18,7 @@ import {
 	areOrdersLoading,
 	areOrdersLoaded,
 	getOrders,
-	getTotalOrdersPages
+	getTotalOrdersPages,
 } from 'woocommerce/state/sites/orders/selectors';
 import { getLink } from 'woocommerce/lib/nav-utils';
 import { getOrdersCurrentPage } from 'woocommerce/state/ui/orders/selectors';
@@ -42,12 +42,15 @@ class Orders extends Component {
 	}
 
 	componentWillReceiveProps( newProps ) {
-		if ( newProps.currentPage !== this.props.currentPage || newProps.siteId !== this.props.siteId ) {
+		if (
+			newProps.currentPage !== this.props.currentPage ||
+			newProps.siteId !== this.props.siteId
+		) {
 			this.props.fetchOrders( newProps.siteId, newProps.currentPage );
 		}
 	}
 
-	getOrderStatus = ( status ) => {
+	getOrderStatus = status => {
 		const { translate } = this.props;
 		const classes = `orders__item-status is-${ status }`;
 		let paymentLabel;
@@ -82,18 +85,26 @@ class Orders extends Component {
 
 		return (
 			<span className={ classes }>
-				{ shippingLabel ? <span className="orders__shipping-status">{ shippingLabel }</span> : null }
-				<span className="orders__payment-status">{ paymentLabel }</span>
+				{ shippingLabel
+					? <span className="orders__shipping-status">
+							{ shippingLabel }
+						</span>
+					: null }
+				<span className="orders__payment-status">
+					{ paymentLabel }
+				</span>
 			</span>
 		);
-	}
+	};
 
 	renderOrderItems = ( order, i ) => {
 		const { site } = this.props;
 		return (
 			<TableRow key={ i } href={ getLink( `/store/order/:site/${ order.number }`, site ) }>
 				<TableItem className="orders__table-name" isRowHeader>
-					<span className="orders__item-link">#{ order.number }</span>
+					<span className="orders__item-link">
+						#{ order.number }
+					</span>
 					<span className="orders__item-name">
 						{ `${ order.billing.first_name } ${ order.billing.last_name }` }
 					</span>
@@ -109,26 +120,29 @@ class Orders extends Component {
 				</TableItem>
 			</TableRow>
 		);
-	}
+	};
 
-	onPageClick = ( i ) => {
+	onPageClick = i => {
 		return () => {
 			this.props.setCurrentPage( this.props.siteId, i );
 		};
-	}
+	};
 
-	renderPageLink = ( i ) => {
+	renderPageLink = i => {
 		// We want this to start at 1, not 0
 		i++;
 		return (
 			<li key={ i }>
-				{ ( i !== this.props.currentPage )
-					? <Button compact borderless onClick={ this.onPageClick( i ) }>{ i }</Button>
-					: <span>{ i }</span>
-				}
+				{ i !== this.props.currentPage
+					? <Button compact borderless onClick={ this.onPageClick( i ) }>
+							{ i }
+						</Button>
+					: <span>
+							{ i }
+						</span> }
 			</li>
 		);
-	}
+	};
 
 	renderPagination = () => {
 		const { totalPages } = this.props;
@@ -142,26 +156,32 @@ class Orders extends Component {
 				{ times( totalPages, this.renderPageLink ) }
 			</ul>
 		);
-	}
+	};
 
 	render() {
 		const { orders, translate } = this.props;
 		if ( ! orders.length ) {
 			return (
 				<div className="orders__container">
-					<EmptyContent
-						title={ translate( 'Your orders will appear here as they come in.' ) }
-					/>
+					<EmptyContent title={ translate( 'Your orders will appear here as they come in.' ) } />
 				</div>
 			);
 		}
 
 		const headers = (
 			<TableRow isHeader>
-				<TableItem className="orders__table-name" isHeader>{ translate( 'Order' ) }</TableItem>
-				<TableItem className="orders__table-date" isHeader>{ translate( 'Date' ) }</TableItem>
-				<TableItem className="orders__table-status" isHeader>{ translate( 'Status' ) }</TableItem>
-				<TableItem className="orders__table-total" isHeader>{ translate( 'Total' ) }</TableItem>
+				<TableItem className="orders__table-name" isHeader>
+					{ translate( 'Order' ) }
+				</TableItem>
+				<TableItem className="orders__table-date" isHeader>
+					{ translate( 'Date' ) }
+				</TableItem>
+				<TableItem className="orders__table-status" isHeader>
+					{ translate( 'Status' ) }
+				</TableItem>
+				<TableItem className="orders__table-total" isHeader>
+					{ translate( 'Total' ) }
+				</TableItem>
 			</TableRow>
 		);
 
@@ -169,7 +189,9 @@ class Orders extends Component {
 			<div className="orders__container">
 				<SectionNav>
 					<NavTabs label={ translate( 'Status' ) } selectedText={ translate( 'All orders' ) }>
-						<NavItem path="/orders" selected={ true }>{ translate( 'All orders' ) }</NavItem>
+						<NavItem path="/orders" selected={ true }>
+							{ translate( 'All orders' ) }
+						</NavItem>
 					</NavTabs>
 				</SectionNav>
 
@@ -202,5 +224,5 @@ export default connect(
 			totalPages,
 		};
 	},
-	dispatch => bindActionCreators( { fetchOrders, setCurrentPage }, dispatch )
+	dispatch => bindActionCreators( { fetchOrders, setCurrentPage }, dispatch ),
 )( localize( Orders ) );

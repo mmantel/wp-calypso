@@ -16,10 +16,7 @@ import WritingForm from 'my-sites/site-settings/form-writing';
 import Placeholder from 'my-sites/site-settings/placeholder';
 import { getSelectedSite } from 'state/ui/selectors';
 
-const SiteSettingsWriting = ( {
-	site,
-	translate,
-} ) => {
+const SiteSettingsWriting = ( { site, translate } ) => {
 	if ( ! site ) {
 		return <Placeholder />;
 	}
@@ -34,8 +31,6 @@ const SiteSettingsWriting = ( {
 	);
 };
 
-export default connect(
-	( state ) => ( {
-		site: getSelectedSite( state ),
-	} )
-)( localize( SiteSettingsWriting ) );
+export default connect( state => ( {
+	site: getSelectedSite( state ),
+} ) )( localize( SiteSettingsWriting ) );

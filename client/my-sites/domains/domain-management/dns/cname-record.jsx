@@ -17,15 +17,15 @@ const CnameRecord = React.createClass( {
 	statics: {
 		initialFields: {
 			name: '',
-			data: ''
-		}
+			data: '',
+		},
 	},
 
 	propTypes: {
 		fieldValues: React.PropTypes.object.isRequired,
 		onChange: React.PropTypes.func.isRequired,
 		selectedDomainName: React.PropTypes.string.isRequired,
-		show: React.PropTypes.bool.isRequired
+		show: React.PropTypes.bool.isRequired,
 	},
 
 	render() {
@@ -37,30 +37,48 @@ const CnameRecord = React.createClass( {
 		return (
 			<div className={ classes }>
 				<FormFieldset>
-					<FormLabel>{ this.translate( 'Name', { context: 'Dns Record' } ) }</FormLabel>
+					<FormLabel>
+						{ this.translate( 'Name', { context: 'Dns Record' } ) }
+					</FormLabel>
 					<FormTextInputWithAffixes
 						name="name"
-						placeholder={ this.translate( 'Enter subdomain (required)', { context: 'Placeholder shown when entering the required subdomain part of a new DNS record' } ) }
+						placeholder={ this.translate( 'Enter subdomain (required)', {
+							context:
+								'Placeholder shown when entering the required subdomain part of a new DNS record',
+						} ) }
 						isError={ ! isNameValid }
 						onChange={ this.props.onChange }
 						value={ this.props.fieldValues.name }
-						suffix={ '.' + this.props.selectedDomainName } />
-					{ ! isNameValid ? <FormInputValidation text={ this.translate( 'Invalid Name' ) } isError={ true } /> : null }
+						suffix={ '.' + this.props.selectedDomainName }
+					/>
+					{ ! isNameValid
+						? <FormInputValidation text={ this.translate( 'Invalid Name' ) } isError={ true } />
+						: null }
 				</FormFieldset>
 
 				<FormFieldset>
-					<FormLabel>{ this.translate( 'Alias Of' ) }</FormLabel>
+					<FormLabel>
+						{ this.translate( 'Alias Of' ) }
+					</FormLabel>
 					<FormTextInput
 						name="data"
 						isError={ ! isDataValid }
 						onChange={ this.props.onChange }
 						value={ this.props.fieldValues.data }
-						placeholder={ this.translate( 'e.g. %(example)s', { args: { example: 'example.com' } } ) } />
-					{ ! isDataValid ? <FormInputValidation text={ this.translate( 'Invalid Target Host' ) } isError={ true } /> : null }
+						placeholder={ this.translate( 'e.g. %(example)s', {
+							args: { example: 'example.com' },
+						} ) }
+					/>
+					{ ! isDataValid
+						? <FormInputValidation
+								text={ this.translate( 'Invalid Target Host' ) }
+								isError={ true }
+							/>
+						: null }
 				</FormFieldset>
 			</div>
 		);
-	}
+	},
 } );
 
 export default CnameRecord;

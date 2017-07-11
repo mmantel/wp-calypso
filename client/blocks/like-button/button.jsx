@@ -97,8 +97,13 @@ class LikeButton extends PureComponent {
 
 		const labelElement = (
 			<span className="like-button__label">
-				<span className="like-button__label-count">{ showLikeCount ? likeCount : '' }</span>
-				{ this.props.showLabel && <span className="like-button__label-status">{ likeLabel }</span> }
+				<span className="like-button__label-count">
+					{ showLikeCount ? likeCount : '' }
+				</span>
+				{ this.props.showLabel &&
+					<span className="like-button__label-status">
+						{ likeLabel }
+					</span> }
 			</span>
 		);
 
@@ -110,10 +115,10 @@ class LikeButton extends PureComponent {
 					className: classNames( containerClasses ),
 					onClick: ! isLink && this.toggleLiked,
 				},
-				isNull
+				isNull,
 			),
 			<LikeIcons size={ this.props.iconSize } />,
-			labelElement
+			labelElement,
 		);
 	}
 }

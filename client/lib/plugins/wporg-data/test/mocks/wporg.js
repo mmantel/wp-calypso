@@ -13,7 +13,7 @@ module.exports = {
 	getActivity: function() {
 		return {
 			fetchPluginsList: fetchPluginsListCalls,
-			lastRequestParams: lastRequestParams
+			lastRequestParams: lastRequestParams,
 		};
 	},
 	fetchPluginsList: function( options, callback ) {
@@ -22,8 +22,8 @@ module.exports = {
 		if ( ! this.deactivatedCallbacks ) {
 			callback( null, {
 				plugins: [],
-				info: { pages: this.mockedNumberOfReturnedPages }
+				info: { pages: this.mockedNumberOfReturnedPages },
 			} );
 		}
-	}
+	},
 };

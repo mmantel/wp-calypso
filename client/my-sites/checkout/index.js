@@ -16,43 +16,35 @@ module.exports = function() {
 	page(
 		'/checkout/thank-you/no-site/:receiptId?',
 		controller.noSite,
-		checkoutController.checkoutThankYou
+		checkoutController.checkoutThankYou,
 	);
 
 	page(
 		'/checkout/thank-you/:site/:receiptId?',
 		controller.siteSelection,
-		checkoutController.checkoutThankYou
+		checkoutController.checkoutThankYou,
 	);
 
 	page(
 		'/checkout/features/:feature/:domain/:plan_name?',
 		controller.siteSelection,
-		checkoutController.checkout
+		checkoutController.checkout,
 	);
 
 	page(
 		'/checkout/thank-you/features/:feature/:site/:receiptId?',
 		controller.siteSelection,
-		checkoutController.checkoutThankYou
+		checkoutController.checkoutThankYou,
 	);
 
-	page(
-		'/checkout/no-site',
-		controller.noSite,
-		checkoutController.sitelessCheckout
-	);
+	page( '/checkout/no-site', controller.noSite, checkoutController.sitelessCheckout );
 
-	page(
-		'/checkout/:domain/:product?',
-		controller.siteSelection,
-		checkoutController.checkout
-	);
+	page( '/checkout/:domain/:product?', controller.siteSelection, checkoutController.checkout );
 
 	page(
 		'/checkout/:product/renew/:purchaseId/:domain',
 		controller.siteSelection,
-		checkoutController.checkout
+		checkoutController.checkout,
 	);
 
 	// Visting /checkout without a plan or product should be redirected to /plans

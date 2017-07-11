@@ -20,7 +20,7 @@ import { markSeen as markPostSeen } from 'lib/feed-post-store/actions';
 
 import { recordGaEvent, recordAction, recordTrackForPost } from 'reader/stats';
 import { getDailyPostType } from './helper';
-import { getPrimarySiteId } from 'state/selectors';
+import { getPrimarySiteId } from 'state/selectors';
 import { getSiteSlug } from 'state/sites/selectors';
 import { getCurrentUser } from 'state/current-user/selectors';
 
@@ -60,7 +60,7 @@ export class DailyPostButton extends React.Component {
 		tagName: React.PropTypes.string,
 		canParticipate: React.PropTypes.bool.isRequired,
 		primarySiteSlug: React.PropTypes.string,
-		onlyOneSite: React.PropTypes.bool.isRequired
+		onlyOneSite: React.PropTypes.bool.isRequired,
 	};
 
 	static defaultProps = {
@@ -130,7 +130,12 @@ export class DailyPostButton extends React.Component {
 		return (
 			<SitesPopover
 				key="menu"
-				header={ <div> { translate( 'Post on' ) } </div> }
+				header={
+					<div>
+						{' '}
+						{ translate( 'Post on' ) }{' '}
+					</div>
+				}
 				context={ this.refs && this.refs.dailyPostButton }
 				visible={ this.state.showingMenu }
 				groups={ true }
@@ -165,22 +170,23 @@ export class DailyPostButton extends React.Component {
 			[
 				<Button ref="dailyPostButton" key="button" compact primary className={ buttonClasses }>
 					<Gridicon icon="create" />
-					<span>{ translate( 'Post about %(title)s', { args: { title } } ) } </span>
+					<span>
+						{ translate( 'Post about %(title)s', { args: { title } } ) }{' '}
+					</span>
 				</Button>,
 				this.state.showingMenu ? this.renderSitesPopover() : null,
-			]
+			],
 		);
 	}
 }
 
-export default connect(
-	state => {
-		const primarySiteId = getPrimarySiteId( state );
-		const user = getCurrentUser( state );
-		const visibleSiteCount = get( user, 'visible_site_count', 0 );
-		return {
-			canParticipate: !! primarySiteId,
-			primarySiteSlug: getSiteSlug( state, primarySiteId ),
-			onlyOneSite: visibleSiteCount === 1
-		};
-	} )( DailyPostButton );
+export default connect( state => {
+	const primarySiteId = getPrimarySiteId( state );
+	const user = getCurrentUser( state );
+	const visibleSiteCount = get( user, 'visible_site_count', 0 );
+	return {
+		canParticipate: !! primarySiteId,
+		primarySiteSlug: getSiteSlug( state, primarySiteId ),
+		onlyOneSite: visibleSiteCount === 1,
+	};
+} )( DailyPostButton );

@@ -8,13 +8,12 @@ import React from 'react';
  */
 import CartItemLoadingPlaceholder from 'my-sites/checkout/cart/cart-item/loading-placeholder';
 
-const CartBodyLoadingPlaceholder = () => (
+const CartBodyLoadingPlaceholder = () =>
 	<div className="cart-body__loading-placeholder cart-body">
 		<ul className="cart-items">
 			<CartItemLoadingPlaceholder />
 			<CartItemLoadingPlaceholder />
 		</ul>
-	</div>
-);
+	</div>;
 
 export default CartBodyLoadingPlaceholder;

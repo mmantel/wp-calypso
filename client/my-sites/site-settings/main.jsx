@@ -20,11 +20,7 @@ import SidebarNavigation from 'my-sites/sidebar-navigation';
 import JetpackDevModeNotice from './jetpack-dev-mode-notice';
 import Placeholder from 'my-sites/site-settings/placeholder';
 
-const SiteSettingsComponent = ( {
-	jetpackSettingsUiSupported,
-	siteId,
-	translate
-} ) => {
+const SiteSettingsComponent = ( { jetpackSettingsUiSupported, siteId, translate } ) => {
 	if ( ! siteId ) {
 		return <Placeholder />;
 	}
@@ -45,18 +41,16 @@ const SiteSettingsComponent = ( {
 SiteSettingsComponent.propTypes = {
 	// Connected props
 	siteId: PropTypes.number,
-	jetpackSettingsUiSupported: PropTypes.bool
+	jetpackSettingsUiSupported: PropTypes.bool,
 };
 
-export default connect(
-	( state ) => {
-		const siteId = getSelectedSiteId( state );
-		const jetpackSite = isJetpackSite( state, siteId );
-		const jetpackUiSupported = siteSupportsJetpackSettingsUi( state, siteId );
+export default connect( state => {
+	const siteId = getSelectedSiteId( state );
+	const jetpackSite = isJetpackSite( state, siteId );
+	const jetpackUiSupported = siteSupportsJetpackSettingsUi( state, siteId );
 
-		return {
-			siteId,
-			jetpackSettingsUiSupported: jetpackSite && jetpackUiSupported,
-		};
-	}
-)( localize( SiteSettingsComponent ) );
+	return {
+		siteId,
+		jetpackSettingsUiSupported: jetpackSite && jetpackUiSupported,
+	};
+} )( localize( SiteSettingsComponent ) );

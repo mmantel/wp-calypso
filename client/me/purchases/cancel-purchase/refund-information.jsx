@@ -25,7 +25,7 @@ const CancelPurchaseRefundInformation = ( { purchase, includedDomainPurchase } )
 					"you'll receive a refund and it will be removed from your site immediately.",
 				{
 					args: { refundPeriodInDays },
-				}
+				},
 			);
 		}
 
@@ -34,12 +34,12 @@ const CancelPurchaseRefundInformation = ( { purchase, includedDomainPurchase } )
 				text = [
 					i18n.translate(
 						'This plan includes mapping for the domain %(mappedDomain)s. ' +
-						"Cancelling will remove all the plan's features from your site, including the domain.",
+							"Cancelling will remove all the plan's features from your site, including the domain.",
 						{
 							args: {
 								mappedDomain: includedDomainPurchase.meta,
 							},
-						}
+						},
 					),
 					i18n.translate(
 						'Your site will no longer be available at %(mappedDomain)s. Instead, it will be at %(wordpressSiteUrl)s',
@@ -48,17 +48,17 @@ const CancelPurchaseRefundInformation = ( { purchase, includedDomainPurchase } )
 								mappedDomain: includedDomainPurchase.meta,
 								wordpressSiteUrl: purchase.domain,
 							},
-						}
+						},
 					),
 					i18n.translate(
 						'The domain %(mappedDomain)s itself is not canceled. Only the connection between WordPress.com and ' +
-						'your domain is removed. %(mappedDomain)s is registered elsewhere and you can still use it with other sites.',
+							'your domain is removed. %(mappedDomain)s is registered elsewhere and you can still use it with other sites.',
 						{
 							args: {
 								mappedDomain: includedDomainPurchase.meta,
-							}
-						}
-					)
+							},
+						},
+					),
 				];
 
 				showSupportLink = false;
@@ -72,7 +72,7 @@ const CancelPurchaseRefundInformation = ( { purchase, includedDomainPurchase } )
 								domain: includedDomainPurchase.meta,
 								domainCost: includedDomainPurchase.priceText,
 							},
-						}
+						},
 					),
 					i18n.translate(
 						'You will receive a partial refund of %(refundAmount)s which is %(planCost)s for the plan ' +
@@ -83,7 +83,7 @@ const CancelPurchaseRefundInformation = ( { purchase, includedDomainPurchase } )
 								planCost: purchase.priceText,
 								refundAmount: purchase.refundText,
 							},
-						}
+						},
 					),
 				];
 
@@ -96,8 +96,8 @@ const CancelPurchaseRefundInformation = ( { purchase, includedDomainPurchase } )
 								components: {
 									contactLink: <a href={ support.CALYPSO_CONTACT } />,
 								},
-							}
-						)
+							},
+						),
 					);
 				}
 
@@ -108,7 +108,7 @@ const CancelPurchaseRefundInformation = ( { purchase, includedDomainPurchase } )
 						"you'll receive a refund and it will be removed from your site immediately.",
 					{
 						args: { refundPeriodInDays },
-					}
+					},
 				);
 			}
 		}
@@ -119,13 +119,13 @@ const CancelPurchaseRefundInformation = ( { purchase, includedDomainPurchase } )
 					"you'll receive a refund and it will be removed from your site immediately.",
 				{
 					args: { refundPeriodInDays },
-				}
+				},
 			);
 		}
 	} else if ( isDomainRegistration( purchase ) ) {
 		text = i18n.translate(
 			'When you cancel your domain, it will remain registered and active until the registration expires, ' +
-				'at which point it will be automatically removed from your site.'
+				'at which point it will be automatically removed from your site.',
 		);
 	} else if (
 		isSubscription( purchase ) &&
@@ -140,7 +140,7 @@ const CancelPurchaseRefundInformation = ( { purchase, includedDomainPurchase } )
 					mappedDomain: includedDomainPurchase.meta,
 					mappingCost: includedDomainPurchase.priceText,
 				},
-			}
+			},
 		);
 	} else if (
 		isSubscription( purchase ) &&
@@ -155,7 +155,7 @@ const CancelPurchaseRefundInformation = ( { purchase, includedDomainPurchase } )
 					domain: includedDomainPurchase.meta,
 					domainCost: includedDomainPurchase.priceText,
 				},
-			}
+			},
 		);
 	} else {
 		text = i18n.translate(
@@ -165,22 +165,24 @@ const CancelPurchaseRefundInformation = ( { purchase, includedDomainPurchase } )
 				args: {
 					productName: getName( purchase ),
 				},
-			}
+			},
 		);
 	}
 
 	return (
 		<div className="cancel-purchase__info">
 			{ Array.isArray( text )
-				? text.map( ( paragraph, index ) => (
+				? text.map( ( paragraph, index ) =>
 						<p
 							key={ purchase.id + '_refund_p_' + index }
 							className="cancel-purchase__refund-information"
 						>
 							{ paragraph }
-						</p>
-					) )
-				: <p className="cancel-purchase__refund-information">{ text }</p> }
+						</p>,
+					)
+				: <p className="cancel-purchase__refund-information">
+						{ text }
+					</p> }
 
 			{ showSupportLink &&
 				<strong className="cancel-purchase__support-information">
@@ -190,7 +192,7 @@ const CancelPurchaseRefundInformation = ( { purchase, includedDomainPurchase } )
 							components: {
 								contactLink: <a href={ support.CALYPSO_CONTACT } />,
 							},
-						}
+						},
 					) }
 				</strong> }
 		</div>

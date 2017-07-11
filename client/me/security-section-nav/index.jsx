@@ -14,7 +14,7 @@ var SectionNav = require( 'components/section-nav' ),
 
 module.exports = React.createClass( {
 	propTypes: {
-		path: React.PropTypes.string.isRequired
+		path: React.PropTypes.string.isRequired,
 	},
 
 	getNavtabs: function() {
@@ -42,7 +42,7 @@ module.exports = React.createClass( {
 
 	getFilteredPath: function() {
 		var paramIndex = this.props.path.indexOf( '?' );
-		return ( paramIndex < 0 ) ? this.props.path : this.props.path.substring( 0, paramIndex );
+		return paramIndex < 0 ? this.props.path : this.props.path.substring( 0, paramIndex );
 	},
 
 	getSelectedText: function() {
@@ -80,5 +80,5 @@ module.exports = React.createClass( {
 				</NavTabs>
 			</SectionNav>
 		);
-	}
+	},
 } );

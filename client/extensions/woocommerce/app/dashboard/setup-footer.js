@@ -11,7 +11,9 @@ import Button from 'components/button';
 const SetupFooter = ( { disabled, label, onClick, primary } ) => {
 	return (
 		<div className="dashboard__setup-footer">
-			<Button disabled={ disabled } onClick={ onClick } primary={ primary }>{ label }</Button>
+			<Button disabled={ disabled } onClick={ onClick } primary={ primary }>
+				{ label }
+			</Button>
 		</div>
 	);
 };

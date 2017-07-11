@@ -14,9 +14,9 @@ describe( 'isDeactivatingJetpackModule()', () => {
 		const stateIn = {
 				jetpack: {
 					modules: {
-						requests: REQUESTS_FIXTURE
-					}
-				}
+						requests: REQUESTS_FIXTURE,
+					},
+				},
 			},
 			siteId = 123456;
 		const output = isDeactivatingJetpackModule( stateIn, siteId, 'module-a' );
@@ -27,9 +27,9 @@ describe( 'isDeactivatingJetpackModule()', () => {
 		const stateIn = {
 				jetpack: {
 					modules: {
-						requests: REQUESTS_FIXTURE
-					}
-				}
+						requests: REQUESTS_FIXTURE,
+					},
+				},
 			},
 			siteId = 123456;
 		const output = isDeactivatingJetpackModule( stateIn, siteId, 'module-b' );
@@ -40,9 +40,9 @@ describe( 'isDeactivatingJetpackModule()', () => {
 		const stateIn = {
 				jetpack: {
 					modules: {
-						requests: REQUESTS_FIXTURE
-					}
-				}
+						requests: REQUESTS_FIXTURE,
+					},
+				},
 			},
 			siteId = 123456;
 		const output = isDeactivatingJetpackModule( stateIn, siteId, 'module-z' );

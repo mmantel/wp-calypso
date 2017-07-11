@@ -33,5 +33,5 @@ module.exports = {
 		}
 
 		return baseUrl + '?' + qs.stringify( query );
-	}
+	},
 };

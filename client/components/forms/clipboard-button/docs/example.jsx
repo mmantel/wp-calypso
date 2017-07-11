@@ -16,13 +16,13 @@ module.exports = React.createClass( {
 
 	getInitialState: function() {
 		return {
-			isCopied: false
+			isCopied: false,
 		};
 	},
 
 	onCopy: function() {
 		this.setState( {
-			isCopied: true
+			isCopied: true,
 		} );
 	},
 
@@ -32,10 +32,11 @@ module.exports = React.createClass( {
 				<ClipboardButton
 					onCopy={ this.onCopy }
 					text="This text was copied via ClipboardButton"
-					style={ { float: 'none' } }>
+					style={ { float: 'none' } }
+				>
 					{ this.state.isCopied ? 'Copied!' : 'Copy to clipboard' }
 				</ClipboardButton>
 			</div>
 		);
-	}
+	},
 } );

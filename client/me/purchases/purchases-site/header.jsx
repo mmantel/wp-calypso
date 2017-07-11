@@ -35,8 +35,12 @@ class PurchaseSiteHeader extends Component {
 						<Gridicon icon="notice" />
 					</div>
 					<div className="site__info">
-						<div className="site__title">{ name }</div>
-						<div className="site__domain">{ domain }</div>
+						<div className="site__title">
+							{ name }
+						</div>
+						<div className="site__domain">
+							{ domain }
+						</div>
 					</div>
 				</div>
 			</div>

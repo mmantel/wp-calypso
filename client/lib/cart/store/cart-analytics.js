@@ -33,5 +33,5 @@ function recordRemoveEvent( cartItem ) {
 
 export default {
 	recordEvents,
-	removeNestedProperties
+	removeNestedProperties,
 };

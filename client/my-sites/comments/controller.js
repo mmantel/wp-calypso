@@ -23,7 +23,7 @@ export const comments = function( context ) {
 			status={ status }
 		/>,
 		'primary',
-		context.store
+		context.store,
 	);
 };
 

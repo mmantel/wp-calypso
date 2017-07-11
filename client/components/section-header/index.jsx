@@ -14,29 +14,25 @@ export default React.createClass( {
 	getDefaultProps() {
 		return {
 			label: '',
-			href: null
+			href: null,
 		};
 	},
 
 	render() {
-		const classes = classNames(
-			this.props.className,
-			'section-header'
-		);
+		const classes = classNames( this.props.className, 'section-header' );
 
 		return (
 			<CompactCard className={ classes } href={ this.props.href }>
 				<div className="section-header__label">
-					<span className="section-header__label-text">{ this.props.label }</span>
-					{
-						'number' === typeof this.props.count &&
-							<Count count={ this.props.count } />
-					}
+					<span className="section-header__label-text">
+						{ this.props.label }
+					</span>
+					{ 'number' === typeof this.props.count && <Count count={ this.props.count } /> }
 				</div>
 				<div className="section-header__actions">
 					{ this.props.children }
 				</div>
 			</CompactCard>
 		);
-	}
+	},
 } );

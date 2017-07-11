@@ -16,22 +16,22 @@ import PriceInput from 'woocommerce/components/price-input';
 import { bindActionCreatorsWithSiteId } from 'woocommerce/lib/redux-utils';
 import {
 	setFreeShippingCondition,
-	setFreeShippingMinCost
+	setFreeShippingMinCost,
 } from 'woocommerce/state/ui/shipping/zones/methods/free-shipping/actions';
 
 const FreeShippingMethod = ( { id, requires, min_amount, currency, translate, actions } ) => {
-	const onConditionChange = ( event ) => ( actions.setFreeShippingCondition( id, event.target.value ) );
-	const onMinAmountChange = ( event ) => ( actions.setFreeShippingMinCost( id, event.target.value ) );
+	const onConditionChange = event => actions.setFreeShippingCondition( id, event.target.value );
+	const onMinAmountChange = event => actions.setFreeShippingMinCost( id, event.target.value );
 
 	const isAdvancedSettings = 'coupon' === requires || 'either' === requires || 'both' === requires;
 
-	const renderMinSpendInput = () => (
+	const renderMinSpendInput = () =>
 		<PriceInput
 			value={ min_amount }
 			currency={ currency }
 			disabled={ ! requires }
-			onChange={ onMinAmountChange } />
-	);
+			onChange={ onMinAmountChange }
+		/>;
 
 	if ( isAdvancedSettings ) {
 		const renderMinSpendControls = () => {
@@ -41,7 +41,9 @@ const FreeShippingMethod = ( { id, requires, min_amount, currency, translate, ac
 
 			return (
 				<FormFieldSet>
-					<FormLabel>{ translate( 'Minimum order amount:' ) }</FormLabel>
+					<FormLabel>
+						{ translate( 'Minimum order amount:' ) }
+					</FormLabel>
 					{ renderMinSpendInput() }
 				</FormFieldSet>
 			);
@@ -50,13 +52,25 @@ const FreeShippingMethod = ( { id, requires, min_amount, currency, translate, ac
 		return (
 			<div>
 				<FormFieldSet>
-					<FormLabel>{ translate( 'Free shipping requires:' ) }</FormLabel>
+					<FormLabel>
+						{ translate( 'Free shipping requires:' ) }
+					</FormLabel>
 					<FormSelect value={ requires } onChange={ onConditionChange }>
-						<option value="">{ translate( 'N/A' ) }</option>
-						<option value="coupon">{ translate( 'A valid free shipping coupon' ) }</option>
-						<option value="min_amount">{ translate( 'A minimum order amount' ) }</option>
-						<option value="either">{ translate( 'A minimum order amount OR a coupon' ) }</option>
-						<option value="both">{ translate( 'A minimum order amount AND a coupon' ) }</option>
+						<option value="">
+							{ translate( 'N/A' ) }
+						</option>
+						<option value="coupon">
+							{ translate( 'A valid free shipping coupon' ) }
+						</option>
+						<option value="min_amount">
+							{ translate( 'A minimum order amount' ) }
+						</option>
+						<option value="either">
+							{ translate( 'A minimum order amount OR a coupon' ) }
+						</option>
+						<option value="both">
+							{ translate( 'A minimum order amount AND a coupon' ) }
+						</option>
 					</FormSelect>
 				</FormFieldSet>
 				{ renderMinSpendControls() }
@@ -66,23 +80,19 @@ const FreeShippingMethod = ( { id, requires, min_amount, currency, translate, ac
 
 	return (
 		<FormFieldSet>
-			<FormLabel>{ translate( 'Who gets free shipping?' ) }</FormLabel>
+			<FormLabel>
+				{ translate( 'Who gets free shipping?' ) }
+			</FormLabel>
 			<div className="shipping-methods__free-shipping-option">
-				<FormRadio
-					value=""
-					checked={ ! requires }
-					onChange={ onConditionChange } />
+				<FormRadio value="" checked={ ! requires } onChange={ onConditionChange } />
 				{ translate( 'Everyone!' ) }
 			</div>
 			<div className="shipping-methods__free-shipping-option">
-				<FormRadio
-					value="min_amount"
-					checked={ requires }
-					onChange={ onConditionChange } />
+				<FormRadio value="min_amount" checked={ requires } onChange={ onConditionChange } />
 				{ translate( 'Customers that spend {{priceInput/}} or more per order', {
 					components: {
-						priceInput: renderMinSpendInput()
-					}
+						priceInput: renderMinSpendInput(),
+					},
 				} ) }
 			</div>
 		</FormFieldSet>
@@ -97,12 +107,13 @@ FreeShippingMethod.propTypes = {
 	currency: PropTypes.string,
 };
 
-export default connect(
-	null,
-	( dispatch, ownProps ) => ( {
-		actions: bindActionCreatorsWithSiteId( {
+export default connect( null, ( dispatch, ownProps ) => ( {
+	actions: bindActionCreatorsWithSiteId(
+		{
 			setFreeShippingCondition,
-			setFreeShippingMinCost
-		}, dispatch, ownProps.siteId )
-	} )
-)( localize( FreeShippingMethod ) );
+			setFreeShippingMinCost,
+		},
+		dispatch,
+		ownProps.siteId,
+	),
+} ) )( localize( FreeShippingMethod ) );

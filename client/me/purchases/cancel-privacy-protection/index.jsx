@@ -72,7 +72,8 @@ const CancelPrivacyProtection = React.createClass( {
 			return true;
 		}
 
-		const { selectedSite } = props, purchase = getPurchase( props );
+		const { selectedSite } = props,
+			purchase = getPurchase( props );
 
 		return selectedSite && purchase && hasPrivacyProtection( purchase );
 	},
@@ -98,9 +99,9 @@ const CancelPrivacyProtection = React.createClass( {
 						'You have successfully canceled privacy protection for %(domain)s.',
 						{
 							args: { domain },
-						}
+						},
 					),
-					{ persistent: true }
+					{ persistent: true },
 				);
 
 				page( paths.managePurchase( this.props.selectedSite.slug, id ) );
@@ -126,7 +127,7 @@ const CancelPrivacyProtection = React.createClass( {
 					{
 						components: { strong: <strong />, br: <br /> },
 						args: { domain: purchase.meta },
-					}
+					},
 				) }
 			</p>
 		);
@@ -164,8 +165,7 @@ const CancelPrivacyProtection = React.createClass( {
 		if ( error ) {
 			return (
 				<Notice status="is-error" showDismiss={ false }>
-					{ error }
-					{ ' ' }
+					{ error }{' '}
 					{ translate( 'Please try again later or {{a}}contact support.{{/a}}', {
 						components: { a: <a href={ CALYPSO_CONTACT } /> },
 					} ) }
@@ -211,10 +211,14 @@ const CancelPrivacyProtection = React.createClass( {
 				{ notice }
 				<Card className={ classes }>
 					<div className="cancel-privacy-protection__text">
-						<span>{ descriptionText }</span>
+						<span>
+							{ descriptionText }
+						</span>
 					</div>
 					<div className="cancel-privacy-protection__text">
-						<span>{ warningText }</span>
+						<span>
+							{ warningText }
+						</span>
 					</div>
 
 					{ button }
@@ -232,5 +236,5 @@ export default connect(
 		selectedPurchase: getByPurchaseId( state, props.purchaseId ),
 		selectedSite: getSelectedSiteSelector( state ),
 	} ),
-	{ cancelPrivacyProtection }
+	{ cancelPrivacyProtection },
 )( localize( CancelPrivacyProtection ) );

@@ -18,7 +18,9 @@ class DomainPrimaryFlag extends Component {
 
 		if ( domain.isPrimary && ! isDomainOnly ) {
 			return (
-				<Notice isCompact status="is-success">{ translate( 'Primary Domain' ) }</Notice>
+				<Notice isCompact status="is-success">
+					{ translate( 'Primary Domain' ) }
+				</Notice>
 			);
 		}
 
@@ -32,8 +34,8 @@ DomainPrimaryFlag.propTypes = {
 	translate: React.PropTypes.func.isRequired,
 };
 
-export default connect( ( state ) => {
+export default connect( state => {
 	return {
-		isDomainOnly: isDomainOnlySite( state, getSelectedSiteId( state ) )
+		isDomainOnly: isDomainOnlySite( state, getSelectedSiteId( state ) ),
 	};
 } )( localize( DomainPrimaryFlag ) );

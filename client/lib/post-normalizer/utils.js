@@ -9,11 +9,8 @@ import url from 'url';
  */
 import safeImageURL from 'lib/safe-image-url';
 
-const IMAGE_SCALE_FACTOR = typeof window !== 'undefined' &&
-	window.devicePixelRatio &&
-	window.devicePixelRatio > 1
-	? 2
-	: 1;
+const IMAGE_SCALE_FACTOR =
+	typeof window !== 'undefined' && window.devicePixelRatio && window.devicePixelRatio > 1 ? 2 : 1;
 
 const DEFAULT_PHOTON_QUALITY = 80; // 80 was chosen after some heuristic testing as the best blend of size and quality
 

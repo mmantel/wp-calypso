@@ -14,9 +14,9 @@ describe( 'isRequestingJetpackUserConnection()', () => {
 		const stateIn = {
 				jetpack: {
 					connection: {
-						dataRequests: REQUESTS_FIXTURE
-					}
-				}
+						dataRequests: REQUESTS_FIXTURE,
+					},
+				},
 			},
 			siteId = 87654321;
 		const output = isRequestingJetpackUserConnection( stateIn, siteId );
@@ -27,9 +27,9 @@ describe( 'isRequestingJetpackUserConnection()', () => {
 		const stateIn = {
 				jetpack: {
 					connection: {
-						dataRequests: REQUESTS_FIXTURE
-					}
-				}
+						dataRequests: REQUESTS_FIXTURE,
+					},
+				},
 			},
 			siteId = 12345678;
 		const output = isRequestingJetpackUserConnection( stateIn, siteId );
@@ -40,9 +40,9 @@ describe( 'isRequestingJetpackUserConnection()', () => {
 		const stateIn = {
 				jetpack: {
 					connection: {
-						dataRequests: REQUESTS_FIXTURE
-					}
-				}
+						dataRequests: REQUESTS_FIXTURE,
+					},
+				},
 			},
 			siteId = 88888888;
 		const output = isRequestingJetpackUserConnection( stateIn, siteId );

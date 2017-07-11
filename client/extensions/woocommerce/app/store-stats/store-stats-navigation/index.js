@@ -25,15 +25,15 @@ const StoreStatsNavigation = props => {
 		<div className="store-stats-navigation">
 			<SectionNav selectedText={ units[ unit ] }>
 				<NavTabs label={ translate( 'Stats' ) }>
-					{ Object.keys( units ).map( key => (
+					{ Object.keys( units ).map( key =>
 						<NavItem
 							key={ key }
 							path={ `/store/stats/${ type }/${ key }/${ slug }` }
 							selected={ unit === key }
 						>
 							{ units[ key ] }
-						</NavItem>
-					) ) }
+						</NavItem>,
+					) }
 				</NavTabs>
 				<SegmentedControl
 					initialSelected="store"
@@ -49,7 +49,7 @@ const StoreStatsNavigation = props => {
 };
 
 StoreStatsNavigation.propTypes = {
-	slug: PropTypes.string
+	slug: PropTypes.string,
 };
 
 export default localize( StoreStatsNavigation );

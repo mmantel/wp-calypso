@@ -49,7 +49,7 @@ const userUtils = {
 		const logoutUrl = userUtils.getLogoutUrl( redirect );
 
 		// Clear any data stored locally within the user data module or localStorage
-		user.clear( () => location.href = logoutUrl );
+		user.clear( () => ( location.href = logoutUrl ) );
 	},
 
 	getLocaleSlug() {

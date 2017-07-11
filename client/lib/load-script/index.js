@@ -90,5 +90,5 @@ module.exports = {
 	loadScript: loadScript,
 	loadjQueryDependentScript: loadjQueryDependentScript,
 	removeScriptCallback: removeScriptCallback,
-	JQUERY_URL: JQUERY_URL
+	JQUERY_URL: JQUERY_URL,
 };

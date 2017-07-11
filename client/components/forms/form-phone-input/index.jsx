@@ -26,7 +26,7 @@ module.exports = React.createClass( {
 		isDisabled: React.PropTypes.bool,
 		countrySelectProps: React.PropTypes.object,
 		phoneInputProps: React.PropTypes.object,
-		onChange: React.PropTypes.func
+		onChange: React.PropTypes.func,
 	},
 
 	getDefaultProps: function() {
@@ -34,14 +34,14 @@ module.exports = React.createClass( {
 			isDisabled: false,
 			countrySelectProps: {},
 			phoneInputProps: {},
-			onChange: noop
+			onChange: noop,
 		};
 	},
 
 	getInitialState: function() {
 		return {
 			countryCode: this.props.initialCountryCode || '',
-			phoneNumber: this.props.initialPhoneNumber || ''
+			phoneNumber: this.props.initialPhoneNumber || '',
 		};
 	},
 
@@ -56,17 +56,21 @@ module.exports = React.createClass( {
 	render: function() {
 		var countryValueLink = {
 				value: this.state.countryCode,
-				requestChange: this._handleCountryChange
+				requestChange: this._handleCountryChange,
 			},
 			phoneValueLink = {
 				value: this.state.phoneNumber,
-				requestChange: this._handlePhoneChange
+				requestChange: this._handlePhoneChange,
 			};
 
 		return (
 			<div className={ classnames( this.props.className, 'form-phone-input' ) }>
 				<FormFieldset className="form-fieldset__country">
-					<FormLabel htmlFor="country_code">{ this.translate( 'Country Code', { context: 'The country code for the phone for the user.' } ) }</FormLabel>
+					<FormLabel htmlFor="country_code">
+						{ this.translate( 'Country Code', {
+							context: 'The country code for the phone for the user.',
+						} ) }
+					</FormLabel>
 					<CountrySelect
 						{ ...this.props.countrySelectProps }
 						countriesList={ this.props.countriesList }
@@ -78,7 +82,9 @@ module.exports = React.createClass( {
 				</FormFieldset>
 
 				<FormFieldset className="form-fieldset__phone-number">
-					<FormLabel htmlFor="phone_number">{ this.translate( 'Phone Number' ) }</FormLabel>
+					<FormLabel htmlFor="phone_number">
+						{ this.translate( 'Phone Number' ) }
+					</FormLabel>
 					<FormTelInput
 						{ ...this.props.phoneInputProps }
 						disabled={ this.props.isDisabled }
@@ -93,7 +99,7 @@ module.exports = React.createClass( {
 	_getCountryData: function() {
 		// TODO: move this to country-list or CountrySelect
 		return find( this.props.countriesList.get(), {
-			code: this.state.countryCode
+			code: this.state.countryCode,
 		} );
 	},
 
@@ -127,7 +133,7 @@ module.exports = React.createClass( {
 		}
 
 		this.setState( {
-			countryCode: countries[ 0 ].code
+			countryCode: countries[ 0 ].code,
 		} );
 	},
 
@@ -147,7 +153,7 @@ module.exports = React.createClass( {
 			validation: isValid,
 			countryData: countryData,
 			phoneNumber: numberClean,
-			phoneNumberFull: numberFull
+			phoneNumberFull: numberFull,
 		};
-	}
+	},
 } );

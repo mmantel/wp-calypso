@@ -16,13 +16,10 @@ import config from 'config';
 import CompactCard from 'components/card/compact';
 import Dialog from 'components/dialog';
 import CancelPurchaseForm from 'components/marketing-survey/cancel-purchase-form';
-import enrichedSurveyData
-	from 'components/marketing-survey/cancel-purchase-form/enrichedSurveyData';
-import initialSurveyState
-	from 'components/marketing-survey/cancel-purchase-form/initialSurveyState';
+import enrichedSurveyData from 'components/marketing-survey/cancel-purchase-form/enrichedSurveyData';
+import initialSurveyState from 'components/marketing-survey/cancel-purchase-form/initialSurveyState';
 import isSurveyFilledIn from 'components/marketing-survey/cancel-purchase-form/isSurveyFilledIn';
-import stepsForProductAndSurvey
-	from 'components/marketing-survey/cancel-purchase-form/stepsForProductAndSurvey';
+import stepsForProductAndSurvey from 'components/marketing-survey/cancel-purchase-form/stepsForProductAndSurvey';
 import nextStep from 'components/marketing-survey/cancel-purchase-form/nextStep';
 import previousStep from 'components/marketing-survey/cancel-purchase-form/previousStep';
 import { INITIAL_STEP, FINAL_STEP } from 'components/marketing-survey/cancel-purchase-form/steps';
@@ -84,7 +81,7 @@ class RemovePurchase extends Component {
 		const cancellation_flow = 'remove';
 		this.props.recordTracksEvent(
 			name,
-			Object.assign( { cancellation_flow, product_slug }, properties )
+			Object.assign( { cancellation_flow, product_slug }, properties ),
 		);
 	};
 
@@ -122,7 +119,7 @@ class RemovePurchase extends Component {
 		const steps = stepsForProductAndSurvey(
 			survey,
 			selectedPurchase,
-			isChatAvailable || isChatActive
+			isChatAvailable || isChatActive,
 		);
 		const newStep = stepFunction( surveyStep, steps );
 		this.recordEvent( 'calypso_purchases_cancel_survey_step', { new_step: newStep } );
@@ -206,17 +203,29 @@ class RemovePurchase extends Component {
 
 					notices.success(
 						translate( 'The domain {{domain/}} was removed from your account.', {
-							components: { domain: <em>{ productName }</em> },
+							components: {
+								domain: (
+									<em>
+										{ productName }
+									</em>
+								),
+							},
 						} ),
-						{ persistent: true }
+						{ persistent: true },
 					);
 				} else {
 					notices.success(
 						translate( '%(productName)s was removed from {{siteName/}}.', {
 							args: { productName },
-							components: { siteName: <em>{ selectedSite.domain }</em> },
+							components: {
+								siteName: (
+									<em>
+										{ selectedSite.domain }
+									</em>
+								),
+							},
 						} ),
-						{ persistent: true }
+						{ persistent: true },
 					);
 				}
 
@@ -292,7 +301,8 @@ class RemovePurchase extends Component {
 
 	renderDomainDialogText = () => {
 		const { translate } = this.props;
-		const purchase = getPurchase( this.props ), productName = getName( purchase );
+		const purchase = getPurchase( this.props ),
+			productName = getName( purchase );
 
 		return (
 			<p>
@@ -300,7 +310,7 @@ class RemovePurchase extends Component {
 					'This will remove %(domain)s from your account. By removing, ' +
 						'you are canceling the domain registration. This may stop ' +
 						'you from using it again, even with another service.',
-					{ args: { domain: productName } }
+					{ args: { domain: productName } },
 				) }
 			</p>
 		);
@@ -341,9 +351,10 @@ class RemovePurchase extends Component {
 		} else if ( this.state.surveyStep === FINAL_STEP ) {
 			buttonsArr = [ buttons.cancel, buttons.prev, buttons.remove ];
 		} else {
-			buttonsArr = this.state.surveyStep === INITIAL_STEP
-				? [ buttons.cancel, buttons.next ]
-				: [ buttons.cancel, buttons.prev, buttons.next ];
+			buttonsArr =
+				this.state.surveyStep === INITIAL_STEP
+					? [ buttons.cancel, buttons.next ]
+					: [ buttons.cancel, buttons.prev, buttons.next ];
 		}
 
 		if ( config.isEnabled( 'upgrades/precancellation-chat' ) ) {
@@ -381,7 +392,15 @@ class RemovePurchase extends Component {
 					{ translate(
 						'The domain associated with this plan, {{domain/}}, will not be removed. ' +
 							'It will remain active on your site, unless also removed.',
-						{ components: { domain: <em>{ getIncludedDomain( purchase ) }</em> } }
+						{
+							components: {
+								domain: (
+									<em>
+										{ getIncludedDomain( purchase ) }
+									</em>
+								),
+							},
+						},
 					) }
 				</p>
 			);
@@ -391,19 +410,23 @@ class RemovePurchase extends Component {
 				<p>
 					{ translate( 'Are you sure you want to remove %(productName)s from {{siteName/}}?', {
 						args: { productName },
-						components: { siteName: <em>{ this.props.selectedSite.domain }</em> },
-					} ) }
-					{ ' ' }
+						components: {
+							siteName: (
+								<em>
+									{ this.props.selectedSite.domain }
+								</em>
+							),
+						},
+					} ) }{' '}
 					{ isGoogleApps( purchase )
 						? translate(
 								'Your G Suite account will continue working without interruption. ' +
-									'You will be able to manage your G Suite billing directly through Google.'
+									'You will be able to manage your G Suite billing directly through Google.',
 							)
 						: translate(
 								'You will not be able to reuse it again without purchasing a new subscription.',
-								{ comment: "'it' refers to a product purchased by a user" }
+								{ comment: "'it' refers to a product purchased by a user" },
 							) }
-
 				</p>
 
 				{ isPlan( purchase ) && hasIncludedDomain( purchase ) && includedDomainText }
@@ -441,5 +464,5 @@ export default connect(
 		recordTracksEvent,
 		removePurchase,
 		setAllSitesSelected,
-	}
+	},
 )( localize( RemovePurchase ) );

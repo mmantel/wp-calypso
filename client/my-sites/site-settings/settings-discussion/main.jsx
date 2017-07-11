@@ -16,10 +16,7 @@ import DiscussionForm from 'my-sites/site-settings/form-discussion';
 import Placeholder from 'my-sites/site-settings/placeholder';
 import { getSelectedSite } from 'state/ui/selectors';
 
-const SiteSettingsDiscussion = ( {
-	site,
-	translate,
-} ) => {
+const SiteSettingsDiscussion = ( { site, translate } ) => {
 	if ( ! site ) {
 		return <Placeholder />;
 	}
@@ -34,8 +31,6 @@ const SiteSettingsDiscussion = ( {
 	);
 };
 
-export default connect(
-	( state ) => ( {
-		site: getSelectedSite( state ),
-	} )
-)( localize( SiteSettingsDiscussion ) );
+export default connect( state => ( {
+	site: getSelectedSite( state ),
+} ) )( localize( SiteSettingsDiscussion ) );

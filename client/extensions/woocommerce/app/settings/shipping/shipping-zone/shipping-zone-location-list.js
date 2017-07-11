@@ -23,7 +23,7 @@ import { getCurrentlyEditingShippingZoneLocationsList } from 'woocommerce/state/
 import { openEditLocations } from 'woocommerce/state/ui/shipping/zones/locations/actions';
 
 const ShippingZoneLocationList = ( { siteId, loaded, translate, locations, actions } ) => {
-	const getLocationFlag = ( location ) => {
+	const getLocationFlag = location => {
 		if ( 'continent' === location.type ) {
 			return null;
 		}
@@ -35,10 +35,13 @@ const ShippingZoneLocationList = ( { siteId, loaded, translate, locations, actio
 		return <LocationFlag code={ location.code } />;
 	};
 
-	const getLocationDescription = ( location ) => {
+	const getLocationDescription = location => {
 		switch ( location.type ) {
 			case 'continent':
-				if ( location.selectedCountryCount && location.selectedCountryCount !== location.countryCount ) {
+				if (
+					location.selectedCountryCount &&
+					location.selectedCountryCount !== location.countryCount
+				) {
 					return translate(
 						'%(selected)s out of %(count)s country',
 						'%(selected)s out of %(count)s countries',
@@ -47,8 +50,8 @@ const ShippingZoneLocationList = ( { siteId, loaded, translate, locations, actio
 							args: {
 								selected: location.selectedCountryCount,
 								count: location.countryCount,
-							}
-						}
+							},
+						},
 					);
 				}
 
@@ -67,7 +70,7 @@ const ShippingZoneLocationList = ( { siteId, loaded, translate, locations, actio
 	const renderLocation = ( location, index ) => {
 		if ( ! loaded ) {
 			return (
-				<ListItem key={ index } className="shipping-zone__location is-placeholder" >
+				<ListItem key={ index } className="shipping-zone__location is-placeholder">
 					<ListItemField className="shipping-zone__location-title">
 						<div className="shipping-zone__placeholder-flag" />
 						<span />
@@ -81,7 +84,7 @@ const ShippingZoneLocationList = ( { siteId, loaded, translate, locations, actio
 		}
 
 		return (
-			<ListItem key={ index } className="shipping-zone__location" >
+			<ListItem key={ index } className="shipping-zone__location">
 				<ListItemField className="shipping-zone__location-title">
 					{ getLocationFlag( location ) }
 					{ decodeEntities( location.name ) }
@@ -106,22 +109,23 @@ const ShippingZoneLocationList = ( { siteId, loaded, translate, locations, actio
 		<div className="shipping-zone__locations-container">
 			<ExtendedHeader
 				label={ translate( 'Zone locations' ) }
-				description={ translate( 'Define the places that are included in this zone.' ) } >
-				<Button onClick={ onAddLocation } disabled={ ! loaded } >
+				description={ translate( 'Define the places that are included in this zone.' ) }
+			>
+				<Button onClick={ onAddLocation } disabled={ ! loaded }>
 					{ isEmpty( locations ) ? translate( 'Add locations' ) : translate( 'Edit locations' ) }
 				</Button>
 			</ExtendedHeader>
 			<List>
 				{ locationsToRender.length
-				? <ListHeader>
-					<ListItemField className="shipping-zone__location-title">
-						{ translate( 'Location' ) }
-					</ListItemField>
-					<ListItemField className="shipping-zone__location-summary">
-						{ translate( 'Details' ) }
-					</ListItemField>
-				</ListHeader>
-				: null }
+					? <ListHeader>
+							<ListItemField className="shipping-zone__location-title">
+								{ translate( 'Location' ) }
+							</ListItemField>
+							<ListItemField className="shipping-zone__location-summary">
+								{ translate( 'Details' ) }
+							</ListItemField>
+						</ListHeader>
+					: null }
 				{ locationsToRender.map( renderLocation ) }
 			</List>
 			<ShippingZoneLocationDialog siteId={ siteId } isAdding={ isEmpty( locations ) } />
@@ -139,8 +143,12 @@ export default connect(
 		locations: ownProps.loaded && getCurrentlyEditingShippingZoneLocationsList( state, 20 ),
 	} ),
 	( dispatch, ownProps ) => ( {
-		actions: bindActionCreatorsWithSiteId( {
-			openEditLocations,
-		}, dispatch, ownProps.siteId ),
-	} )
+		actions: bindActionCreatorsWithSiteId(
+			{
+				openEditLocations,
+			},
+			dispatch,
+			ownProps.siteId,
+		),
+	} ),
 )( localize( ShippingZoneLocationList ) );

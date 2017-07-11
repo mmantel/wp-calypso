@@ -17,7 +17,7 @@ const PrivacyProtectionExample = ( { translate, fields, countriesList } ) => {
 			state: { value: state },
 			postalCode: { value: postalCode },
 			countryCode: { value: countryCode },
-			phone: { value: phone }
+			phone: { value: phone },
 		} = fields,
 		country = countryCode && find( countriesList.get(), { code: countryCode } ),
 		lines = [];
@@ -86,11 +86,15 @@ const PrivacyProtectionExample = ( { translate, fields, countriesList } ) => {
 	}
 
 	return (
-		<p>{ lines.map(
-			( line, index ) => {
-				return <span key={ `privacy-protection-example-line-${ index }` }>{ line }</span>;
-			}
-		) } </p>
+		<p>
+			{ lines.map( ( line, index ) => {
+				return (
+					<span key={ `privacy-protection-example-line-${ index }` }>
+						{ line }
+					</span>
+				);
+			} ) }{' '}
+		</p>
 	);
 };
 

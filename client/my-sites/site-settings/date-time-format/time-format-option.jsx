@@ -24,7 +24,7 @@ export const TimeFormatOption = ( {
 	setTimeFormat,
 	timeFormat,
 	translate,
-} ) => (
+} ) =>
 	<FormFieldset>
 		<FormLabel>
 			{ translate( 'Time Format' ) }
@@ -38,8 +38,10 @@ export const TimeFormatOption = ( {
 					onChange={ setTimeFormat }
 					value={ format }
 				/>
-				<span>{ phpToMomentDatetimeFormat( localizedDate, format ) }</span>
-			</FormLabel>
+				<span>
+					{ phpToMomentDatetimeFormat( localizedDate, format ) }
+				</span>
+			</FormLabel>,
 		) }
 		<FormLabel className="date-time-format__custom-field">
 			<FormRadio
@@ -59,12 +61,12 @@ export const TimeFormatOption = ( {
 					value={ timeFormat || '' }
 				/>
 				<FormSettingExplanation>
-					{ isCustom && timeFormat &&
+					{ isCustom &&
+						timeFormat &&
 						translate( 'Preview: %s', {
 							args: phpToMomentDatetimeFormat( localizedDate, timeFormat ),
-							comment: 'Date/time format preview'
-						} )
-					}
+							comment: 'Date/time format preview',
+						} ) }
 				</FormSettingExplanation>
 			</span>
 			<FormSettingExplanation>
@@ -77,7 +79,6 @@ export const TimeFormatOption = ( {
 				</ExternalLink>
 			</FormSettingExplanation>
 		</FormLabel>
-	</FormFieldset>
-);
+	</FormFieldset>;
 
 export default localize( TimeFormatOption );

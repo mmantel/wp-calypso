@@ -13,7 +13,10 @@ import { moment } from 'i18n-calypso';
  */
 import Card from 'components/card';
 import QuerySiteStats from 'components/data/query-site-stats';
-import { getSiteStatsNormalizedData, isRequestingSiteStatsForQuery } from 'state/stats/lists/selectors';
+import {
+	getSiteStatsNormalizedData,
+	isRequestingSiteStatsForQuery,
+} from 'state/stats/lists/selectors';
 import ElementChart from 'components/chart';
 import Legend from 'components/chart/legend';
 import Tabs from 'my-sites/stats/stats-tabs';
@@ -34,7 +37,7 @@ class StoreStatsChart extends Component {
 	};
 
 	state = {
-		selectedTabIndex: 0
+		selectedTabIndex: 0,
 	};
 
 	barClick = bar => {
@@ -63,14 +66,14 @@ class StoreStatsChart extends Component {
 	};
 
 	getDeltasBySelectedPeriod = () => {
-		return find( this.props.data.deltas, ( item ) => item.period === this.props.selectedDate );
+		return find( this.props.data.deltas, item => item.period === this.props.selectedDate );
 	};
 
-	getDeltaByStat = ( stat ) => {
+	getDeltaByStat = stat => {
 		return this.getDeltasBySelectedPeriod()[ stat ];
 	};
 
-	getSelectedIndex = ( data ) => {
+	getSelectedIndex = data => {
 		return findIndex( data, d => d.period === this.props.selectedDate );
 	};
 
@@ -90,23 +93,21 @@ class StoreStatsChart extends Component {
 		const selectedIndex = this.getSelectedIndex( orderData );
 		return (
 			<Card className="store-stats-chart stats-module">
-				{ siteId && <QuerySiteStats
-					query={ query }
-					siteId={ siteId }
-					statType="statsOrders"
-				/> }
-				<Legend
-					activeTab={ selectedTab }
-				/>
+				{ siteId && <QuerySiteStats query={ query } siteId={ siteId } statType="statsOrders" /> }
+				<Legend activeTab={ selectedTab } />
 				<ElementChart loading={ isLoading } data={ chartData } barClick={ this.barClick } />
 				<Tabs data={ chartData }>
 					{ tabs.map( ( tab, tabIndex ) => {
 						if ( ! isLoading ) {
-							const itemChartData = this.buildChartData( orderData[ selectedIndex ], tabs[ tabIndex ] );
+							const itemChartData = this.buildChartData(
+								orderData[ selectedIndex ],
+								tabs[ tabIndex ],
+							);
 							const delta = this.getDeltaByStat( tab.attr );
-							const deltaValue = ( delta.direction === 'is-undefined-increase' )
-								? '-'
-								: Math.abs( Math.round( delta.percentage_change * 100 ) );
+							const deltaValue =
+								delta.direction === 'is-undefined-increase'
+									? '-'
+									: Math.abs( Math.round( delta.percentage_change * 100 ) );
 							const periodFormat = getPeriodFormat( unit, delta.reference_period );
 							return (
 								<Tab
@@ -117,14 +118,16 @@ class StoreStatsChart extends Component {
 									tabClick={ this.tabClick }
 								>
 									<span className="store-stats-chart__value value">
-										{ ( tab.type === 'currency' )
+										{ tab.type === 'currency'
 											? formatCurrency( itemChartData.value, orderData[ selectedIndex ].currency )
-											:	Math.round( itemChartData.value * 100 ) / 100 }
+											: Math.round( itemChartData.value * 100 ) / 100 }
 									</span>
 									<Delta
 										value={ `${ deltaValue }%` }
 										className={ `${ delta.favorable } ${ delta.direction }` }
-										suffix={ `since ${ moment( delta.reference_period, periodFormat ).format( 'MMM D' ) }` }
+										suffix={ `since ${ moment( delta.reference_period, periodFormat ).format(
+											'MMM D',
+										) }` }
 									/>
 								</Tab>
 							);
@@ -136,9 +139,7 @@ class StoreStatsChart extends Component {
 	}
 }
 
-export default connect(
-	( state, { query, siteId } ) => ( {
-		data: getSiteStatsNormalizedData( state, siteId, 'statsOrders', query ),
-		isRequesting: isRequestingSiteStatsForQuery( state, siteId, 'statsOrders', query ),
-	} )
-)( StoreStatsChart );
+export default connect( ( state, { query, siteId } ) => ( {
+	data: getSiteStatsNormalizedData( state, siteId, 'statsOrders', query ),
+	isRequesting: isRequestingSiteStatsForQuery( state, siteId, 'statsOrders', query ),
+} ) )( StoreStatsChart );

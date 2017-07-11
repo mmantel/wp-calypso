@@ -103,7 +103,8 @@ const ConfirmCancelDomain = React.createClass( {
 	onSubmit( event ) {
 		event.preventDefault();
 
-		const purchase = getPurchase( this.props ), purchaseName = getDomainName( purchase );
+		const purchase = getPurchase( this.props ),
+			purchaseName = getDomainName( purchase );
 
 		const data = {
 			domain_cancel_reason: this.state.selectedReason.value,
@@ -135,8 +136,8 @@ const ConfirmCancelDomain = React.createClass( {
 				notices.error(
 					error.message ||
 						translate(
-							'Unable to cancel your purchase. Please try again later or contact support.'
-						)
+							'Unable to cancel your purchase. Please try again later or contact support.',
+						),
 				);
 
 				return;
@@ -146,7 +147,7 @@ const ConfirmCancelDomain = React.createClass( {
 				translate( '%(purchaseName)s was successfully cancelled and refunded.', {
 					args: { purchaseName },
 				} ),
-				{ persistent: true }
+				{ persistent: true },
 			);
 
 			this.props.refreshSitePlans( purchase.siteId );
@@ -212,7 +213,7 @@ const ConfirmCancelDomain = React.createClass( {
 								components: {
 									strong: <strong />,
 								},
-							}
+							},
 						) }
 					</span>
 				</FormLabel>
@@ -233,7 +234,8 @@ const ConfirmCancelDomain = React.createClass( {
 			);
 		}
 
-		const selectedReason = this.state.selectedReason, confirmed = this.state.confirmed;
+		const selectedReason = this.state.selectedReason,
+			confirmed = this.state.confirmed;
 
 		if ( selectedReason && 'misspelled' === selectedReason.value ) {
 			return (
@@ -281,7 +283,7 @@ const ConfirmCancelDomain = React.createClass( {
 						{ this.props.translate(
 							'Since domain cancellation can cause your site to stop working, ' +
 								'we’d like to make sure we help you take the right action. ' +
-								'Please select the best option below.'
+								'Please select the best option below.',
 						) }
 					</p>
 					<SelectDropdown
@@ -321,5 +323,5 @@ export default connect(
 		refreshSitePlans,
 		receiveDeletedSite,
 		setAllSitesSelected,
-	}
+	},
 )( localize( ConfirmCancelDomain ) );

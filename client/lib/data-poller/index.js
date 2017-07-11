@@ -28,7 +28,7 @@ function remove( poller ) {
 function pauseAll() {
 	var poller, id;
 	debug( 'Pausing active pollers' );
-	for( id in _pollers ) {
+	for ( id in _pollers ) {
 		poller = _pollers[ id ];
 		if ( poller.timer && poller.pauseWhenHidden ) {
 			poller.stop();
@@ -40,7 +40,7 @@ function pauseAll() {
 function resumePaused() {
 	var poller, id;
 	debug( 'Resuming paused pollers' );
-	for( id in _pollers ) {
+	for ( id in _pollers ) {
 		poller = _pollers[ id ];
 		if ( poller.paused ) {
 			poller.start();
@@ -66,5 +66,5 @@ module.exports = {
 	add: add,
 	remove: remove,
 	pauseAll: pauseAll,
-	resumePaused: resumePaused
+	resumePaused: resumePaused,
 };

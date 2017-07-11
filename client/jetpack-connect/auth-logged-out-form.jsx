@@ -54,7 +54,7 @@ class LoggedOutForm extends Component {
 
 	handleClickHelp = () => {
 		this.props.recordTracksEvent( 'calypso_jpc_help_link_click' );
-	}
+	};
 
 	renderLoginUser() {
 		const { userData, bearerToken } = this.props.jetpackConnectAuthorize;
@@ -63,7 +63,8 @@ class LoggedOutForm extends Component {
 			<WpcomLoginForm
 				log={ userData.username }
 				authorization={ 'Bearer ' + bearerToken }
-				redirectTo={ this.getRedirectAfterLoginUrl() } />
+				redirectTo={ this.getRedirectAfterLoginUrl() }
+			/>
 		);
 	}
 
@@ -78,9 +79,7 @@ class LoggedOutForm extends Component {
 
 		return (
 			<div>
-				<FormattedHeader
-					headerText={ headerText }
-					subHeaderText={ subHeaderText } />
+				<FormattedHeader headerText={ headerText } subHeaderText={ subHeaderText } />
 				{ siteCard }
 			</div>
 		);
@@ -97,7 +96,9 @@ class LoggedOutForm extends Component {
 
 		return (
 			<LoggedOutFormLinks>
-				<LoggedOutFormLinkItem href={ login( { isNative: config.isEnabled( 'login/native-login-links' ), redirectTo } ) }>
+				<LoggedOutFormLinkItem
+					href={ login( { isNative: config.isEnabled( 'login/native-login-links' ), redirectTo } ) }
+				>
 					{ this.props.translate( 'Already have an account? Sign in' ) }
 				</LoggedOutFormLinkItem>
 				<HelpButton onClick={ this.handleClickHelp } />
@@ -106,10 +107,7 @@ class LoggedOutForm extends Component {
 	}
 
 	render() {
-		const {
-			isAuthorizing,
-			userData,
-		} = this.props.jetpackConnectAuthorize;
+		const { isAuthorizing, userData } = this.props.jetpackConnectAuthorize;
 
 		return (
 			<div>

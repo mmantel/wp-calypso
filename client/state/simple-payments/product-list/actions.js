@@ -19,7 +19,7 @@ export function receiveUpdateProduct( siteId, product ) {
 	return {
 		siteId,
 		type: SIMPLE_PAYMENTS_PRODUCTS_LIST_RECEIVE_UPDATE,
-		product
+		product,
 	};
 }
 

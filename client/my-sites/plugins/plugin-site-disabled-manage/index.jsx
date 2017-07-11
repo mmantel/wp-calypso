@@ -23,7 +23,9 @@ const PluginSiteDisabledManage = ( { isNetwork, site, plugin, translate } ) => {
 	if ( plugin.slug === 'jetpack' ) {
 		return (
 			<span className="plugin-site-disabled-manage">
-				<span className="plugin-site-disabled-manage__label">{ message }</span>
+				<span className="plugin-site-disabled-manage__label">
+					{ message }
+				</span>
 				<DisconnectJetpackButton disabled={ ! plugin } site={ site } redirect="/plugins/jetpack" />
 			</span>
 		);
@@ -31,7 +33,9 @@ const PluginSiteDisabledManage = ( { isNetwork, site, plugin, translate } ) => {
 
 	return (
 		<span className="plugin-site-disabled-manage">
-			<span className="plugin-site-disabled-manage__label">{ message }</span>
+			<span className="plugin-site-disabled-manage__label">
+				{ message }
+			</span>
 			<Button
 				compact={ true }
 				className="plugin-site-disabled-manage__link"

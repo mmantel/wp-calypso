@@ -19,8 +19,10 @@ const ActionHeader = ( { children, breadcrumbs } ) => {
 		breadcrumbsOutput = breadcrumbs.map( function( crumb, i ) {
 			return (
 				<span key={ i }>
-					{crumb}
-					{ breadcrumbs.length - 1 === i ? '' : ( <span className="action-header__breadcrumbs-separator"> / </span> ) }
+					{ crumb }
+					{ breadcrumbs.length - 1 === i
+						? ''
+						: <span className="action-header__breadcrumbs-separator"> / </span> }
 				</span>
 			);
 		} );
@@ -29,7 +31,9 @@ const ActionHeader = ( { children, breadcrumbs } ) => {
 		<StickyPanel>
 			<SidebarNavigation />
 			<Card className="action-header__header">
-				<span className="action-header__breadcrumbs">{ breadcrumbsOutput }</span>
+				<span className="action-header__breadcrumbs">
+					{ breadcrumbsOutput }
+				</span>
 				<div className="action-header__actions">
 					{ children }
 				</div>
@@ -39,14 +43,8 @@ const ActionHeader = ( { children, breadcrumbs } ) => {
 };
 
 ActionHeader.propTypes = {
-	breadcrumbs: PropTypes.oneOfType( [
-		PropTypes.arrayOf( PropTypes.node ),
-		PropTypes.node,
-	] ),
-	children: PropTypes.oneOfType( [
-		PropTypes.arrayOf( PropTypes.node ),
-		PropTypes.node
-	] ),
+	breadcrumbs: PropTypes.oneOfType( [ PropTypes.arrayOf( PropTypes.node ), PropTypes.node ] ),
+	children: PropTypes.oneOfType( [ PropTypes.arrayOf( PropTypes.node ), PropTypes.node ] ),
 };
 
 export default ActionHeader;

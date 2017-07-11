@@ -30,17 +30,14 @@ import DesignatedAgentNotice from 'my-sites/domains/domain-management/components
 const wpcom = wp.undocumented();
 
 class TransferOtherUser extends React.Component {
-
 	static propTypes = {
 		domains: React.PropTypes.object.isRequired,
 		selectedDomainName: React.PropTypes.string.isRequired,
-		selectedSite: React.PropTypes.oneOfType( [
-			React.PropTypes.object,
-			React.PropTypes.bool
-		] ).isRequired,
+		selectedSite: React.PropTypes.oneOfType( [ React.PropTypes.object, React.PropTypes.bool ] )
+			.isRequired,
 		wapiDomainInfo: React.PropTypes.object.isRequired,
 		users: React.PropTypes.array.isRequired,
-		currentUser: React.PropTypes.object.isRequired
+		currentUser: React.PropTypes.object.isRequired,
 	};
 
 	constructor( props ) {
@@ -50,7 +47,7 @@ class TransferOtherUser extends React.Component {
 		this.state = {
 			selectedUserId: defaultUser ? defaultUser.ID : '',
 			showConfirmationDialog: false,
-			disableDialogButtons: false
+			disableDialogButtons: false,
 		};
 
 		this.handleUserChange = this.handleUserChange.bind( this );
@@ -83,23 +80,40 @@ class TransferOtherUser extends React.Component {
 			selectedUserDisplay = this.getSelectedUserDisplayName(),
 			successMessage = this.props.translate(
 				'%(selectedDomainName)s has been transferred to %(selectedUserDisplay)s',
-					{ args: { selectedDomainName, selectedUserDisplay } } ),
+				{ args: { selectedDomainName, selectedUserDisplay } },
+			),
 			defaultErrorMessage = this.props.translate(
-				'Failed to transfer %(selectedDomainName)s, please try again or contact support.', {
-					args: { selectedDomainName } } );
+				'Failed to transfer %(selectedDomainName)s, please try again or contact support.',
+				{
+					args: { selectedDomainName },
+				},
+			);
 
 		this.setState( { disableDialogButtons: true } );
-		wpcom.transferToUser( this.props.selectedSite.ID, this.props.selectedDomainName, this.state.selectedUserId )
-			.then( () => {
-				this.setState( { disableDialogButtons: false } );
-				this.props.successNotice( successMessage, { duration: 4000, isPersistent: true } );
-				closeDialog();
-				page( paths.domainManagementEdit( this.props.selectedSite.slug, this.props.selectedDomainName ) );
-			}, err => {
-				this.setState( { disableDialogButtons: false } );
-				this.props.errorNotice( err.message || defaultErrorMessage );
-				closeDialog();
-			} );
+		wpcom
+			.transferToUser(
+				this.props.selectedSite.ID,
+				this.props.selectedDomainName,
+				this.state.selectedUserId,
+			)
+			.then(
+				() => {
+					this.setState( { disableDialogButtons: false } );
+					this.props.successNotice( successMessage, { duration: 4000, isPersistent: true } );
+					closeDialog();
+					page(
+						paths.domainManagementEdit(
+							this.props.selectedSite.slug,
+							this.props.selectedDomainName,
+						),
+					);
+				},
+				err => {
+					this.setState( { disableDialogButtons: false } );
+					this.props.errorNotice( err.message || defaultErrorMessage );
+					closeDialog();
+				},
+			);
 	}
 
 	handleDialogClose() {
@@ -109,7 +123,10 @@ class TransferOtherUser extends React.Component {
 	}
 
 	getSelectedUserDisplayName() {
-		const selectedUser = find( this.props.users, user => user.ID === Number( this.state.selectedUserId ) );
+		const selectedUser = find(
+			this.props.users,
+			user => user.ID === Number( this.state.selectedUserId ),
+		);
 		if ( ! selectedUser ) {
 			return '';
 		}
@@ -117,7 +134,7 @@ class TransferOtherUser extends React.Component {
 	}
 
 	getUserDisplayName( { first_name, last_name, nice_name } ) {
-		return ( first_name && last_name ) ? `${ first_name } ${ last_name } (${ nice_name })` : nice_name;
+		return first_name && last_name ? `${ first_name } ${ last_name } (${ nice_name })` : nice_name;
 	}
 
 	render() {
@@ -132,7 +149,8 @@ class TransferOtherUser extends React.Component {
 			<Main className="transfer-to-other-user">
 				<Header
 					selectedDomainName={ selectedDomainName }
-					backHref={ paths.domainManagementTransfer( slug, selectedDomainName ) }>
+					backHref={ paths.domainManagementTransfer( slug, selectedDomainName ) }
+				>
 					{ this.props.translate( 'Transfer Domain To Another User' ) }
 				</Header>
 				{ this.renderSection() }
@@ -142,28 +160,40 @@ class TransferOtherUser extends React.Component {
 
 	renderDialog() {
 		const buttons = [
-			{
-				action: 'cancel',
-				label: this.props.translate( 'Cancel' ),
-				disabled: this.state.disableDialogButtons
-			},
-			{
-				action: 'confirm',
-				label: this.props.translate( 'Confirm Transfer' ),
-				onClick: this.handleConfirmTransferDomain,
-				disabled: this.state.disableDialogButtons,
-				isPrimary: true
-			}
+				{
+					action: 'cancel',
+					label: this.props.translate( 'Cancel' ),
+					disabled: this.state.disableDialogButtons,
+				},
+				{
+					action: 'confirm',
+					label: this.props.translate( 'Confirm Transfer' ),
+					onClick: this.handleConfirmTransferDomain,
+					disabled: this.state.disableDialogButtons,
+					isPrimary: true,
+				},
 			],
 			domainName = this.props.selectedDomainName,
 			selectedUserDisplay = this.getSelectedUserDisplayName();
 		return (
-			<Dialog isVisible={ this.state.showConfirmationDialog } buttons={ buttons } onClose={ this.handleDialogClose }>
-				<h1>{ this.props.translate( 'Confirm Transfer' ) }</h1>
-				<p>{ this.props.translate( 'Do you want to transfer the ownership of {{strong}}%(domainName)s{{/strong}} ' +
-					'to {{strong}}%(selectedUserDisplay)s{{/strong}}?', {
-						args: { domainName, selectedUserDisplay }, components: { strong: <strong /> }
-					} ) }</p>
+			<Dialog
+				isVisible={ this.state.showConfirmationDialog }
+				buttons={ buttons }
+				onClose={ this.handleDialogClose }
+			>
+				<h1>
+					{ this.props.translate( 'Confirm Transfer' ) }
+				</h1>
+				<p>
+					{ this.props.translate(
+						'Do you want to transfer the ownership of {{strong}}%(domainName)s{{/strong}} ' +
+							'to {{strong}}%(selectedUserDisplay)s{{/strong}}?',
+						{
+							args: { domainName, selectedUserDisplay },
+							components: { strong: <strong /> },
+						},
+					) }
+				</p>
 			</Dialog>
 		);
 	}
@@ -183,14 +213,17 @@ class TransferOtherUser extends React.Component {
 				<SectionHeader label={ translate( 'Transfer Domain To Another User' ) } />
 				<Card className="transfer-card">
 					<p>
-						{ translate( 'Transferring a domain to another user will give all the rights of the domain to that user. ' +
-							'Please choose an administrator to transfer {{strong}}%(domainName)s{{/strong}} to.',
-							{ args: { domainName }, components: { strong: <strong /> } } ) }
+						{ translate(
+							'Transferring a domain to another user will give all the rights of the domain to that user. ' +
+								'Please choose an administrator to transfer {{strong}}%(domainName)s{{/strong}} to.',
+							{ args: { domainName }, components: { strong: <strong /> } },
+						) }
 					</p>
 					<p>
-						{ translate( 'You can transfer this domain to any administrator on this site. If the user you want to ' +
-							'transfer is not currently an administrator, please {{a}}add them to the site first{{/a}}.',
-							{ components: { a: <a href={ `/people/new/${ selectedSite.slug }` } /> } }
+						{ translate(
+							'You can transfer this domain to any administrator on this site. If the user you want to ' +
+								'transfer is not currently an administrator, please {{a}}add them to the site first{{/a}}.',
+							{ components: { a: <a href={ `/people/new/${ selectedSite.slug }` } /> } },
 						) }
 					</p>
 					<FormFieldset>
@@ -198,22 +231,25 @@ class TransferOtherUser extends React.Component {
 							disabled={ availableUsers.length === 0 }
 							className="transfer-to-other-user__select"
 							onChange={ this.handleUserChange }
-							value={ this.state.selectedUserId }>
+							value={ this.state.selectedUserId }
+						>
 							{ availableUsers.length
-								? availableUsers.map( ( user ) => (
-									<option key={ user.ID } value={ user.ID }>
-										{ this.getUserDisplayName( user ) }
-									</option>
-								) )
-								: ( <option value="">{ translate( '-- Site has no other administrators --' ) }</option> )
-							}
+								? availableUsers.map( user =>
+										<option key={ user.ID } value={ user.ID }>
+											{ this.getUserDisplayName( user ) }
+										</option>,
+									)
+								: <option value="">
+										{ translate( '-- Site has no other administrators --' ) }
+									</option> }
 						</FormSelect>
 					</FormFieldset>
 					<DesignatedAgentNotice saveButtonLabel={ saveButtonLabel } />
 					<FormButton
 						disabled={ ! this.state.selectedUserId }
-						onClick={ this.handleTransferDomain }>
-							{ saveButtonLabel }
+						onClick={ this.handleTransferDomain }
+					>
+						{ saveButtonLabel }
 					</FormButton>
 				</Card>
 				{ this.renderDialog() }
@@ -222,8 +258,9 @@ class TransferOtherUser extends React.Component {
 	}
 
 	filterAvailableUsers( users ) {
-		return users
-			.filter( user => includes( user.roles, 'administrator' ) && user.ID !== this.props.currentUser.ID );
+		return users.filter(
+			user => includes( user.roles, 'administrator' ) && user.ID !== this.props.currentUser.ID,
+		);
 	}
 
 	isDataReady() {
@@ -231,7 +268,7 @@ class TransferOtherUser extends React.Component {
 	}
 }
 
-export default connect(
-	state => ( { currentUser: getCurrentUser( state ) } ),
-	{ successNotice, errorNotice }
-)( localize( TransferOtherUser ) );
+export default connect( state => ( { currentUser: getCurrentUser( state ) } ), {
+	successNotice,
+	errorNotice,
+} )( localize( TransferOtherUser ) );

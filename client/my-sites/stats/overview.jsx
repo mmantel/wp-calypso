@@ -29,10 +29,10 @@ class StatsOverview extends Component {
 
 	render() {
 		const { moment, path, period, sites } = this.props;
-		const statsPath = ( path === '/stats' ) ? '/stats/day' : path;
-		const sitesSorted = sites.map( ( site ) => {
+		const statsPath = path === '/stats' ? '/stats/day' : path;
+		const sitesSorted = sites.map( site => {
 			let momentSiteZone = moment();
-			if ( 'object' === typeof ( site.options ) && 'undefined' !== typeof ( site.options.gmt_offset ) ) {
+			if ( 'object' === typeof site.options && 'undefined' !== typeof site.options.gmt_offset ) {
 				momentSiteZone = moment().utcOffset( site.options.gmt_offset );
 			}
 			site.periodEnd = momentSiteZone.endOf( period ).format( 'YYYY-MM-DD' );
@@ -65,7 +65,7 @@ class StatsOverview extends Component {
 			let siteOffset = 0;
 			const overview = [];
 
-			if ( 'object' === typeof ( site.options ) && 'undefined' !== typeof ( site.options.gmt_offset ) ) {
+			if ( 'object' === typeof site.options && 'undefined' !== typeof site.options.gmt_offset ) {
 				siteOffset = site.options.gmt_offset;
 			}
 
@@ -84,7 +84,7 @@ class StatsOverview extends Component {
 					path={ statsPath }
 					title={ site.title }
 					siteSlug={ site.slug }
-				/>
+				/>,
 			);
 
 			return overview;
@@ -106,7 +106,11 @@ class StatsOverview extends Component {
 		const limit = Math.min( this.props.user.visible_site_count, 10 );
 
 		// TODO: a separate StatsSectionTitle component should be created
-		items.push( <h3 key="header-placeholder" className="stats-section-title">&nbsp;</h3> ); // eslint-disable-line wpcalypso/jsx-classname-namespace
+		items.push(
+			<h3 key="header-placeholder" className="stats-section-title">
+				&nbsp;
+			</h3>,
+		); // eslint-disable-line wpcalypso/jsx-classname-namespace
 
 		for ( let i = 0; i < limit; i++ ) {
 			items.push( <SiteOverviewPlaceholder key={ 'placeholder-' + i } /> );
@@ -116,11 +120,9 @@ class StatsOverview extends Component {
 	}
 }
 
-export default connect(
-	state => {
-		return {
-			user: getCurrentUser( state ),
-			sites: getVisibleSites( state )
-		};
-	}
-)( localize( StatsOverview ) );
+export default connect( state => {
+	return {
+		user: getCurrentUser( state ),
+		sites: getVisibleSites( state ),
+	};
+} )( localize( StatsOverview ) );

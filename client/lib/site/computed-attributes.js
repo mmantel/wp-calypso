@@ -41,7 +41,10 @@ export default function( site ) {
 	}
 
 	// The 'standard' post format is saved as an option of '0'
-	if ( ! attributes.options.default_post_format || attributes.options.default_post_format === '0' ) {
+	if (
+		! attributes.options.default_post_format ||
+		attributes.options.default_post_format === '0'
+	) {
 		attributes.options.default_post_format = 'standard';
 	}
 
@@ -51,13 +54,10 @@ export default function( site ) {
 		attributes.options.unmapped_url &&
 		! site.is_vip &&
 		isHttps( attributes.options.unmapped_url )
-	);
+	 );
 
 	//TODO:(ehg) Replace instances with canCurrentUser selector when my-sites/sidebar is connected
-	attributes.is_customizable = !! (
-		site.capabilities &&
-		site.capabilities.edit_theme_options
-	);
+	attributes.is_customizable = !! ( site.capabilities && site.capabilities.edit_theme_options );
 
 	return attributes;
 }

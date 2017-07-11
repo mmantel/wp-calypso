@@ -31,7 +31,7 @@ export const handlers = mergeHandlers(
 	themeFilters,
 	users,
 	videos,
-	login2fa
+	login2fa,
 );
 
 export default handlers;

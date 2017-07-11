@@ -32,6 +32,6 @@ module.exports = function( message, callback, confirmButtonText, cancelButtonTex
 			confirmButtonText: confirmButtonText,
 			cancelButtonText: cancelButtonText,
 		} ),
-		wrapper
+		wrapper,
 	);
 };

@@ -39,7 +39,8 @@ describe( 'MediaLibraryListItem image', function() {
 			media={ fixtures.media[ itemPos ] }
 			scale={ 1 }
 			maxImageWidth={ WIDTH }
-			thumbnailType={ type } />;
+			thumbnailType={ type }
+		/>;
 
 	context( 'thumbnail display mode', function() {
 		it( 'defaults to photon when no thumbnail parameter is passed', function() {

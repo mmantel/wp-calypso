@@ -15,7 +15,6 @@ import { isSiteAutomatedTransfer } from 'state/selectors';
 import route from 'lib/route';
 
 class App extends Component {
-
 	static propTypes = {
 		siteId: PropTypes.number,
 		canUserManageOptions: PropTypes.bool.isRequired,
@@ -26,7 +25,7 @@ class App extends Component {
 
 	redirect = () => {
 		window.location.href = '/stats/day';
-	}
+	};
 
 	render = () => {
 		const { siteId, children, canUserManageOptions, isAtomicSite, currentRoute } = this.props;
@@ -62,14 +61,14 @@ class App extends Component {
 				{ children }
 			</div>
 		);
-	}
-
+	};
 }
 
 function mapStateToProps( state ) {
 	const siteId = getSelectedSiteId( state );
-	const canUserManageOptions = siteId && canCurrentUser( state, siteId, 'manage_options' ) || false;
-	const isAtomicSite = siteId && !! isSiteAutomatedTransfer( state, siteId ) || false;
+	const canUserManageOptions =
+		( siteId && canCurrentUser( state, siteId, 'manage_options' ) ) || false;
+	const isAtomicSite = ( siteId && !! isSiteAutomatedTransfer( state, siteId ) ) || false;
 	return {
 		siteId,
 		canUserManageOptions,

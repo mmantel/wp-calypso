@@ -11,18 +11,14 @@ import { moment } from 'i18n-calypso';
  */
 import Main from 'components/main';
 import HeaderCake from 'components/header-cake';
-import { getSelectedSiteId, getSelectedSiteSlug } from 'state/ui/selectors';
+import { getSelectedSiteId, getSelectedSiteSlug } from 'state/ui/selectors';
 import StatsPeriodNavigation from 'my-sites/stats/stats-period-navigation';
 import DatePicker from 'my-sites/stats/stats-date-picker';
 import Module from './store-stats-module';
 import List from './store-stats-list';
-import {
-	topProducts,
-	topCategories,
-	topCoupons
-} from 'woocommerce/app/store-stats/constants';
+import { topProducts, topCategories, topCoupons } from 'woocommerce/app/store-stats/constants';
 import { getUnitPeriod } from './utils';
-import { isJetpackSite } from 'state/sites/selectors';
+import { isJetpackSite } from 'state/sites/selectors';
 import { isPluginActive } from 'state/selectors';
 
 const listType = {
@@ -45,7 +41,9 @@ class StoreStatsListView extends Component {
 	goBack = () => {
 		const pathParts = this.props.path.split( '/' );
 		const queryString = this.props.querystring ? '?' + this.props.querystring : '';
-		const pathExtra = `${ pathParts[ pathParts.length - 2 ] }/${ pathParts[ pathParts.length - 1 ] }${ queryString }`;
+		const pathExtra = `${ pathParts[ pathParts.length - 2 ] }/${ pathParts[
+			pathParts.length - 1
+		] }${ queryString }`;
 		const defaultBack = `/store/stats/orders/${ pathExtra }`;
 
 		setTimeout( () => {
@@ -68,7 +66,9 @@ class StoreStatsListView extends Component {
 		};
 		return (
 			<Main className="store-stats__list-view woocommerce" wideLayout={ true }>
-				<HeaderCake onClick={ this.goBack }>{ listType[ type ].title }</HeaderCake>
+				<HeaderCake onClick={ this.goBack }>
+					{ listType[ type ].title }
+				</HeaderCake>
 				<StatsPeriodNavigation
 					date={ selectedDate }
 					period={ unit }
@@ -77,7 +77,7 @@ class StoreStatsListView extends Component {
 					<DatePicker
 						period={ unit }
 						date={
-							( unit === 'week' )
+							unit === 'week'
 								? moment( selectedDate, 'YYYY-MM-DD' ).subtract( 1, 'days' ).format( 'YYYY-MM-DD' )
 								: selectedDate
 						}
@@ -104,14 +104,12 @@ class StoreStatsListView extends Component {
 	}
 }
 
-export default connect(
-	state => {
-		const siteId = getSelectedSiteId( state );
-		const isJetpack = isJetpackSite( state, siteId );
-		return {
-			isWooConnect: isJetpack && isPluginActive( state, siteId, 'woocommerce' ),
-			slug: getSelectedSiteSlug( state ),
-			siteId: getSelectedSiteId( state ),
-		};
-	}
-)( StoreStatsListView );
+export default connect( state => {
+	const siteId = getSelectedSiteId( state );
+	const isJetpack = isJetpackSite( state, siteId );
+	return {
+		isWooConnect: isJetpack && isPluginActive( state, siteId, 'woocommerce' ),
+		slug: getSelectedSiteSlug( state ),
+		siteId: getSelectedSiteId( state ),
+	};
+} )( StoreStatsListView );

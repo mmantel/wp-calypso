@@ -5,12 +5,7 @@ export const previewSchema = {
 		'^[0-9a-z]+$': {
 			type: 'object',
 			description: 'Data for previewing a particular site keyed by the site ID',
-			required: [
-				'previewMarkup',
-				'previousCustomizations',
-				'customizations',
-				'isUnsaved',
-			],
+			required: [ 'previewMarkup', 'previousCustomizations', 'customizations', 'isUnsaved' ],
 			properties: {
 				previewMarkup: {
 					type: 'string',
@@ -26,10 +21,11 @@ export const previewSchema = {
 				},
 				isUnsaved: {
 					type: [ 'boolean', 'null' ],
-					description: 'True if the customizations in the customizations property have not been saved',
+					description:
+						'True if the customizations in the customizations property have not been saved',
 				},
-			}
-		}
+			},
+		},
 	},
-	additionalProperties: false
+	additionalProperties: false,
 };

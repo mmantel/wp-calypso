@@ -3,13 +3,12 @@
  */
 import React, { PropTypes } from 'react';
 
-const HrWithText = ( { children } ) => (
+const HrWithText = ( { children } ) =>
 	<div className="hr-with-text">
 		<div>
 			{ children }
 		</div>
-	</div>
-);
+	</div>;
 
 HrWithText.propTypes = {
 	children: PropTypes.node,

@@ -46,9 +46,9 @@ function customPostToProduct( product ) {
 		{
 			ID: product.ID,
 			description: product.content,
-			title: product.title
+			title: product.title,
 		},
-		product.metadata.reduce( reduceMetadata, {} )
+		product.metadata.reduce( reduceMetadata, {} ),
 	);
 }
 
@@ -63,7 +63,7 @@ function productToCustomPost( product ) {
 			if ( metadataSchema[ current ] ) {
 				payload.metadata.push( {
 					key: metadataSchema[ current ].metaKey,
-					value: product[ current ]
+					value: product[ current ],
 				} );
 			}
 			return payload;
@@ -73,7 +73,7 @@ function productToCustomPost( product ) {
 			metadata: [],
 			title: product.title,
 			content: product.description,
-		}
+		},
 	);
 }
 
@@ -86,14 +86,19 @@ function productToCustomPost( product ) {
 export function requestSimplePaymentsProducts( { dispatch }, action ) {
 	const { siteId } = action;
 
-	dispatch( http( {
-		method: 'GET',
-		path: `/sites/${ siteId }/posts`,
-		query: {
-			type: 'jp_pay_product',
-			status: 'publish'
-		},
-	}, action ) );
+	dispatch(
+		http(
+			{
+				method: 'GET',
+				path: `/sites/${ siteId }/posts`,
+				query: {
+					type: 'jp_pay_product',
+					status: 'publish',
+				},
+			},
+			action,
+		),
+	);
 }
 
 /**
@@ -104,11 +109,16 @@ export function requestSimplePaymentsProducts( { dispatch }, action ) {
 export function requestSimplePaymentsProductAdd( { dispatch }, action ) {
 	const { siteId, product } = action;
 
-	dispatch( http( {
-		method: 'POST',
-		path: `/sites/${ siteId }/posts/new`,
-		body: productToCustomPost( product ),
-	}, action ) );
+	dispatch(
+		http(
+			{
+				method: 'POST',
+				path: `/sites/${ siteId }/posts/new`,
+				body: productToCustomPost( product ),
+			},
+			action,
+		),
+	);
 }
 
 /**
@@ -119,11 +129,16 @@ export function requestSimplePaymentsProductAdd( { dispatch }, action ) {
 export function requestSimplePaymentsProductEdit( { dispatch }, action ) {
 	const { siteId, product, productId } = action;
 
-	dispatch( http( {
-		method: 'POST',
-		path: `/sites/${ siteId }/posts/${ productId }`,
-		body: productToCustomPost( product ),
-	}, action ) );
+	dispatch(
+		http(
+			{
+				method: 'POST',
+				path: `/sites/${ siteId }/posts/${ productId }`,
+				body: productToCustomPost( product ),
+			},
+			action,
+		),
+	);
 }
 
 /**
@@ -134,10 +149,15 @@ export function requestSimplePaymentsProductEdit( { dispatch }, action ) {
 export function requestSimplePaymentsProductDelete( { dispatch }, action ) {
 	const { siteId, productId } = action;
 
-	dispatch( http( {
-		method: 'POST',
-		path: `/sites/${ siteId }/posts/${ productId }/delete`,
-	}, action ) );
+	dispatch(
+		http(
+			{
+				method: 'POST',
+				path: `/sites/${ siteId }/posts/${ productId }/delete`,
+			},
+			action,
+		),
+	);
 }
 
 export const addProduct = ( { dispatch }, { siteId }, next, newProduct ) =>
@@ -146,22 +166,36 @@ export const addProduct = ( { dispatch }, { siteId }, next, newProduct ) =>
 export const deleteProduct = ( { dispatch }, { siteId }, next, deletedProduct ) =>
 	dispatch( receiveDeleteProduct( siteId, deletedProduct.ID ) );
 
-export const listProducts = ( { dispatch }, { siteId }, next, { found: numOfProducts, posts: products } ) =>
-	dispatch( receiveProductsList( siteId, numOfProducts, products.map( customPostToProduct ) ) );
+export const listProducts = (
+	{ dispatch },
+	{ siteId },
+	next,
+	{ found: numOfProducts, posts: products },
+) => dispatch( receiveProductsList( siteId, numOfProducts, products.map( customPostToProduct ) ) );
 
 const announceListingProductsFailure = ( { dispatch, getState }, { siteId } ) => {
 	const site = getRawSite( getState(), siteId );
-	const error = site && site.name
-		? translate( 'Failed to retrieve products for site “%(siteName)s.”', { args: { siteName: site.name } } )
-		: translate( 'Failed to retrieve products for your site.' );
+	const error =
+		site && site.name
+			? translate( 'Failed to retrieve products for site “%(siteName)s.”', {
+					args: { siteName: site.name },
+				} )
+			: translate( 'Failed to retrieve products for your site.' );
 
 	dispatch( errorNotice( error ) );
 };
 
 export default {
-	[ SIMPLE_PAYMENTS_PRODUCTS_LIST ]:
-		[ dispatchRequest( requestSimplePaymentsProducts, listProducts, announceListingProductsFailure ) ],
-	[ SIMPLE_PAYMENTS_PRODUCTS_LIST_ADD ]: [ dispatchRequest( requestSimplePaymentsProductAdd, addProduct ) ],
-	[ SIMPLE_PAYMENTS_PRODUCTS_LIST_EDIT ]: [ dispatchRequest( requestSimplePaymentsProductEdit, addProduct ) ],
-	[ SIMPLE_PAYMENTS_PRODUCTS_LIST_DELETE ]: [ dispatchRequest( requestSimplePaymentsProductDelete, deleteProduct ) ],
+	[ SIMPLE_PAYMENTS_PRODUCTS_LIST ]: [
+		dispatchRequest( requestSimplePaymentsProducts, listProducts, announceListingProductsFailure ),
+	],
+	[ SIMPLE_PAYMENTS_PRODUCTS_LIST_ADD ]: [
+		dispatchRequest( requestSimplePaymentsProductAdd, addProduct ),
+	],
+	[ SIMPLE_PAYMENTS_PRODUCTS_LIST_EDIT ]: [
+		dispatchRequest( requestSimplePaymentsProductEdit, addProduct ),
+	],
+	[ SIMPLE_PAYMENTS_PRODUCTS_LIST_DELETE ]: [
+		dispatchRequest( requestSimplePaymentsProductDelete, deleteProduct ),
+	],
 };

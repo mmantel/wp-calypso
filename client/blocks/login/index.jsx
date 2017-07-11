@@ -47,7 +47,7 @@ class Login extends Component {
 		window.scrollTo( 0, 0 );
 	};
 
-	componentWillReceiveProps = ( nextProps ) => {
+	componentWillReceiveProps = nextProps => {
 		const hasNotice = this.props.requestNotice !== nextProps.requestNotice;
 		const isNewPage = this.props.twoFactorAuthType !== nextProps.twoFactorAuthType;
 
@@ -60,11 +60,16 @@ class Login extends Component {
 		if ( ! this.props.twoFactorEnabled ) {
 			this.rebootAfterLogin();
 		} else {
-			page( login( {
-				isNative: true,
-				// If no notification is sent, the user is using the authenticator for 2FA by default
-				twoFactorAuthType: this.props.twoFactorNotificationSent.replace( 'none', 'authenticator' )
-			} ) );
+			page(
+				login( {
+					isNative: true,
+					// If no notification is sent, the user is using the authenticator for 2FA by default
+					twoFactorAuthType: this.props.twoFactorNotificationSent.replace(
+						'none',
+						'authenticator',
+					),
+				} ),
+			);
 		}
 	};
 
@@ -72,7 +77,7 @@ class Login extends Component {
 		const { redirectTo } = this.props;
 
 		this.props.recordTracksEvent( 'calypso_login_success', {
-			two_factor_enabled: this.props.twoFactorEnabled
+			two_factor_enabled: this.props.twoFactorEnabled,
 		} );
 
 		// Redirects to / if no redirect url is available
@@ -101,11 +106,7 @@ class Login extends Component {
 	}
 
 	renderContent() {
-		const {
-			twoFactorAuthType,
-			twoFactorEnabled,
-			twoFactorNotificationSent,
-		} = this.props;
+		const { twoFactorAuthType, twoFactorEnabled, twoFactorNotificationSent } = this.props;
 
 		let poller;
 		if ( twoFactorEnabled && twoFactorAuthType && twoFactorNotificationSent === 'push' ) {
@@ -118,7 +119,8 @@ class Login extends Component {
 					{ poller }
 					<VerificationCodeForm
 						onSuccess={ this.rebootAfterLogin }
-						twoFactorAuthType={ twoFactorAuthType } />
+						twoFactorAuthType={ twoFactorAuthType }
+					/>
 				</div>
 			);
 		}
@@ -132,9 +134,7 @@ class Login extends Component {
 			);
 		}
 
-		return (
-			<LoginForm onSuccess={ this.handleValidUsernamePassword } />
-		);
+		return <LoginForm onSuccess={ this.handleValidUsernamePassword } />;
 	}
 
 	render() {
@@ -143,7 +143,9 @@ class Login extends Component {
 		return (
 			<div>
 				<div className="login__form-header">
-					{ twoStepNonce ? translate( 'Two-Step Authentication' ) : translate( 'Log in to your account.' ) }
+					{ twoStepNonce
+						? translate( 'Two-Step Authentication' )
+						: translate( 'Log in to your account.' ) }
 				</div>
 
 				<ErrorNotice />
@@ -157,12 +159,13 @@ class Login extends Component {
 }
 
 export default connect(
-	( state ) => ( {
+	state => ( {
 		redirectTo: getRedirectTo( state ),
 		requestNotice: getRequestNotice( state ),
 		twoFactorEnabled: isTwoFactorEnabled( state ),
 		twoFactorNotificationSent: getTwoFactorNotificationSent( state ),
-	} ), {
+	} ),
+	{
 		recordTracksEvent,
-	}
+	},
 )( localize( Login ) );

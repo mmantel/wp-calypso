@@ -12,11 +12,7 @@ import controller from 'my-sites/site-settings/controller';
 import settingsController from 'my-sites/site-settings/settings-controller';
 
 module.exports = function() {
-	page(
-		'/settings',
-		mySitesController.siteSelection,
-		controller.redirectToGeneral
-	);
+	page( '/settings', mySitesController.siteSelection, controller.redirectToGeneral );
 	page(
 		'/settings/general/:site_id',
 		mySitesController.siteSelection,
@@ -30,7 +26,7 @@ module.exports = function() {
 		'/settings/import/:site_id',
 		mySitesController.siteSelection,
 		mySitesController.navigation,
-		controller.importSite
+		controller.importSite,
 	);
 
 	if ( config.isEnabled( 'manage/export/guided-transfer' ) ) {
@@ -38,7 +34,7 @@ module.exports = function() {
 			'/settings/export/guided/:host_slug?/:site_id',
 			mySitesController.siteSelection,
 			mySitesController.navigation,
-			controller.guidedTransfer
+			controller.guidedTransfer,
 		);
 	}
 
@@ -46,7 +42,7 @@ module.exports = function() {
 		'/settings/export/:site_id',
 		mySitesController.siteSelection,
 		mySitesController.navigation,
-		controller.exportSite
+		controller.exportSite,
 	);
 
 	page(
@@ -54,21 +50,21 @@ module.exports = function() {
 		mySitesController.siteSelection,
 		mySitesController.navigation,
 		settingsController.setScroll,
-		controller.deleteSite
+		controller.deleteSite,
 	);
 	page(
 		'/settings/start-over/:site_id',
 		mySitesController.siteSelection,
 		mySitesController.navigation,
 		settingsController.setScroll,
-		controller.startOver
+		controller.startOver,
 	);
 	page(
 		'/settings/theme-setup/:site_id',
 		mySitesController.siteSelection,
 		mySitesController.navigation,
 		settingsController.setScroll,
-		controller.themeSetup
+		controller.themeSetup,
 	);
 
 	page(
@@ -76,13 +72,13 @@ module.exports = function() {
 		mySitesController.siteSelection,
 		mySitesController.navigation,
 		settingsController.setScroll,
-		controller.manageConnection
+		controller.manageConnection,
 	);
 
 	page(
 		'/settings/:section',
 		controller.legacyRedirects,
 		mySitesController.siteSelection,
-		mySitesController.sites
+		mySitesController.sites,
 	);
 };

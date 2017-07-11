@@ -25,8 +25,8 @@ class DisconnectJetpackDialogExample extends Component {
 				personal: false,
 				premium: false,
 				professional: false,
-				broken: false
-			}
+				broken: false,
+			},
 		};
 	}
 
@@ -38,8 +38,9 @@ class DisconnectJetpackDialogExample extends Component {
 	render() {
 		return (
 			<Card>
-
-				<p><Button onClick={ this.toggleVisibilityFree } >Disconnect Free Jetpack </Button></p>
+				<p>
+					<Button onClick={ this.toggleVisibilityFree }>Disconnect Free Jetpack </Button>
+				</p>
 				<DisconnectJetpackDialog
 					isVisible={ this.state.isVisible.free }
 					siteId={ this.props.primarySiteId }
@@ -49,7 +50,9 @@ class DisconnectJetpackDialogExample extends Component {
 					plan="free"
 				/>
 
-				<p><Button onClick={ this.toggleVisibilityPersonal } >Disconnect Personal Jetpack </Button></p>
+				<p>
+					<Button onClick={ this.toggleVisibilityPersonal }>Disconnect Personal Jetpack </Button>
+				</p>
 				<DisconnectJetpackDialog
 					isVisible={ this.state.isVisible.personal }
 					siteId={ this.props.primarySiteId }
@@ -59,7 +62,9 @@ class DisconnectJetpackDialogExample extends Component {
 					plan="personal"
 				/>
 
-				<p><Button onClick={ this.toggleVisibilityPremium } >Disconnect Premium Jetpack </Button></p>
+				<p>
+					<Button onClick={ this.toggleVisibilityPremium }>Disconnect Premium Jetpack </Button>
+				</p>
 				<DisconnectJetpackDialog
 					isVisible={ this.state.isVisible.premium }
 					siteId={ this.props.primarySiteId }
@@ -69,7 +74,11 @@ class DisconnectJetpackDialogExample extends Component {
 					plan="premium"
 				/>
 
-				<p><Button onClick={ this.toggleVisibilityProfessional } >Disconnect Professional Jetpack </Button></p>
+				<p>
+					<Button onClick={ this.toggleVisibilityProfessional }>
+						Disconnect Professional Jetpack{' '}
+					</Button>
+				</p>
 				<DisconnectJetpackDialog
 					isVisible={ this.state.isVisible.professional }
 					siteId={ this.props.primarySiteId }
@@ -79,7 +88,11 @@ class DisconnectJetpackDialogExample extends Component {
 					plan="professional"
 				/>
 
-				<p><Button onClick={ this.toggleVisibilityBroken } >Disconnect Probably Broken Jetpack </Button></p>
+				<p>
+					<Button onClick={ this.toggleVisibilityBroken }>
+						Disconnect Probably Broken Jetpack{' '}
+					</Button>
+				</p>
 				<DisconnectJetpackDialog
 					isVisible={ this.state.isVisible.broken }
 					siteId={ this.props.primarySiteId }
@@ -89,7 +102,6 @@ class DisconnectJetpackDialogExample extends Component {
 					plan="personal"
 					isBroken={ true }
 				/>
-
 			</Card>
 		);
 	}

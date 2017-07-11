@@ -14,9 +14,9 @@ describe( 'isRegeneratingJetpackPostByEmail()', () => {
 		const stateIn = {
 				jetpack: {
 					settings: {
-						requests: REQUESTS_FIXTURE
-					}
-				}
+						requests: REQUESTS_FIXTURE,
+					},
+				},
 			},
 			siteId = 12345678;
 		const output = isRegeneratingJetpackPostByEmail( stateIn, siteId );
@@ -27,9 +27,9 @@ describe( 'isRegeneratingJetpackPostByEmail()', () => {
 		const stateIn = {
 				jetpack: {
 					settings: {
-						requests: REQUESTS_FIXTURE
-					}
-				}
+						requests: REQUESTS_FIXTURE,
+					},
+				},
 			},
 			siteId = 87654321;
 		const output = isRegeneratingJetpackPostByEmail( stateIn, siteId );
@@ -40,9 +40,9 @@ describe( 'isRegeneratingJetpackPostByEmail()', () => {
 		const stateIn = {
 				jetpack: {
 					settings: {
-						requests: REQUESTS_FIXTURE
-					}
-				}
+						requests: REQUESTS_FIXTURE,
+					},
+				},
 			},
 			siteId = 88888888;
 		const output = isRegeneratingJetpackPostByEmail( stateIn, siteId );

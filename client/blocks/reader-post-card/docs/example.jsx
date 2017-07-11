@@ -9,15 +9,14 @@ import React from 'react';
 import ReaderPostCardBlock from 'blocks/reader-post-card';
 import { posts, site } from './fixtures';
 
-const ReaderPostCard = () => (
+const ReaderPostCard = () =>
 	<div className="design-assets__group">
 		<div>
-			{ posts.map( item => (
-				<ReaderPostCardBlock key={ item.global_ID } post={ item } site={ site } />
-			) ) }
+			{ posts.map( item =>
+				<ReaderPostCardBlock key={ item.global_ID } post={ item } site={ site } />,
+			) }
 		</div>
-	</div>
-);
+	</div>;
 
 ReaderPostCard.displayName = 'ReaderPostCard';
 

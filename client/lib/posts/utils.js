@@ -13,7 +13,6 @@ var postNormalizer = require( 'lib/post-normalizer' ),
 	sites = require( 'lib/sites-list' )();
 
 var utils = {
-
 	getEditURL: function( post, site ) {
 		let basePath = '';
 
@@ -21,7 +20,7 @@ var utils = {
 			basePath = '/edit';
 		}
 
-		return `${basePath}/${post.type}/${site.slug}/${post.ID}`;
+		return `${ basePath }/${ post.type }/${ site.slug }/${ post.ID }`;
 	},
 
 	getPreviewURL: function( post ) {
@@ -73,15 +72,20 @@ var utils = {
 	},
 
 	isPublished: function( post ) {
-		return post && ( post.status === 'publish' || post.status === 'private' || this.isBackDatedPublished( post ) );
+		return (
+			post &&
+			( post.status === 'publish' ||
+				post.status === 'private' ||
+				this.isBackDatedPublished( post ) )
+		);
 	},
 
 	isPrivate: function( post ) {
-		return post && ( 'private' === post.status );
+		return post && 'private' === post.status;
 	},
 
 	isPending: function( post ) {
-		return post && ( 'pending' === post.status );
+		return post && 'pending' === post.status;
 	},
 
 	getEditedTime: function( post ) {
@@ -111,7 +115,7 @@ var utils = {
 
 		const oneMinute = 1000 * 60;
 
-		return post && ( +new Date() + oneMinute < +new Date( post.date ) );
+		return post && +new Date() + oneMinute < +new Date( post.date );
 	},
 
 	isBackDated: function( post ) {
@@ -145,7 +149,7 @@ var utils = {
 				] ),
 				postNormalizer.pickCanonicalImage,
 			],
-			callback
+			callback,
 		);
 	},
 
@@ -166,13 +170,7 @@ var utils = {
 	},
 
 	normalizeAsync: function( post, callback ) {
-		postNormalizer(
-			post,
-			[
-				postNormalizer.keepValidImages( 72, 72 )
-			],
-			callback
-		);
+		postNormalizer( post, [ postNormalizer.keepValidImages( 72, 72 ) ], callback );
 	},
 
 	getPermalinkBasePath: function( post ) {
@@ -254,8 +252,7 @@ var utils = {
 		}
 
 		return i18n.moment( moment.tz( date, tz ) );
-	}
-
+	},
 };
 
 module.exports = utils;

@@ -27,7 +27,9 @@ const SiteSettingsSecurity = ( { site, siteId, siteIsJetpack, translate } ) => {
 	if ( ! siteIsJetpack ) {
 		return (
 			<JetpackManageErrorPage
-				action={ translate( 'Manage general settings for %(site)s', { args: { site: site.name } } ) }
+				action={ translate( 'Manage general settings for %(site)s', {
+					args: { site: site.name },
+				} ) }
 				actionURL={ '/settings/general/' + site.slug }
 				title={ translate( 'No security configuration is required.' ) }
 				line={ translate( 'Security management is automatic for WordPress.com sites.' ) }
@@ -40,7 +42,7 @@ const SiteSettingsSecurity = ( { site, siteId, siteIsJetpack, translate } ) => {
 		return (
 			<JetpackManageErrorPage
 				template="optInManage"
-				title= { translate( 'Looking to manage this site\'s security settings?' ) }
+				title={ translate( "Looking to manage this site's security settings?" ) }
 				section="security-settings"
 				siteId={ siteId }
 			/>
@@ -48,13 +50,7 @@ const SiteSettingsSecurity = ( { site, siteId, siteIsJetpack, translate } ) => {
 	}
 
 	if ( ! site.hasMinimumJetpackVersion ) {
-		return (
-			<JetpackManageErrorPage
-				template="updateJetpack"
-				siteId={ siteId }
-				version="3.4"
-			/>
-		);
+		return <JetpackManageErrorPage template="updateJetpack" siteId={ siteId } version="3.4" />;
 	}
 
 	return (
@@ -74,14 +70,12 @@ SiteSettingsSecurity.propTypes = {
 	siteIsJetpack: PropTypes.bool,
 };
 
-export default connect(
-	state => {
-		const site = getSelectedSite( state );
-		const siteId = getSelectedSiteId( state );
-		return {
-			site,
-			siteId,
-			siteIsJetpack: isJetpackSite( state, siteId )
-		};
-	}
-)( localize( SiteSettingsSecurity ) );
+export default connect( state => {
+	const site = getSelectedSite( state );
+	const siteId = getSelectedSiteId( state );
+	return {
+		site,
+		siteId,
+		siteIsJetpack: isJetpackSite( state, siteId ),
+	};
+} )( localize( SiteSettingsSecurity ) );

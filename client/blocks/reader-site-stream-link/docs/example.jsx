@@ -17,7 +17,9 @@ export default React.createClass( {
 		const siteId = null;
 		return (
 			<Card>
-				<ReaderSiteStreamLink feedId={ feedId } siteId={ siteId }>futonbleu</ReaderSiteStreamLink>
+				<ReaderSiteStreamLink feedId={ feedId } siteId={ siteId }>
+					futonbleu
+				</ReaderSiteStreamLink>
 			</Card>
 		);
 	},

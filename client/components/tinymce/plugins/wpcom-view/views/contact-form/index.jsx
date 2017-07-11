@@ -20,8 +20,8 @@ export default React.createClass( {
 					index: match.index,
 					content: match.content,
 					options: {
-						shortcode: match.shortcode
-					}
+						shortcode: match.shortcode,
+					},
 				};
 			}
 		},
@@ -32,7 +32,7 @@ export default React.createClass( {
 
 		edit( editor, content ) {
 			editor.execCommand( 'wpcomContactForm', content );
-		}
+		},
 	},
 
 	render() {
@@ -41,8 +41,10 @@ export default React.createClass( {
 		return (
 			<div className="wpview-content wpview-type-contact-form">
 				{ [].concat( fields ).map( renderField ) }
-				<button disabled>{ this.translate( 'Submit' ) }</button>
+				<button disabled>
+					{ this.translate( 'Submit' ) }
+				</button>
 			</div>
 		);
-	}
+	},
 } );

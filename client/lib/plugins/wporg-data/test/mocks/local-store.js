@@ -1,4 +1,3 @@
-
 import sinon from 'sinon';
 
 const get = sinon.spy(),
@@ -10,5 +9,5 @@ export default {
 	reset() {
 		get.reset();
 		set.reset();
-	}
-}
+	},
+};

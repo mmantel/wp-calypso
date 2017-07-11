@@ -33,7 +33,8 @@ class PurchaseCardDetails extends Component {
 	}
 
 	isDataValid( props = this.props ) {
-		const purchase = getPurchase( props ), { selectedSite } = props;
+		const purchase = getPurchase( props ),
+			{ selectedSite } = props;
 
 		return purchase && selectedSite;
 	}

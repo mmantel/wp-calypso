@@ -4,5 +4,5 @@ export const Tabs = {
 	CDN: 'cdn',
 	CONTENTS: 'contents',
 	PRELOAD: 'preload',
-	DEBUG: 'debug'
+	DEBUG: 'debug',
 };

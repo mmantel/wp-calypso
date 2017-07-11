@@ -15,15 +15,21 @@ import support from 'lib/url/support';
 const HappinessSupport = React.createClass( {
 	propTypes: {
 		isJetpack: React.PropTypes.bool,
-		isPlaceholder: React.PropTypes.bool
+		isPlaceholder: React.PropTypes.bool,
 	},
 
 	getInitialState() {
 		return {
 			user: sample( [
-				{ display_name: 'Spencer', avatar_URL: '//gravatar.com/avatar/368dd11821ca7e9293d1707ab838f5c7' },
-				{ display_name: 'Luca', avatar_URL: '//gravatar.com/avatar/7f7ba3ba8305287770e0cba76d1eb3db' }
-			] )
+				{
+					display_name: 'Spencer',
+					avatar_URL: '//gravatar.com/avatar/368dd11821ca7e9293d1707ab838f5c7',
+				},
+				{
+					display_name: 'Luca',
+					avatar_URL: '//gravatar.com/avatar/7f7ba3ba8305287770e0cba76d1eb3db',
+				},
+			] ),
 		};
 	},
 
@@ -71,7 +77,7 @@ const HappinessSupport = React.createClass( {
 	render() {
 		const classes = {
 			'happiness-support': true,
-			'is-placeholder': this.props.isPlaceholder
+			'is-placeholder': this.props.isPlaceholder,
 		};
 
 		return (
@@ -87,9 +93,9 @@ const HappinessSupport = React.createClass( {
 						'{{strong}}Need help?{{/strong}} A Happiness Engineer can answer questions about your site, your account or how to do just about anything.',
 						{
 							components: {
-								strong: <strong />
-							}
-						}
+								strong: <strong />,
+							},
+						},
 					) }
 				</p>
 
@@ -99,7 +105,7 @@ const HappinessSupport = React.createClass( {
 				</div>
 			</div>
 		);
-	}
+	},
 } );
 
 export default HappinessSupport;

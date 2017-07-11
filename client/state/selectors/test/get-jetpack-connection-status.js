@@ -14,9 +14,9 @@ describe( 'getJetpackConnectionStatus()', () => {
 		const stateIn = {
 				jetpack: {
 					connection: {
-						items: ITEMS_FIXTURE
-					}
-				}
+						items: ITEMS_FIXTURE,
+					},
+				},
 			},
 			siteId = 12345678;
 		const output = getJetpackConnectionStatus( stateIn, siteId );
@@ -27,9 +27,9 @@ describe( 'getJetpackConnectionStatus()', () => {
 		const stateIn = {
 				jetpack: {
 					connection: {
-						items: ITEMS_FIXTURE
-					}
-				}
+						items: ITEMS_FIXTURE,
+					},
+				},
 			},
 			siteId = 88888888;
 		const output = getJetpackConnectionStatus( stateIn, siteId );

@@ -25,7 +25,7 @@ function stopCloseOnEscForComponent( component ) {
 }
 
 function addKeydownListener() {
-	document.addEventListener( 'keydown', onKeydown, true);
+	document.addEventListener( 'keydown', onKeydown, true );
 }
 
 function removeKeydownListener() {
@@ -37,11 +37,10 @@ function isInput( element ) {
 }
 
 function onKeydown( event ) {
-	var item,
-		component,
-		closeMethod;
+	var item, component, closeMethod;
 
-	if ( components.length > 0 && event.keyCode === 27 && ! isInput( event.target ) ) { // ESC
+	if ( components.length > 0 && event.keyCode === 27 && ! isInput( event.target ) ) {
+		// ESC
 		item = last( components );
 		component = item.component;
 		closeMethod = item.closeMethod;
@@ -52,13 +51,13 @@ function onKeydown( event ) {
 
 function closeOnEsc( closeMethod ) {
 	return {
-		componentDidMount: function () {
+		componentDidMount: function() {
 			startCloseOnEscForComponent( this, closeMethod );
 		},
 
-		componentWillUnmount: function () {
+		componentWillUnmount: function() {
 			stopCloseOnEscForComponent( this );
-		}
+		},
 	};
 }
 

@@ -836,7 +836,7 @@
       }
     },
     "caniuse-db": {
-      "version": "1.0.30000699"
+      "version": "1.0.30000700"
     },
     "cardinal": {
       "version": "1.0.0",
@@ -3188,7 +3188,7 @@
       "dev": true
     },
     "is-plain-object": {
-      "version": "2.0.3",
+      "version": "2.0.4",
       "dev": true,
       "dependencies": {
         "isobject": {
@@ -6899,7 +6899,9 @@
       }
     },
     "wpcom-proxy-request": {
-      "version": "3.0.0"
+      "version": "3.1.0",
+      "from": "git://github.com/automattic/wpcom-proxy-request.git#3f29c6f1d7a8efe66b0a480803bc637530a4bc8a",
+      "resolved": "git://github.com/automattic/wpcom-proxy-request.git#3f29c6f1d7a8efe66b0a480803bc637530a4bc8a"
     },
     "wpcom-xhr-request": {
       "version": "1.1.0"

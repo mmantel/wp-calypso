@@ -64,6 +64,11 @@ module.exports = React.createClass( {
 		}
 	},
 
+	preventDefaultOnClick: function( event ) {
+		event.stopPropagation();
+		event.preventDefault();
+	},
+
 	onClick: function( event ) {
 		var gaEvent,
 			moduleName = titlecase( this.props.moduleName );
@@ -191,7 +196,17 @@ module.exports = React.createClass( {
 				icon = ( <span className="stats-list__flag-icon" style={ style } /> );
 			}
 
-			return ( <span className={ wrapperClassSet } key={ i } >{ gridiconSpan }{ icon }<Emojify>{ labelItem.label }</Emojify></span> );
+			return (
+				<span className={ wrapperClassSet } key={ i } >
+					{ gridiconSpan }
+					{ icon }
+					<Emojify>
+						<a onClick={ this.preventDefaultOnClick } href={ this.props.data.link } >
+							{ labelItem.label }
+						</a>
+					</Emojify>
+				</span>
+				);
 		}, this );
 
 		return label;

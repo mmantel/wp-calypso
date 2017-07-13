@@ -13,7 +13,7 @@ import { map } from 'lodash';
 import PostsNavigation from './posts-navigation';
 import SidebarNavigation from 'my-sites/sidebar-navigation';
 import PostList from './post-list';
-import config from 'config';
+import MinimumJetpackVersion from './minimum-jetpack-version';
 import Main from 'components/main';
 import QueryPosts from 'components/data/query-posts';
 import QueryPostCounts from 'components/data/query-post-counts';
@@ -34,21 +34,11 @@ import {
 import { getEditorNewPostPath } from 'state/ui/editor/selectors';
 import { warningNotice } from 'state/notices/actions';
 import {
-	getSiteAdminUrl,
 	getSiteSlug,
 	isJetpackSite,
-	siteHasMinimumJetpackVersion
 } from 'state/sites/selectors';
 
 const PostsMain = React.createClass( {
-	componentWillMount() {
-		this.setWarning( this.props );
-	},
-
-	componentWillReceiveProps( nextProps ) {
-		this.setWarning( nextProps );
-	},
-
 	showDrafts() {
 		const { isJetpack } = this.props;
 
@@ -114,6 +104,7 @@ const PostsMain = React.createClass( {
 			<Main className={ classes }>
 				<SidebarNavigation />
 				<div className="posts__primary">
+					<MinimumJetpackVersion />
 					<PostsNavigation { ...this.props } />
 					<PostList { ...this.props } />
 				</div>
@@ -121,24 +112,6 @@ const PostsMain = React.createClass( {
 			</Main>
 		);
 	},
-
-	setWarning( { adminUrl, hasMinimumJetpackVersion, isJetpack, siteId } ) {
-		if (
-			siteId &&
-			isJetpack &&
-			false === hasMinimumJetpackVersion
-		) {
-			this.props.warningNotice(
-				this.props.translate( 'Jetpack %(version)s is required to take full advantage of all post editing features.', {
-					args: { version: config( 'jetpack_min_version' ) }
-				} ),
-				{
-					button: this.props.translate( 'Update now' ),
-					href: adminUrl,
-				}
-			);
-		}
-	}
 
 } );
 
@@ -153,11 +126,9 @@ function mapStateToProps( state, { author } ) {
 	};
 
 	return {
-		adminUrl: getSiteAdminUrl( state, siteId, 'plugins.php?plugin_status=upgrade' ),
 		drafts: getSitePostsForQueryIgnoringPage( state, siteId, draftsQuery ),
 		draftCount: getAllPostCount( state, siteId, 'post', 'draft' ),
 		draftsQuery,
-		hasMinimumJetpackVersion: siteHasMinimumJetpackVersion( state, siteId ),
 		isJetpack: isJetpackSite( state, siteId ),
 		loadingDrafts: isRequestingSitePostsForQuery( state, siteId, draftsQuery ),
 		myDraftCount: getMyPostCount( state, siteId, 'post', 'draft' ),

@@ -23,16 +23,11 @@
 
 // site redirect step
 
-.site-redirect-step {
+.domain-search__site-redirect-step {
 	padding: 0;
 
 	fieldset {
 		clear: left;
-	}
-
-	form.map-domain-step__form {
-		padding: 20px;
-		margin-bottom: 9px;
 	}
 
 	p {
@@ -56,30 +51,12 @@
 	}
 }
 
-.site-redirect-step__domain-description {
+.domain-search__site-redirect-step-description {
 	word-break: break-word;
 
 	@include breakpoint( ">960px" ) {
 		max-width: 75%;
 		float: left;
 		margin-bottom: 20px;
-	}
-}
-
-input.site-redirect-step__external-domain {
-	@include breakpoint( ">660px" ) {
-		float: left;
-		width: calc( 100% - 90px );
-	}
-}
-
-.site-redirect-step__go {
-	margin: 10px 0 0 0;
-	width: 100%;
-
-	@include breakpoint( ">660px" ) {
-		float: right;
-		margin: 0;
-		width: 80px;
 	}
 }

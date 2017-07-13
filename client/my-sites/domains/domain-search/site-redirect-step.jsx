@@ -66,9 +66,7 @@ class SiteRedirectStep extends React.Component {
 							<FormFooter>
 								<FormButton
 									onClick={ this.recordGoButtonClick }>
-									{ translate( 'Add Site Redirect', {
-										context: 'Upgrades: Label for adding Site Redirect'
-									} ) }
+									{ translate( 'Add Site Redirect', { context: 'button' } ) }
 								</FormButton>
 							</FormFooter>
 						</form>

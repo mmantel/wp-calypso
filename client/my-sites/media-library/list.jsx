@@ -24,6 +24,8 @@ var MediaActions = require( 'lib/media/actions' ),
 import ListPlanUpgradeNudge from './list-plan-upgrade-nudge';
 import { getPreference } from 'state/preferences/selectors';
 
+const GOOGLE_MAX_RESULTS = 1000;
+
 export const MediaLibraryList = React.createClass( {
 	displayName: 'MediaLibraryList',
 
@@ -198,6 +200,16 @@ export const MediaLibraryList = React.createClass( {
 		}, this );
 	},
 
+	renderTrailingItems() {
+		const { media, source } = this.props;
+
+		if ( source === 'google_photos' && media && media.length >= GOOGLE_MAX_RESULTS ) {
+			return <p><em>Use the search button to access more photos. You can search for dates, locations, and things.</em></p>;
+		}
+
+		return null;
+	},
+
 	render: function() {
 		var onFetchNextPage;
 
@@ -233,6 +245,7 @@ export const MediaLibraryList = React.createClass( {
 				getItemRef={ this.getItemRef }
 				renderItem={ this.renderItem }
 				renderLoadingPlaceholders={ this.renderLoadingPlaceholders }
+				renderTrailingItems={ this.renderTrailingItems }
 				className="media-library__list" />
 		);
 	}

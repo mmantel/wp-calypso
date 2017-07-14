@@ -173,7 +173,8 @@ module.exports = React.createClass( {
 		label = labelData.map( function( labelItem, i ) {
 			var iconClassSetOptions = { avatar: true },
 				icon,
-				gridiconSpan;
+				gridiconSpan,
+				itemLabel;
 
 			if ( labelItem.labelIcon ) {
 				gridiconSpan = ( <Gridicon icon={ labelItem.labelIcon } /> );
@@ -196,17 +197,12 @@ module.exports = React.createClass( {
 				icon = ( <span className="stats-list__flag-icon" style={ style } /> );
 			}
 
-			return (
-				<span className={ wrapperClassSet } key={ i } >
-					{ gridiconSpan }
-					{ icon }
-					<Emojify>
-						<a onClick={ this.preventDefaultOnClick } href={ this.props.data.link } >
-							{ labelItem.label }
-						</a>
-					</Emojify>
-				</span>
-				);
+			itemLabel = ( <Emojify>{ labelItem.label }</Emojify> );
+			if ( this.props.data.link ) {
+				itemLabel = ( <a onclick={ this.preventDefaultOnClick } href={ this.props.data.link } >{ itemLabel }</a> );
+			}
+
+			return ( <span className={ wrapperClassSet } key={ i } >{ gridiconSpan }{ icon }{ itemLabel } </span> );
 		}, this );
 
 		return label;

@@ -108,6 +108,12 @@ class LoggedInForm extends Component {
 			if ( ! isRedirectingToWpAdmin && authorizeSuccess ) {
 				return this.props.goBackToWpAdmin( queryObject.redirect_after_auth );
 			}
+		} else if ( props.isWCS ) {
+			// redirect back to admin as soon as we're connected
+			// do not display plans page
+			if ( ! isRedirectingToWpAdmin && authorizeSuccess ) {
+				return this.props.goBackToWpAdmin( queryObject.redirect_after_auth );
+			}
 		} else if ( siteReceived ) {
 			return this.redirect();
 		} else if ( props.isAlreadyOnSitesList && queryObject.already_authorized ) {

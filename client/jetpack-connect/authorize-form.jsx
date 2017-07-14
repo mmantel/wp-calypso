@@ -110,10 +110,12 @@ class JetpackConnectAuthorizeForm extends Component {
 				? <LoggedInForm
 					{ ...this.props }
 					isSSO={ this.isSSO() }
+					isWCS={ this.props.jetpackConnectAuthorize.queryObject.from === 'woocommerce-services' }
 				/>
 				: <LoggedOutForm
 					{ ...this.props }
 					isSSO={ this.isSSO() }
+					isWCS={ this.props.jetpackConnectAuthorize.queryObject.from === 'woocommerce-services' }
 				/>
 		);
 	}

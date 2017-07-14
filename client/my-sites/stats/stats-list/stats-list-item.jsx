@@ -197,9 +197,10 @@ module.exports = React.createClass( {
 				icon = ( <span className="stats-list__flag-icon" style={ style } /> );
 			}
 
-			itemLabel = ( <Emojify>{ labelItem.label }</Emojify> );
 			if ( this.props.data.link ) {
-				itemLabel = ( <a onclick={ this.preventDefaultOnClick } href={ this.props.data.link } >{ itemLabel }</a> );
+				itemLabel = ( <a onclick={ this.preventDefaultOnClick } href={ this.props.data.link } >{ labelItem.label }</a> );
+			} else {
+				itemLabel = ( <Emojify>{ labelItem.label }</Emojify> );
 			}
 
 			return ( <span className={ wrapperClassSet } key={ i } >{ gridiconSpan }{ icon }{ itemLabel } </span> );

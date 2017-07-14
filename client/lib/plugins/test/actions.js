@@ -1,6 +1,11 @@
 /**
  * @jest-environment jsdom
  */
+jest.mock( 'lib/wp', () => require( './mocks/wpcom' ) );
+jest.mock( 'lib/analytics', () => ( {
+	mc: { bumpStat: () => {} },
+	tracks: { recordEvent: () => {} }
+} ) );
 
 /**
  * External dependencies
@@ -12,20 +17,12 @@ import noop from 'lodash/noop';
 /**
  * Internal dependencies
  */
-import useMockery from 'test/helpers/use-mockery';
+import actions from 'lib/plugins/actions';
 import siteData from './fixtures/site';
 import mockedWpcom from './mocks/wpcom';
 
 describe( 'WPcom Data Actions', () => {
-	let actions;
-
-	useMockery( mockery => {
-		mockery.registerMock( 'lib/wp', mockedWpcom );
-		mockery.registerMock( 'lib/analytics', { mc: { bumpStat: noop }, tracks: { recordEvent: noop } } );
-	} );
-
 	beforeEach( () => {
-		actions = require( 'lib/plugins/actions' );
 		actions.resetQueue();
 		mockedWpcom.undocumented().reset();
 	} );

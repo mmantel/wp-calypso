@@ -1,3 +1,5 @@
+jest.mock( 'localforage' );
+
 /**
  * External dependencies
  */
@@ -9,27 +11,24 @@ import querystring from 'querystring';
 /**
  * Internal dependencies
  */
+import { cacheIndex } from '../cache-index';
 import { generateKey } from '../utils';
+import { hasPaginationChanged, SyncHandler, syncOptOut } from '../';
 import * as testData from './data';
-import localforageMock from './mock/localforage';
+import localforageMock from './__mocks__/localforage';
 import { RECORDS_LIST_KEY } from '../constants';
-import useMockery from 'test/helpers/use-mockery';
 import wpcomUndocumented from 'lib/wpcom-undocumented';
 
-let wpcom, SyncHandler, hasPaginationChanged, syncOptOut, responseData, cacheIndex;
-
+let wpcom, responseData;
 const setLocalData = data => localforageMock.setLocalData( data );
 
-describe.skip( 'sync-handler', () => {
-	useMockery( ( mockery ) => {
-		mockery.registerMock( 'localforage', localforageMock );
-		( { cacheIndex } = require( '../cache-index' ) );
+describe( 'sync-handler', () => {
+	before( () => {
 		const handlerMock = ( params, callback ) => {
 			const key = generateKey( params );
 			callback( null, responseData[ key ] );
 			return responseData[ key ];
 		};
-		( { SyncHandler, hasPaginationChanged, syncOptOut } = require( '../' ) );
 		wpcom = new SyncHandler( handlerMock );
 	} );
 

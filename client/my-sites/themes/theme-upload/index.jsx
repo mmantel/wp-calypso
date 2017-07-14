@@ -10,8 +10,6 @@ import classNames from 'classnames';
 /**
  * Internal dependencies
  */
-import Main from 'components/main';
-import HeaderCake from 'components/header-cake';
 import Card from 'components/card';
 import FilePicker from 'components/file-picker';
 import DropZone from 'components/drop-zone';
@@ -25,7 +23,7 @@ import QueryActiveTheme from 'components/data/query-active-theme';
 import { localize } from 'i18n-calypso';
 import notices from 'notices';
 import debugFactory from 'debug';
-import { uploadTheme, clearThemeUpload, initiateThemeTransfer } from 'state/themes/actions';
+import { clearThemeUpload, initiateThemeTransfer } from 'state/themes/actions';
 import { getSelectedSiteId, getSelectedSite } from 'state/ui/selectors';
 import {
 	getSiteAdminUrl,
@@ -175,7 +173,7 @@ class Upload extends React.Component {
 		}
 
 		const action = this.props.isJetpack
-			? this.props.uploadTheme : this.props.initiateThemeTransfer;
+			? this.props.upload : this.props.initiateThemeTransfer;
 		action( siteId, file );
 	}
 
@@ -297,7 +295,6 @@ class Upload extends React.Component {
 
 	render() {
 		const {
-			translate,
 			complete,
 			siteId,
 			themeId,
@@ -313,12 +310,11 @@ class Upload extends React.Component {
 		}
 
 		return (
-			<Main>
+			<div>
 				<QueryEligibility siteId={ siteId } />
 				<QueryActiveTheme siteId={ siteId } />
 				{ themeId && complete && <QueryCanonicalTheme siteId={ siteId } themeId={ themeId } /> }
 				<ThanksModal source="upload" />
-				<HeaderCake backHref={ backPath }>{ translate( 'Upload theme' ) }</HeaderCake>
 				{ upgradeJetpack && <JetpackManageErrorPage
 					template="updateJetpack"
 					siteId={ siteId }
@@ -328,7 +324,7 @@ class Upload extends React.Component {
 					backUrl={ backPath }
 					onProceed={ this.onProceedClick } /> }
 				{ ! upgradeJetpack && ! showEligibility && this.renderUploadCard() }
-			</Main>
+			</div>
 		);
 	}
 }
@@ -380,5 +376,5 @@ export default connect(
 			siteAdminUrl: getSiteAdminUrl( state, siteId ),
 		};
 	},
-	{ uploadTheme, clearThemeUpload, initiateThemeTransfer },
+	{ clearThemeUpload, initiateThemeTransfer },
 )( localize( UploadWithOptions ) );

@@ -5,6 +5,7 @@ import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
 import debugFactory from 'debug';
 import { connect } from 'react-redux';
+import { get } from 'lodash';
 import { localize } from 'i18n-calypso';
 
 /**
@@ -241,12 +242,14 @@ class ActivityLogItem extends Component {
 		const {
 			group,
 			name,
-			object = {},
 		} = this.props.log;
+		const object = get( this.props, [ 'log', 'object' ] );
+		const actor = get( this.props, [ 'log', 'actor' ] );
 		return (
 			<div className="activity-log-item__card-header">
 				{ this.renderActor() }
 				<ActivityTitle
+					actor={ actor }
 					group={ group }
 					name={ name }
 					object={ object }

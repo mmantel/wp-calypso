@@ -1,6 +1,7 @@
 /**
  * @jest-environment jsdom
  */
+jest.mock( 'lib/safe-image-url', () => require( './lib/safe-image-url' ) );
 
 /**
  * External dependencies
@@ -12,7 +13,6 @@ import { trim } from 'lodash';
 /**
  * Internal dependencies
  */
-import useFilesystemMocks from 'test/helpers/use-filesystem-mocks';
 import linkJetpackCarousels from '../rule-content-link-jetpack-carousels';
 
 function identifyTransform( post, callback ) {
@@ -30,8 +30,6 @@ function asyncTransform( post, callback ) {
 
 describe( 'index', function() {
 	let normalizer, safeImageUrlFake, allTransforms;
-
-	useFilesystemMocks( __dirname );
 
 	before( function() {
 		normalizer = require( '../' );
@@ -396,7 +394,7 @@ describe( 'index', function() {
 					content: '<style>.gallery{}</style><div class="gallery" style="width: 100000px"><div style="width:100px">some content</div></div>' //eslint-disable-line max-len
 				},
 				[ normalizer.withContentDOM( [ normalizer.content.removeStyles ] ) ], function( err, normalized ) {
-					assert.equal( normalized.content, '<style>.gallery{}</style><div class="gallery" style="width: 100000px"><div style="width:100px">some content</div></div>' ); //eslint-disable-line max-len
+					assert.equal( normalized.content, '<div class="gallery" style="width: 100000px"><div style="width:100px">some content</div></div>' ); //eslint-disable-line max-len
 					done( err );
 				}
 			);
@@ -1071,7 +1069,7 @@ describe( 'index', function() {
 				{ content: source },
 				[ normalizer.withContentDOM( [ linkJetpackCarousels ] ) ],
 				( err, normalized ) => {
-					assert.deepEqual( normalized.content, expected );
+					assert.deepEqual( normalized.content.trim(), expected.trim() );
 					done( err );
 				} );
 		} );

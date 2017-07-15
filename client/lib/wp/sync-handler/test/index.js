@@ -1,10 +1,11 @@
-jest.mock( 'localforage' );
+jest.mock( 'localforage', () => require( './mocks/localforage' ) );
 
 /**
  * External dependencies
  */
 import defer from 'lodash/defer';
 import { expect } from 'chai';
+import localforageMock from 'localforage';
 import { spy } from 'sinon';
 import querystring from 'querystring';
 
@@ -15,7 +16,6 @@ import { cacheIndex } from '../cache-index';
 import { generateKey } from '../utils';
 import { hasPaginationChanged, SyncHandler, syncOptOut } from '../';
 import * as testData from './data';
-import localforageMock from './__mocks__/localforage';
 import { RECORDS_LIST_KEY } from '../constants';
 import wpcomUndocumented from 'lib/wpcom-undocumented';
 

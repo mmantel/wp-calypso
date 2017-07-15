@@ -1,4 +1,4 @@
-jest.mock( 'store' );
+jest.mock( 'store', () => require( './mocks/store' ) );
 
 /**
  * External dependencies

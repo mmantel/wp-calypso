@@ -16,7 +16,7 @@ function createLocalRecords( statList, qty ) {
 	}
 }
 
-describe.skip( 'LocalList', function() {
+describe( 'LocalList', function() {
 	let LocalList, statList;
 
 	before( () => {

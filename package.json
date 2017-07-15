@@ -228,6 +228,7 @@
   "devDependencies": {
     "5to6-codemod": "5to6/5to6-codemod#v1.7.0",
     "babel-eslint": "6.1.2",
+    "babel-preset-es2015": "6.24.1",
     "cash-touch": "0.2.0",
     "chai": "3.5.0",
     "chai-enzyme": "0.5.2",

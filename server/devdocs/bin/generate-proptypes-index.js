@@ -9,7 +9,33 @@ const startTime = process.hrtime();
 /**
  * External Dependencies
  */
-require( 'babel-register' );
+require( 'babel-register' )( {
+	babelrc: false,
+	presets: [
+		[ "es2015" ],
+		"stage-2"
+	],
+	plugins: [
+		"transform-runtime",
+		"transform-class-properties",
+		"transform-export-extensions",
+		"add-module-exports",
+		"syntax-jsx",
+		"transform-react-jsx",
+		"transform-react-display-name",
+		"lodash",
+		[
+			"transform-imports",
+			{
+				"state/selectors": {
+					"transform": "state/selectors/${member}",
+					"kebabCase": true
+				}
+			}
+		]
+	]
+} );
+
 const fs = require( 'fs' );
 const path = require( 'path' );
 const reactDocgen = require( 'react-docgen' );
